@@ -1,0 +1,8 @@
+Create, write and save file in C:
+- https://codeforwin.org/2018/01/c-program-create-file-write-contents.html
+
+File management in C:
+- https://www.guru99.com/c-file-input-output.html
+
+List file from directory:
+- https://www.sanfoundry.com/c-program-list-files-directory/

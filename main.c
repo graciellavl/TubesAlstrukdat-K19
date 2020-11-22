@@ -4,20 +4,21 @@
 #include "ADT/mesinkar.c"
 #include "ADT/mesinkata.c"
 #include "ADT/matriks.c"
+#include "command.c"
 
-Kata END;
+Kata EXIT;
 Kata MAP;
 
-void Command() {
-    END.TabKata[0] = 'E';
-    END.TabKata[1] = 'N';
-    END.TabKata[2] = 'D';
-    END.Length = 3;
+// void Command() {
+//     END.TabKata[0] = 'E';
+//     END.TabKata[1] = 'N';
+//     END.TabKata[2] = 'D';
+//     END.Length = 3;
 
-    MAP.TabKata[0] = 'M';
-    MAP.TabKata[1] = 'A';
-    MAP.TabKata[2] = 'P';
-}
+//     MAP.TabKata[0] = 'M';
+//     MAP.TabKata[1] = 'A';
+//     MAP.TabKata[2] = 'P';
+// }
 
 boolean IsKataSama(Kata InputCommand, Kata Command) {
     boolean sama = true;
@@ -185,7 +186,7 @@ int main() {
         printf("%d\n", CKata.Length);
         ADVKATA();
     }
-    if (!IsKataSama(CKata, END)) {
+    if (!IsKataSama(CKata, EXIT)) {
         GAME(CKata);
     } else {
         ExitGame(CKata);

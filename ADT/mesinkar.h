@@ -1,7 +1,7 @@
 #ifndef __MESIN_KAR__
 #define __MESIN_KAR__
 
-#include "boolean.h"
+#include "../boolean.h"
 #include <stdio.h>
 #define MARK '.'
 
@@ -14,6 +14,7 @@ extern boolean EOP;
   global yang menyimpan pembacaan file pita.
 */
 
+/* *** Membaca dari File *** */
 void START(char* filename);
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
 Karakter pertama yang ada pada pita posisinya adalah pada jendela.
@@ -23,6 +24,9 @@ F.S. : CC adalah karakter pertama pada pita
 
 Jika CC != MARK maka EOP akan padam (false)
 Jika CC = MARK maka EOP akan menyala (true) */
+
+/* *** Membaca dari terminal *** */
+void COMMAND();
 
 void ADV();
 /* Pita dimajukan satu karakter.

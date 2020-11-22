@@ -2,7 +2,11 @@
 #include "mesinkar.h"
 
 static FILE * pita;
+static FILE * command;
 static int retval;
+
+char CC;
+boolean EOP;
 
 void START(char* filename)
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
@@ -17,6 +21,11 @@ Jika CC = MARK maka EOP akan menyala (true) */
     ADV();
 }
 
+void COMMAND() {
+    pita = stdin;
+    ADV();
+}
+
 void ADV()
 /* Pita dimajukan satu karakter.
 I.S. : Karakter pada jendela = CC, CC != MARK
@@ -28,6 +37,6 @@ Jika CC = MARK maka EOP akan menyala (true) */
     retval = fscanf(pita,"%c",&CC);
     EOP = (CC == MARK);
     if (EOP) {
-    fclose(pita);
+        fclose(pita);
     }
 }

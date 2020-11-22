@@ -23,11 +23,11 @@ void MakeMatriks (int NBrs, int NKol, MATRIKS * M) {
     }
 }
 
-char GetElmt (MATRIKS M, int NB, int NK) {
+ElType GetElmt (MATRIKS M, int NB, int NK) {
     return Elmt(M, NB, NK);
 }
 
-void SetElmt (MATRIKS * M, int NB, int NK, char X) {
+void SetElmt (MATRIKS * M, int NB, int NK, ElType X) {
     Elmt(*M, NB, NK) = X;
 }
 

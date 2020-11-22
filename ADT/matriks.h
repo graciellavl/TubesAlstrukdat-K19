@@ -45,12 +45,12 @@ void TulisMATRIKS (MATRIKS M);
 8 9 10
 */
 
-void SetElmt (MATRIKS *M, int NB, int NK, char X);
+void SetElmt (MATRIKS *M, int NB, int NK, ElType X);
 /* I.S. M terdefinisi */
 /* F.S. Nilai M(i,j) diisi sesuai dengan inputan */
 /* Proses: mengubah elemen pada posisi NB, NK menjadi X */
 
-char GetElmt (MATRIKS M, int NB, int NK);
+ElType GetElmt (MATRIKS M, int NB, int NK);
 /* Mengirimkan nilai elemen pada posisi NB, NK */
 
 #endif

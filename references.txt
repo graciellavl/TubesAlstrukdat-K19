@@ -1,6 +1,9 @@
 Create, write and save file in C:
 - https://codeforwin.org/2018/01/c-program-create-file-write-contents.html
 
+Create, write and save file in C per char:
+- https://www.codevscolor.com/c-program-read-file-contents-character
+
 File management in C:
 - https://www.guru99.com/c-file-input-output.html
 

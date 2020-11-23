@@ -4,6 +4,7 @@
 #include "../boolean.h"
 #include <stdio.h>
 #define MARK '.'
+#define ENTER '\n'
 
 /* State Mesin */
 extern char CC;
@@ -27,6 +28,8 @@ Jika CC = MARK maka EOP akan menyala (true) */
 
 /* *** Membaca dari terminal *** */
 void COMMAND();
+
+void ADVC();
 
 void ADV();
 /* Pita dimajukan satu karakter.

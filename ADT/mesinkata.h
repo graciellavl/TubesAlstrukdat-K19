@@ -32,12 +32,16 @@ void STARTCOMMAND();
 
 void STARTGAME(char* filename);
 
+void ADVCOMMAND();
+
 void ADVKATA();
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi 
    F.S. : CKata adalah kata terakhir yang sudah diakuisisi, 
           CC adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika CC = MARK, EndKata = true.		  
    Proses : Akuisisi kata menggunakan procedure SalinKata */
+
+void SalinCommand();
 
 void SalinKata();
 /* Mengakuisisi kata, menyimpan dalam CKata

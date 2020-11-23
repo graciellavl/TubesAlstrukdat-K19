@@ -15,6 +15,16 @@ void IgnoreBlank()
     }
 }
 
+void IgnoreDot()
+/* Mengabaikan satu atau beberapa BLANK
+   I.S. : CC sembarang 
+   F.S. : CC ≠ BLANK atau CC = MARK */
+{
+    while (CC == BLANK){
+        ADVC();
+    }
+}
+
 void STARTCOMMAND()
 /* I.S. : CC sembarang 
    F.S. : EndKata = true, dan CC = MARK; 
@@ -22,12 +32,12 @@ void STARTCOMMAND()
           CC karakter pertama sesudah karakter terakhir kata */
 {
     COMMAND();
-    IgnoreBlank();
-    if (CC == MARK){
+    IgnoreDot();
+    if (CC == ENTER){
         EndKata = true;
     } else {
         EndKata = false;
-        ADVKATA();
+        ADVCOMMAND();
     }
 }
 
@@ -47,6 +57,22 @@ void STARTGAME(char* filename)
     }
 }
 
+void ADVCOMMAND()
+/* I.S. : CC adalah karakter pertama kata yang akan diakuisisi 
+   F.S. : CKata adalah kata terakhir yang sudah diakuisisi, 
+          CC adalah karakter pertama dari kata berikutnya, mungkin MARK
+          Jika CC = MARK, EndKata = true.		  
+   Proses : Akuisisi kata menggunakan procedure SalinKata */
+{
+    IgnoreDot();
+    if (CC == ENTER && !EndKata){
+        EndKata = true;
+    } else{
+        SalinCommand();
+        IgnoreDot();
+    }
+}
+
 void ADVKATA()
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi 
    F.S. : CKata adalah kata terakhir yang sudah diakuisisi, 
@@ -61,6 +87,23 @@ void ADVKATA()
         SalinKata();
         IgnoreBlank();
     }
+}
+
+void SalinCommand()
+/* Mengakuisisi kata, menyimpan dalam CKata
+   I.S. : CC adalah karakter pertama dari kata
+   F.S. : CKata berisi kata yang sudah diakuisisi; 
+          CC = BLANK atau CC = MARK; 
+          CC adalah karakter sesudah karakter terakhir yang diakuisisi.
+          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+{
+    int i = 0;
+    while ((CC != BLANK) && (CC != ENTER) && i != NMax) {
+        CKata.TabKata[i] = CC;
+        ADVC();
+        i++;
+    }
+    CKata.Length = (i < NMax) ? i : NMax;
 }
 
 void SalinKata()

@@ -8,8 +8,8 @@
 #include "../boolean.h"
 
 typedef struct { 
-	float X; /* absis   */
-	float Y; /* ordinat */
+	int X; /* absis   */
+	int Y; /* ordinat */
 } POINT;
 
 /* *** Notasi Akses: Selektor POINT *** */
@@ -18,7 +18,7 @@ typedef struct {
         
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk POINT *** */
-POINT MakePOINT (float X, float Y);
+POINT MakePOINT (int X, int Y);
 /* Membentuk sebuah POINT dari komponen-komponennya */
 
 /* *** KELOMPOK Interaksi dengan I/O device, BACA/TULIS  *** */                                                 
@@ -43,28 +43,29 @@ boolean EQ (POINT P1, POINT P2);
 boolean NEQ (POINT P1, POINT P2);
 /* Mengirimkan true jika P1 tidak sama dengan P2 */
 
-/* *** Kelompok menentukan di mana P berada *** */
-boolean IsOrigin (POINT P);
-/* Menghasilkan true jika P adalah titik origin */
-boolean IsOnSbX (POINT P);
-/* Menghasilkan true jika P terletak Pada sumbu X */
-boolean IsOnSbY (POINT P);
-/* Menghasilkan true jika P terletak pada sumbu Y */
-int Kuadran (POINT P);
-/* Menghasilkan kuadran dari P: 1, 2, 3, atau 4 */
-/* Prekondisi : P bukan titik origin, */
-/*              dan P tidak terletak di salah satu sumbu */
 
-/* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */
-POINT PlusDelta (POINT P, float deltaX, float deltaY);
-/* Mengirim salinan P yang absisnya adalah Absis(P) + deltaX dan ordinatnya adalah Ordinat(P) + deltaY */
-void Geser (POINT *P, float deltaX, float deltaY);
-/* I.S. P terdefinisi */
-/* F.S. P digeser, absisnya sebesar deltaX dan ordinatnya sebesar deltaY */
-float Jarak0 (POINT P);
-/* Menghitung jarak P ke (0,0) */
-float Panjang (POINT P1, POINT P2);
-/* Menghitung panjang garis yang dibentuk P1 dan P2. */
+// /* *** Kelompok menentukan di mana P berada *** */
+// boolean IsOrigin (POINT P);
+// /* Menghasilkan true jika P adalah titik origin */
+// boolean IsOnSbX (POINT P);
+// /* Menghasilkan true jika P terletak Pada sumbu X */
+// boolean IsOnSbY (POINT P);
+// /* Menghasilkan true jika P terletak pada sumbu Y */
+// int Kuadran (POINT P);
+// /* Menghasilkan kuadran dari P: 1, 2, 3, atau 4 */
+// /* Prekondisi : P bukan titik origin, */
+// /*              dan P tidak terletak di salah satu sumbu */
+
+// /* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */
+// POINT PlusDelta (POINT P, float deltaX, float deltaY);
+// /* Mengirim salinan P yang absisnya adalah Absis(P) + deltaX dan ordinatnya adalah Ordinat(P) + deltaY */
+// void Geser (POINT *P, float deltaX, float deltaY);
+// /* I.S. P terdefinisi */
+// /* F.S. P digeser, absisnya sebesar deltaX dan ordinatnya sebesar deltaY */
+// float Jarak0 (POINT P);
+// /* Menghitung jarak P ke (0,0) */
+// float Panjang (POINT P1, POINT P2);
+// /* Menghitung panjang garis yang dibentuk P1 dan P2. */
 
 
 #endif

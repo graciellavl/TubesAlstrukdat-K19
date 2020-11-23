@@ -4,7 +4,7 @@
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
 /* *** Konstruktor membentuk POINT *** */
-POINT MakePOINT (float X, float Y)
+POINT MakePOINT (int X, int Y)
 /* Membentuk sebuah POINT dari komponen-komponennya */
 {
     POINT a;
@@ -23,8 +23,8 @@ void BacaPOINT (POINT * P)
 /* I.S. Sembarang */
 /* F.S. P terdefinisi */
 {
-    float x,y;
-    scanf("%f %f",&x,&y);
+    int x,y;
+    scanf("%d %d",&x,&y);
     Absis(*P) = x;
     Ordinat(*P) = y;
 }
@@ -36,7 +36,7 @@ void TulisPOINT (POINT P)
 /* I.S. P terdefinisi */
 /* F.S. P tertulis di layar dengan format "(X,Y)" */
 {
-    printf("(%.2f,%.2f)",Absis(P),Ordinat(P));
+    printf("(%d,%d)",Absis(P),Ordinat(P));
 }                
 
 /* *** Kelompok operasi relasional terhadap POINT *** */
@@ -52,68 +52,68 @@ boolean NEQ (POINT P1, POINT P2)
     return !EQ(P1,P2);
 }
 
-/* *** Kelompok menentukan di mana P berada *** */
-boolean IsOrigin (POINT P)
-/* Menghasilkan true jika P adalah titik origin */
-{
-    return EQ(P,MakePOINT(0,0));
-}
+// /* *** Kelompok menentukan di mana P berada *** */
+// boolean IsOrigin (POINT P)
+// /* Menghasilkan true jika P adalah titik origin */
+// {
+//     return EQ(P,MakePOINT(0,0));
+// }
 
-boolean IsOnSbX (POINT P)
-/* Menghasilkan true jika P terletak Pada sumbu X */
-{
-    return (Ordinat(P) == 0); /* sumbu y = 0 */
-}
+// boolean IsOnSbX (POINT P)
+// /* Menghasilkan true jika P terletak Pada sumbu X */
+// {
+//     return (Ordinat(P) == 0); /* sumbu y = 0 */
+// }
 
-boolean IsOnSbY (POINT P)
-/* Menghasilkan true jika P terletak pada sumbu Y */
-{
-    return (Absis(P) == 0); /* sumbu x = 0 */
-}
+// boolean IsOnSbY (POINT P)
+// /* Menghasilkan true jika P terletak pada sumbu Y */
+// {
+//     return (Absis(P) == 0); /* sumbu x = 0 */
+// }
 
-int Kuadran (POINT P)
-/* Menghasilkan kuadran dari P: 1, 2, 3, atau 4 */
-/* Prekondisi : P bukan titik origin, */
-/*              dan P tidak terletak di salah satu sumbu */
-{
-    if(Absis(P) > 0 && Ordinat(P) > 0) {
-        return 1;
-    }
-    else if(Absis(P) < 0 && Ordinat(P) > 0) {
-        return 2;
-    }
-    else if(Absis(P) < 0 && Ordinat(P) < 0) {
-        return 3;
-    }
-    else {
-        return 4;
-    }
-}
+// int Kuadran (POINT P)
+// /* Menghasilkan kuadran dari P: 1, 2, 3, atau 4 */
+// /* Prekondisi : P bukan titik origin, */
+// /*              dan P tidak terletak di salah satu sumbu */
+// {
+//     if(Absis(P) > 0 && Ordinat(P) > 0) {
+//         return 1;
+//     }
+//     else if(Absis(P) < 0 && Ordinat(P) > 0) {
+//         return 2;
+//     }
+//     else if(Absis(P) < 0 && Ordinat(P) < 0) {
+//         return 3;
+//     }
+//     else {
+//         return 4;
+//     }
+// }
 
-/* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */
-POINT PlusDelta (POINT P, float deltaX, float deltaY)
-/* Mengirim salinan P yang absisnya adalah Absis(P) + deltaX dan ordinatnya adalah Ordinat(P) + deltaY */
-{
-    Absis(P) = Absis(P) + deltaX;
-    Ordinat(P) = Ordinat(P) + deltaY;
-    return P;
-}
+// /* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */
+// POINT PlusDelta (POINT P, float deltaX, float deltaY)
+// /* Mengirim salinan P yang absisnya adalah Absis(P) + deltaX dan ordinatnya adalah Ordinat(P) + deltaY */
+// {
+//     Absis(P) = Absis(P) + deltaX;
+//     Ordinat(P) = Ordinat(P) + deltaY;
+//     return P;
+// }
 
-void Geser (POINT *P, float deltaX, float deltaY)
-/* I.S. P terdefinisi */
-/* F.S. P digeser, absisnya sebesar deltaX dan ordinatnya sebesar deltaY */
-{
-    Absis(*P) = Absis(*P) + deltaX;
-    Ordinat(*P) = Ordinat(*P) + deltaY;
-}
+// void Geser (POINT *P, float deltaX, float deltaY)
+// /* I.S. P terdefinisi */
+// /* F.S. P digeser, absisnya sebesar deltaX dan ordinatnya sebesar deltaY */
+// {
+//     Absis(*P) = Absis(*P) + deltaX;
+//     Ordinat(*P) = Ordinat(*P) + deltaY;
+// }
 
-float Jarak0 (POINT P)
-/* Menghitung jarak P ke (0,0) */
-{
-    return (sqrt((Absis(P) * Absis(P) ) + (Ordinat(P) * Ordinat(P))));
-}
-float Panjang (POINT P1, POINT P2)
-/* Menghitung panjang garis yang dibentuk P1 dan P2. */
-{
-    return sqrt(pow(Absis(P1) - Absis(P2), 2) + pow(Ordinat(P1) - Ordinat(P2), 2));
-}
+// float Jarak0 (POINT P)
+// /* Menghitung jarak P ke (0,0) */
+// {
+//     return (sqrt((Absis(P) * Absis(P) ) + (Ordinat(P) * Ordinat(P))));
+// }
+// float Panjang (POINT P1, POINT P2)
+// /* Menghitung panjang garis yang dibentuk P1 dan P2. */
+// {
+//     return sqrt(pow(Absis(P1) - Absis(P2), 2) + pow(Ordinat(P1) - Ordinat(P2), 2));
+// }

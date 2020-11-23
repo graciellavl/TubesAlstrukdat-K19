@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "boolean.h"
+#include "ADT/matriks.c"
+#include "ADT/point.c"
 
 /*
 POINT
@@ -7,11 +9,17 @@ POINT
 
 */
 
-#include "ADT/point.c"
 int main() {
     POINT P;
     BacaPOINT (&P); 
     TulisPOINT(P);
+    MATRIKS M;
+    MakeMatriks(10, 10, &M);
+    SetElmt(&M, Absis(P), Ordinat(P), 'B');
+    printf("\n");
+    TulisMATRIKS(M);
+    printf("\n");
+    printf("%c", GetElmt(M, Absis(P), Ordinat(P)));
 }
 
 
@@ -26,7 +34,6 @@ Line ke3 - n    : SetEl
 Line ke n+1     : TulisMatriks, MakeGraph
 */
 
-// #include "ADT/matriks.c"
 
 // int main() {
 //     printf("tes\n");

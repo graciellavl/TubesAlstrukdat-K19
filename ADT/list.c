@@ -1,5 +1,5 @@
 #include "list.h"
-
+#include <stdlib.h>
 
 /**
  * Konstruktor
@@ -8,7 +8,7 @@
  */
 List MakeList() {
     List list;
-    list.A = (ElType *) malloc(InitialSize * sizeof(ElType));
+    list.A = (Item *) malloc(InitialSize * sizeof(Item));
     list.Capacity = InitialSize;
     list.Neff = 0;
     return list;
@@ -38,7 +38,7 @@ int Length(List list) {
  * Mengembalikan elemen list L yang ke-I (indeks lojik).
  * Prekondisi: list tidak kosong, i di antara 0..Length(list).
  */
-ElType Get(List list, IdxType i) {
+Item Get(List list, IdxType i) {
     return list.A[i];
 }
 
@@ -54,13 +54,13 @@ int GetCapacity(List list) {
  * Fungsi untuk menambahkan elemen baru di index ke-i
  * Prekondisi: list terdefinisi, i di antara 0..Length(list).
  */
-void InsertAt(List *list, ElType el, IdxType i) {
+void InsertAt(List *list, char* el, int qty, IdxType i) {
     int length = Length(*list);
     int capacity = GetCapacity(*list);
 
     if (length == capacity) {
         int desiredCapacity = capacity + InitialSize;
-        ElType *array = (ElType *) malloc(desiredCapacity * sizeof(ElType));
+        Item *array = (Item *) malloc(desiredCapacity * sizeof(Item));
         for (int a = 0; a < length; a++) {
             array[a] = Get(*list, a);
         }
@@ -74,7 +74,8 @@ void InsertAt(List *list, ElType el, IdxType i) {
         list->A[a + 1] = list->A[a];
     }
 
-    list->A[i] = el;
+    list->A[i].nama = el;
+    list->A[i].jumlah = qty;
     list->Neff++;
 }
 
@@ -82,15 +83,30 @@ void InsertAt(List *list, ElType el, IdxType i) {
  * Fungsi untuk menambahkan elemen baru di akhir list.
  * Prekondisi: list terdefinisi
  */
-void InsertLast(List *list, ElType el) {
+void InsertLast(List *list, char* el, int qty) {
     int insertAt = Length(*list);
-    InsertAt(list, el, insertAt);
+    InsertAt(list, el, qty, insertAt);
 }
 
 /**
  * Fungsi untuk menambahkan elemen baru di awal list.
  * Prekondisi: list terdefinisi
  */
-void InsertFirst(List *list, ElType el) {
-    InsertAt(list, el, 0);
+void InsertFirst(List *list, char* el, int qty) {
+    InsertAt(list, el, qty, 0);
+}
+
+// IdxType GetIndex(L, char* el) {
+    
+// }
+
+void UpdateList(List *L, char* el, int qty) {
+    for (int i=0; i < GetCapacity(*L); i++) {
+        if (el == L->A[i].nama) {
+            L->A[i].jumlah += qty;
+            if (L->A[i].jumlah == 0) {
+                // delete
+            }
+        }
+    }
 }

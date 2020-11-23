@@ -2,6 +2,26 @@
 #include "boolean.h"
 #include "ADT/matriks.c"
 #include "ADT/point.c"
+#include "ADT/list.c"
+
+/*
+LIST
+
+*/
+
+int main() {
+    List L = MakeList();
+    if (IsEmpty(L)) {
+        printf("kosong\n");
+    }
+    printf("%d\n", Length(L));
+    InsertLast(&L, "tes", 1);
+    printf("%s\n", L.A[0].nama);
+    printf("%d\n", L.A[0].jumlah);
+    UpdateList(&L, "tes", -1);
+    printf("%s\n", L.A[0].nama);
+    printf("%d\n", L.A[0].jumlah);
+}
 
 /*
 POINT
@@ -9,18 +29,18 @@ POINT
 
 */
 
-int main() {
-    POINT P;
-    BacaPOINT (&P); 
-    TulisPOINT(P);
-    MATRIKS M;
-    MakeMatriks(10, 10, &M);
-    SetElmt(&M, Absis(P), Ordinat(P), 'B');
-    printf("\n");
-    TulisMATRIKS(M);
-    printf("\n");
-    printf("%c", GetElmt(M, Absis(P), Ordinat(P)));
-}
+// int main() {
+//     POINT P;
+//     BacaPOINT (&P); 
+//     TulisPOINT(P);
+//     MATRIKS M;
+//     MakeMatriks(10, 10, &M);
+//     SetElmt(&M, Absis(P), Ordinat(P), 'B');
+//     printf("\n");
+//     TulisMATRIKS(M);
+//     printf("\n");
+//     printf("%c", GetElmt(M, Absis(P), Ordinat(P)));
+// }
 
 
 // ---------------------------------------------------------

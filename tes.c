@@ -3,6 +3,24 @@
 #include "ADT/matriks.c"
 #include "ADT/point.c"
 #include "ADT/list.c"
+#include "ADT/mesinkar.c"
+#include "ADT/mesinkata.c"
+
+// int main() {
+//     char* string;
+//     char* nama;
+//     string = "kata";
+//     nama = string;
+//     printf("ini string %s\n", string);
+//     printf("ini kata %s\n", nama);
+//     Kata tes;
+//     tes = toKata("hi\n");
+//     int i;
+//     for (i = 0; i < tes.Length; i++) {
+//         printf("%c", tes.TabKata[i]);
+//     }
+//     printf("%d", tes.Length);
+// }
 
 /*
 LIST

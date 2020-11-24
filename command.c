@@ -131,3 +131,13 @@ void Command() {
     MAP.TabKata[2] = 'P';
     MAP.Length = 3;
 }
+
+Kata toKata(char* command) {
+    int i;
+    Kata output;
+    for (i = 0; i < sizeof(command); i++) {
+        output.TabKata[i] = command[i];
+    }
+    output.Length = sizeof(command);
+    return output;
+}

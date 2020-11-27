@@ -18,6 +18,7 @@ typedef struct {
 /* State Mesin Kata */
 extern boolean EndKata;
 extern Kata CKata;
+extern Kata CCommand;
 
 void IgnoreBlank();
 /* Mengabaikan satu atau beberapa BLANK

@@ -1,3 +1,5 @@
+// gak jadi pakai
+
 #include "ADT/mesinkar.h"
 #include "ADT/mesinkata.h"
 

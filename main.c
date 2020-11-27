@@ -4,7 +4,6 @@
 #include "ADT/mesinkar.c"
 #include "ADT/mesinkata.c"
 #include "ADT/matriks.c"
-#include "command.c"
 #include "helper.c"
 
 void GAME() {
@@ -19,7 +18,6 @@ void ExitGame() {
 }
 
 int main() {
-    Command();
     printf("FILENAME: ");
     char filename[100];
     STARTCOMMAND();
@@ -57,14 +55,23 @@ int main() {
         SetElmt(&M, Baris, Kolom, jenis);
         ADVKATA(); 
     }
-    TulisMATRIKS(M);
-    printf("ENTER COMMAND: ");
-
-    STARTCOMMAND();
-    if (!IsKataSama(CKata, EXIT)) {
-        GAME(CKata);
-    } else {
-        ExitGame(CKata);
+    
+    for (int i = 0; i < jlhBangunan; i++) {
+        for (int j = 0; j < jlhBangunan; j++) {
+            printf("%d", i);
+            ADVKATA();
+        }
+        printf("\n");
     }
+    TulisMATRIKS(M);
+    CKata = toKata(" ");
+    printf("ENTER COMMAND: ");
+    STARTCOMMAND();
+    printf("%s", CKata.Length);
+    // if (!IsKataSama(CKata, toKata("EXIT"))) {
+    //     GAME(CKata);
+    // } else {
+    //     ExitGame(CKata);
+    // }
     return 0;
 }

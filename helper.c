@@ -96,6 +96,16 @@ ElType toBangunan(Kata CKata) {
     }
 }
 
+Kata toKata(char* command) {
+    int i;
+    Kata output;
+    for (i = 0; i < sizeof(command); i++) {
+        output.TabKata[i] = command[i];
+    }
+    output.Length = sizeof(command);
+    return output;
+}
+
 boolean IsKataSama(Kata InputCommand, Kata Command) {
     boolean sama = true;
     if (InputCommand.Length != Command.Length) {

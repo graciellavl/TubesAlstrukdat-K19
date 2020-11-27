@@ -2,6 +2,44 @@
 #include "boolean.h"
 #include "ADT/matriks.c"
 #include "ADT/point.c"
+#include "ADT/list.c"
+#include "ADT/mesinkar.c"
+#include "ADT/mesinkata.c"
+
+// int main() {
+//     char* string;
+//     char* nama;
+//     string = "kata";
+//     nama = string;
+//     printf("ini string %s\n", string);
+//     printf("ini kata %s\n", nama);
+//     Kata tes;
+//     tes = toKata("hi\n");
+//     int i;
+//     for (i = 0; i < tes.Length; i++) {
+//         printf("%c", tes.TabKata[i]);
+//     }
+//     printf("%d", tes.Length);
+// }
+
+/*
+LIST
+
+*/
+
+int main() {
+    List L = MakeList();
+    if (IsEmpty(L)) {
+        printf("kosong\n");
+    }
+    printf("%d\n", Length(L));
+    InsertLast(&L, "tes", 1);
+    printf("%s\n", L.A[0].nama);
+    printf("%d\n", L.A[0].jumlah);
+    UpdateList(&L, "tes", -1);
+    printf("%s\n", L.A[0].nama);
+    printf("%d\n", L.A[0].jumlah);
+}
 
 /*
 POINT
@@ -9,18 +47,18 @@ POINT
 
 */
 
-int main() {
-    POINT P;
-    BacaPOINT (&P); 
-    TulisPOINT(P);
-    MATRIKS M;
-    MakeMatriks(10, 10, &M);
-    SetElmt(&M, Absis(P), Ordinat(P), 'B');
-    printf("\n");
-    TulisMATRIKS(M);
-    printf("\n");
-    printf("%c", GetElmt(M, Absis(P), Ordinat(P)));
-}
+// int main() {
+//     POINT P;
+//     BacaPOINT (&P); 
+//     TulisPOINT(P);
+//     MATRIKS M;
+//     MakeMatriks(10, 10, &M);
+//     SetElmt(&M, Absis(P), Ordinat(P), 'B');
+//     printf("\n");
+//     TulisMATRIKS(M);
+//     printf("\n");
+//     printf("%c", GetElmt(M, Absis(P), Ordinat(P)));
+// }
 
 
 // ---------------------------------------------------------

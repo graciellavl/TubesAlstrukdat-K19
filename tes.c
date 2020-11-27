@@ -1,10 +1,27 @@
 #include <stdio.h>
 #include "boolean.h"
-#include "ADT/matriks.c"
-#include "ADT/point.c"
-#include "ADT/list.c"
-#include "ADT/mesinkar.c"
-#include "ADT/mesinkata.c"
+// #include "ADT/matriks.c"
+// #include "ADT/point.c"
+// #include "ADT/list.c"
+// #include "ADT/mesinkar.c"
+// #include "ADT/mesinkata.c"
+#include "ADT/graph.c"
+
+int main() {
+    Graph G;
+    CreateGraph(&G, 'B');
+
+    InsertNode(&G, 'S');
+
+    InsertNode(&G, '1');
+
+    InsertNode(&G, '2');
+
+    InsertSuccNode(&G, 'B', 'S');
+    InsertSuccNode(&G, 'B', '1');
+    InsertSuccNode(&G, 'B', '2');
+    printGraph(G);
+}
 
 // int main() {
 //     char* string;
@@ -27,19 +44,19 @@ LIST
 
 */
 
-int main() {
-    List L = MakeList();
-    if (IsEmpty(L)) {
-        printf("kosong\n");
-    }
-    printf("%d\n", Length(L));
-    InsertLast(&L, "tes", 1);
-    printf("%s\n", L.A[0].nama);
-    printf("%d\n", L.A[0].jumlah);
-    UpdateList(&L, "tes", -1);
-    printf("%s\n", L.A[0].nama);
-    printf("%d\n", L.A[0].jumlah);
-}
+// int main() {
+//     List L = MakeList();
+//     if (IsEmpty(L)) {
+//         printf("kosong\n");
+//     }
+//     printf("%d\n", Length(L));
+//     InsertLast(&L, "tes", 1);
+//     printf("%s\n", L.A[0].nama);
+//     printf("%d\n", L.A[0].jumlah);
+//     UpdateList(&L, "tes", -1);
+//     printf("%s\n", L.A[0].nama);
+//     printf("%d\n", L.A[0].jumlah);
+// }
 
 /*
 POINT

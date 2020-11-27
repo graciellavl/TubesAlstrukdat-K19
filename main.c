@@ -5,8 +5,7 @@
 #include "ADT/mesinkata.h"
 #include "ADT/matriks.h"
 #include "ADT/point.h"
-// #include "helper.c"
-
+#include "ADT/graph.h"
 
 /* *** ******** FUNGSI PEMBANTU ******** *** */
 
@@ -184,13 +183,24 @@ int main() {
         SetElmt(&M, Baris, Kolom, jenis);
         ADVKATA(); 
     }
-    
+    Graph G;
+    CreateGraph(&G, 0);
+    for (int i = 1; i < jlhBangunan; i++) {
+        InsertNode(&G, i);
+    }
     for (int i = 0; i < jlhBangunan; i++) {
         for (int j = 0; j < jlhBangunan; j++) {
-            printf("%c ", CKata.TabKata[0]);
+            if (CKata.TabKata[0] == '1') {
+                InsertSuccNode(&G, i, j);
+            }
+            printf(" %c", CKata.TabKata[0]);
             ADVKATA();
         }
+        ADVKATA();
+        printf("\n");
     }
+    printf("\n");
+    printGraph(G);
     printf("\n\n");
 
     printf("ENTER COMMAND: ");

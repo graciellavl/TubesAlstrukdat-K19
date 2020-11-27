@@ -3,24 +3,44 @@
 
 #include "../boolean.h"
 
-#define Nil "..."
+#define Nil 0
 
-typedef int adrNode;
-typedef int adrSuccNode;
-typedef struct {
+typedef struct tNode *adrNode;
+typedef struct sNode *adrSuccNode;
+typedef struct tNode {
     int id;
-    int NPred;
-    adrNode Trail;
+    adrSuccNode Trail;
     adrNode Next;
 } Node;
 
-typedef struct {
-    adrNode Succ;
+typedef struct sNode {
+    int id;
     adrSuccNode Next;
 } SuccNode;
 
 typedef struct {
     adrNode First;
 } Graph;
+
+/* *** SELEKTOR *** */
+#define First(G) (G).First
+#define id(G) (G)->id
+#define Trail(G) (G)->Trail
+#define Next(G) (G)->Next
+
+
+void CreateGraph(Graph* G, int X);
+    
+adrNode AlokNode(int X);
+
+adrSuccNode AlokSuccNode(int X);
+
+void DealokNode(adrNode P);
+
+void InsertNode(Graph* G, int A);
+
+void InsertSuccNode(Graph* G, int A, int B);
+
+void printGraph(Graph G);
 
 #endif

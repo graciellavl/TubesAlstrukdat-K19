@@ -148,6 +148,7 @@ int main() {
     printf("FILENAME: ");
     char filename[100];
     STARTCOMMAND();
+    char* namafile = CCommand.TabKata;
     printf("%s\n", CCommand.TabKata);
     
     /* *** Membaca File Konfigurasi Permainan *** */
@@ -231,8 +232,19 @@ int main() {
         } else if (IsKataSama(CCommand, toKata("END_DAY"))) {
             printf("END_DAY masuk\n");
 
-        // } else if (IsKataSama(CCommand, toKata("SAVE"))) {
-        //     printf("SAVE masuk\n");
+        } else if (IsKataSama(CCommand, toKata("SAVE"))) {
+            printf("Lokasi save file: ");
+            STARTCOMMAND(); // boleh scanf aja ga?
+            FILE * output;
+            output = fopen(CCommand.TabKata, "w");
+
+            if (output == NULL) {
+                printf("Permainan tidak dapat disimpan.\n");
+                printf("Mohon coba kembali.\n");
+            } else {
+                fprintf(output, "%s", namafile);
+            }
+            fclose(output);
 
         } else if (IsKataSama(CCommand, toKata("MAP"))) {
             TulisMATRIKS(M);

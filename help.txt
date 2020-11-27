@@ -1,3 +1,6 @@
+How to run?
+- gcc -o a ADT/mesinkar.c ADT/mesinkata.c ADT/matriks.c ADT/point.c main.c
+
 Create, write and save file in C:
 - https://codeforwin.org/2018/01/c-program-create-file-write-contents.html
 

@@ -4,6 +4,7 @@
 
 boolean EndKata;
 Kata CKata;
+Kata CCommand;
 
 void IgnoreBlank()
 /* Mengabaikan satu atau beberapa BLANK
@@ -20,7 +21,7 @@ void IgnoreDot()
    I.S. : CC sembarang 
    F.S. : CC ≠ BLANK atau CC = MARK */
 {
-    while (CC == BLANK){
+    while ((CC == BLANK) && (CC == '.')) {
         ADVC();
     }
 }
@@ -99,11 +100,11 @@ void SalinCommand()
 {
     int i = 0;
     while ((CC != BLANK) && (CC != ENTER) && i != NMax) {
-        CKata.TabKata[i] = CC;
+        CCommand.TabKata[i] = CC;
         ADVC();
         i++;
     }
-    CKata.Length = (i < NMax) ? i : NMax;
+    CCommand.Length = (i < NMax) ? i : NMax;
 }
 
 void SalinKata()

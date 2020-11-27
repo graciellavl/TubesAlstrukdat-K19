@@ -6,6 +6,7 @@
 
 typedef int IdxType;
 typedef struct {
+  // int kode;
   int jumlah;
   char* nama;
 } Item;

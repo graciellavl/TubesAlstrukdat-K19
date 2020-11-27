@@ -1,3 +1,5 @@
+// gak jadi pakai
+
 #include "ADT/mesinkar.h"
 #include "ADT/mesinkata.h"
 #include "ADT/matriks.h"
@@ -96,13 +98,21 @@ ElType toBangunan(Kata CKata) {
     }
 }
 
+int stringLength (char* string) {
+    int len = 0;
+    while (string[len] != '\0') {
+        len++;
+    }
+    return len;
+}
+
 Kata toKata(char* command) {
     int i;
     Kata output;
-    for (i = 0; i < sizeof(command); i++) {
+    for (i = 0; i < stringLength(command); i++) {
         output.TabKata[i] = command[i];
     }
-    output.Length = sizeof(command);
+    output.Length = stringLength(command);
     return output;
 }
 

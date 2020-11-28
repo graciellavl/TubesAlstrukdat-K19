@@ -2,26 +2,34 @@
 #include "boolean.h"
 // #include "ADT/matriks.c"
 // #include "ADT/point.c"
-// #include "ADT/list.c"
+#include "ADT/list.c"
 // #include "ADT/mesinkar.c"
 // #include "ADT/mesinkata.c"
 #include "ADT/graph.c"
 
-int main() {
-    Graph G;
-    CreateGraph(&G, 'B');
+// int main() {
+//     char* a = "NVDIA GRAPH";
+//     char* b = "NVDIA GRAPH";
+//     if (a==b) {
+//         printf("yes");
+//     }
+// }
 
-    InsertNode(&G, 'S');
+// int main() {
+//     Graph G;
+//     CreateGraph(&G, 1);
 
-    InsertNode(&G, '1');
+//     InsertNode(&G, 2);
 
-    InsertNode(&G, '2');
+//     InsertNode(&G, 3);
 
-    InsertSuccNode(&G, 'B', 'S');
-    InsertSuccNode(&G, 'B', '1');
-    InsertSuccNode(&G, 'B', '2');
-    printGraph(G);
-}
+//     InsertNode(&G, 4);
+
+//     InsertSuccNode(&G, 1, 2);
+//     InsertSuccNode(&G, 2, 3);
+//     InsertSuccNode(&G, 2, 4);
+//     printGraph(G);
+// }
 
 // int main() {
 //     char* string;
@@ -44,19 +52,59 @@ LIST
 
 */
 
-// int main() {
-//     List L = MakeList();
-//     if (IsEmpty(L)) {
-//         printf("kosong\n");
-//     }
-//     printf("%d\n", Length(L));
-//     InsertLast(&L, "tes", 1);
-//     printf("%s\n", L.A[0].nama);
-//     printf("%d\n", L.A[0].jumlah);
-//     UpdateList(&L, "tes", -1);
-//     printf("%s\n", L.A[0].nama);
-//     printf("%d\n", L.A[0].jumlah);
-// }
+int main() {
+    List L = MakeList();
+    if (IsEmpty(L)) {
+        printf("IsEmpty kosong\n");
+    }
+    printf("Length array %d\n", Length(L));
+    
+    char* tes = "tes";
+    InsertLast(&L, "tes", 1, 2);
+    printf("%s\n", L.A[0].nama);
+    printf("%d\n", L.A[0].jumlah);
+    printf("%d\n", L.A[0].kode);
+
+    if (SearchList(&L, tes)) {
+        UpdateList(&L, tes, 1, -1);
+        printf("SearchList sukses\n");
+    } else {
+        InsertLast(&L, tes, 1, 1);
+    }
+
+    char* nope = "nope";
+    if (SearchList(&L, nope)) {
+        UpdateList(&L, nope, 1, -1);
+    } else {
+        InsertLast(&L, nope, 1, 1);
+        printf("SearchList sukses\n");
+    }
+    printf("\n");
+
+    printf("Nama %s\n", L.A[0].nama);
+    printf("Jumlah %d\n", L.A[0].jumlah);
+    printf("Kode %d\n", L.A[0].kode);
+    printf("\n");
+
+    UpdateList(&L, tes, 1, 1);
+    printf("Nama %s\n", L.A[0].nama);
+    printf("Jumlah %d\n", L.A[0].jumlah);
+    printf("Kode %d\n", L.A[0].kode);
+    printf("\n");
+    PrintList(L);
+
+    UpdateList(&L, tes, 1, -2);
+    printf("Nama %s\n", L.A[0].nama);
+    printf("Jumlah %d\n", L.A[0].jumlah);
+    printf("Kode %d\n", L.A[0].kode);
+    printf("\n");
+    PrintList(L);
+
+    printf("Nama %s\n", L.A[1].nama);
+    printf("Jumlah %d\n", L.A[1].jumlah);
+    printf("Kode %d\n", L.A[1].kode);
+    printf("\n");
+}
 
 /*
 POINT

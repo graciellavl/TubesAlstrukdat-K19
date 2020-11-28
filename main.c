@@ -6,6 +6,7 @@
 #include "ADT/matriks.h"
 #include "ADT/point.h"
 #include "ADT/graph.h"
+#include "ADT/list.h"
 
 /* *** ******** FUNGSI PEMBANTU ******** *** */
 
@@ -183,6 +184,7 @@ int main() {
         SetElmt(&M, Baris, Kolom, jenis);
         ADVKATA(); 
     }
+    printf("Kata %s\n", CKata.TabKata);
     Graph G;
     CreateGraph(&G, 0);
     for (int i = 1; i < jlhBangunan; i++) {
@@ -209,6 +211,15 @@ int main() {
     
     // Permainan dimulai
     int i = 0;
+    int money = 0;
+    int order = 1;
+    int cust = 1;
+    char* loc = "Base";
+    List L = MakeList();
+    InsertLast(&L, "tes", 1, 1);
+    InsertLast(&L, "tes", 2, 1);
+    InsertLast(&L, "tes", 3, 1);
+    InsertLast(&L, "tes", 4, 1);
     while (!IsKataSama(CCommand, toKata("EXIT"))) {
     
         if (IsKataSama(CCommand, toKata("MOVE"))) {
@@ -216,22 +227,41 @@ int main() {
             printf("Daftar lokasi yang dapat dicapai: \n");
 
         } else if (IsKataSama(CCommand, toKata("STATUS"))) {
-            printf("Masuk status\n");
+            printf("Uang tersisa: $%d\n", money);
+            printf("Build yang sedang dikerjakan: pesanan %d untuk pelanggan %d.\n", order, cust);
+            printf("Lokasi: Pemain sedang berada pada %s\n", loc);
+            printf("Inventory anda: \n");
+            PrintList(L);
 
         } else if (IsKataSama(CCommand, toKata("CHECKORDER"))) {
-            printf("CHECKORDER masuk\n");
+            printf("Nomor order: %d\n", order);
+            printf("Pemesan: %d\n", cust);
+            printf("Invoice: %d\n", 100); //ganti duit
+            printf("Komponen: \n");
+            //PrintStack(S);
 
         } else if (IsKataSama(CCommand, toKata("STARTBUILD"))) {
-            printf("STARTBUILD masuk\n");
+            printf("Kamu telah memulai pesanan %d untuk pelanggan %d.\n", order, cust);
+            // CreateStack
 
         } else if (IsKataSama(CCommand, toKata("FINISHBUILD"))) {
-            printf("FINISHBUILD masuk\n");
-
+            if (true) { // CountStack = 8?
+                printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, cust);
+            } else {
+                printf("Komponen yang dipasangkan belum sesuai dengan pesanan, build belum dapat diselesaikan.\n");
+            }
         } else if (IsKataSama(CCommand, toKata("ADDCOMPONENT"))) {
-            printf("ADDCOMPONENT masuk\n");
+            printf("Komponen yang telah terpasang: \n");
+            //PrintStack(S);
+            printf("Komponen yang tersedia:\n");
+            PrintList(L);
+            printf("Komponen yang ingin dipasang: ");
+            STARTCOMMAND();
+            // Kondisi kalo bisa dipasang dan tidak
 
         } else if (IsKataSama(CCommand, toKata("REMOVECOMPONENT"))) {
-            printf("REMOVECOMPONENT masuk\n");
+            // cabut komponen top
+            printf("Komponen %s berhasil dicopot!\n", "top"); 
 
         } else if (IsKataSama(CCommand, toKata("SHOP"))) {
             printf("SHOP masuk\n");

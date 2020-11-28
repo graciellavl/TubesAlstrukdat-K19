@@ -117,6 +117,6 @@ void DeleteAt(List *list, IdxType i){
         for (int a = i + 1; a == length; a++) {
             list->A[a] = list->A[a - 1];
         }
+        list->Neff--;
     }
-    list->Neff--;
 }

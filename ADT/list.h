@@ -74,4 +74,6 @@ void InsertFirst(List *list, char* el, int qty);
 
 void UpdateList(List *L, char* el, int qty);
 
+void DeleteAt(List *list, IdxType i);
+
 #endif

@@ -110,3 +110,13 @@ void UpdateList(List *L, char* el, int qty) {
         }
     }
 }
+
+void DeleteAt(List *list, IdxType i){
+    int length = Length(*list);
+    if (length != 0){
+        for (int a = i + 1; a == length; a++) {
+            list->A[a] = list->A[a - 1];
+        }
+    }
+    list->Neff--;
+}

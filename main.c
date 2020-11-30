@@ -122,46 +122,21 @@ Kata toKata(char* command) {
     return output;
 }
 
-boolean IsKataSama(Kata InputCommand, Kata Command) {
-    boolean sama = true;
-    if (InputCommand.Length != Command.Length) {
-        return !sama;
-    } else {
-        int i = 0;
-        while (sama && (i < Command.Length)) {
-            if (InputCommand.TabKata[i] != Command.TabKata[i]) {
-                sama = false;
-            }
-            i++;
-        }
-        return sama;
-    }
-}
-
 
 /* *** ******** FUNGSI UTAMA ******** *** */
 
 int main() {
     // Menginisiasi permainan 
-    // List Komponen = MakeList();
-    // STARTGAME("komponen.txt");
-    // Kata komponen;
-    // while (CC != MARK) {
-    //     int kode = toInteger(CKata);
-    //     printf("kode %d ", kode);
-    //     ADVKATA();
-    //     // komponen = (CKata);
-    //     // for (int i = 0; i < CKata.Length; i++) {
-    //     //     komponen[i] = CKata.TabKata[i];
-    //     // }
-    //     printf("%d ", CKata.Length);
-    //     // komponen = Salin(CKata);
-    //     printf("komponen %s ", komponen.TabKata);
-    //     printf("\n");
-    //     InsertLast(&Komponen, CKata.TabKata, kode, 1);
-    //     ADVKATA();
-    // }
-    // PrintList(Komponen);
+    List Komponen = MakeList();
+    STARTGAME("komponen.txt");
+    Kata komponen;
+    while (CC != MARK) {
+        int kode = toInteger(CKata);
+        ADVKATA();
+        InsertLast(&Komponen, CKata, kode, 1);
+        ADVKATA();
+    }
+    PrintList(Komponen);
 
     /* *** Membaca Nama File Konfigurasi *** */
     printf("FILENAME: ");
@@ -184,7 +159,7 @@ int main() {
     ADVKATA();
 
     int jlhBangunan = toInteger(CKata);
-    printf("jlh bangunan %d\n", jlhBangunan);
+    // printf("jlh bangunan %d\n", jlhBangunan);
     MATRIKS M;
     MakeMatriks(Brs, Kol, &M);
     int pelanggan = 0;
@@ -207,7 +182,7 @@ int main() {
         // printf("%d %d\n", i, Kolom);
         SetElmt(&M, Baris, Kolom, jenis);
     }
-    printf("Kata %s\n", CKata.TabKata);
+    // printf("Kata %s\n", CKata.TabKata);
     Graph G;
     CreateGraph(&G, 0);
     for (int i = 1; i < jlhBangunan; i++) {
@@ -223,7 +198,7 @@ int main() {
             }
             // printf(" %c", CKata.TabKata[0]);
         }
-        printf("\n");
+        // printf("\n");
     }
     printf("\n");
     // printGraph(G);
@@ -244,11 +219,11 @@ int main() {
     int order = 1;
     int cust = 1;
     char* loc = "Base";
-    List L = MakeList();
-    InsertLast(&L, "tes", 1, 1);
-    InsertLast(&L, "tes", 2, 1);
-    InsertLast(&L, "tes", 3, 1);
-    InsertLast(&L, "tes", 4, 1);
+    List Inventory = MakeList();
+    // InsertLast(&L, "tes", 1, 1);
+    // InsertLast(&L, "tes", 2, 1);
+    // InsertLast(&L, "tes", 3, 1);
+    // InsertLast(&L, "tes", 4, 1);
 
 
     while (!IsKataSama(CCommand, toKata("EXIT"))) {
@@ -262,7 +237,7 @@ int main() {
             printf("Build yang sedang dikerjakan: pesanan %d untuk pelanggan %d.\n", order, cust);
             printf("Lokasi: Pemain sedang berada pada %s\n", loc);
             printf("Inventory anda: \n");
-            PrintList(L);
+            PrintList(Inventory);
 
         } else if (IsKataSama(CCommand, toKata("CHECKORDER"))) {
             printf("Nomor order: %d\n", order);
@@ -285,7 +260,7 @@ int main() {
             printf("Komponen yang telah terpasang: \n");
             //PrintStack(S);
             printf("Komponen yang tersedia:\n");
-            PrintList(L);
+            PrintList(Inventory);
             printf("Komponen yang ingin dipasang: ");
             STARTCOMMAND();
             // Kondisi kalo bisa dipasang dan tidak

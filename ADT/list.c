@@ -1,6 +1,8 @@
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "mesinkar.h"
+#include "mesinkata.h"
 
 /**
  * Konstruktor
@@ -55,7 +57,7 @@ int GetCapacity(List list) {
  * Fungsi untuk menambahkan elemen baru di index ke-i
  * Prekondisi: list terdefinisi, i di antara 0..Length(list).
  */
-void InsertAt(List *list, char* el, int qty, int kode, IdxType i) {
+void InsertAt(List *list, Kata el, int qty, int kode, IdxType i) {
     int length = Length(*list);
     int capacity = GetCapacity(*list);
 
@@ -85,7 +87,7 @@ void InsertAt(List *list, char* el, int qty, int kode, IdxType i) {
  * Fungsi untuk menambahkan elemen baru di akhir list.
  * Prekondisi: list terdefinisi
  */
-void InsertLast(List *list, char* el, int kode, int qty) {
+void InsertLast(List *list, Kata el, int kode, int qty) {
     int insertAt = Length(*list);
     InsertAt(list, el, qty, kode, insertAt);
 }
@@ -94,17 +96,17 @@ void InsertLast(List *list, char* el, int kode, int qty) {
  * Fungsi untuk menambahkan elemen baru di awal list.
  * Prekondisi: list terdefinisi
  */
-void InsertFirst(List *list, char* el, int kode, int qty) {
-    InsertAt(list, el, qty, kode, 0);
-}
+// void InsertFirst(List *list, char* el, int kode, int qty) {
+//     InsertAt(list, el, qty, kode, 0);
+// }
 
 // IdxType GetIndex(L, char* el) {
     
 // }
 
-void UpdateList(List *L, char* el, int kode, int qty) {
+void UpdateList(List *L, Kata el, int kode, int qty) {
     for (int i=0; i < GetCapacity(*L); i++) {
-        if (el == L->A[i].nama) {
+        if (IsKataSama(el, L->A[i].nama)) {
             L->A[i].jumlah += qty;
             if (L->A[i].jumlah == 0) {
                 DeleteAt(L, i);
@@ -123,9 +125,9 @@ void DeleteAt(List *list, IdxType i){
     }
 }
 
-boolean SearchList(List *L, char* el) {
+boolean SearchList(List *L, Kata el) {
     for (int i = 0; i < Length(*L); i++) {
-        if ( L->A[i].nama == el ) {
+        if ( IsKataSama(el, L->A[i].nama) ) {
             return true;
         }
     }
@@ -135,6 +137,8 @@ boolean SearchList(List *L, char* el) {
 void PrintList(List L) {
     for (int i = 0; i < Length(L); i++) {
         Item item = Get(L, i);
-        printf("%d. %s (%d)\n", i+1, item.nama, item.jumlah );
+        printf("%d. ", i+1);
+        PrintKata(item.nama);
+        printf(" (%d)\n", item.jumlah);
     }
 }

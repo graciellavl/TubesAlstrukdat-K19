@@ -132,20 +132,42 @@ void SalinCommand()
 }
 
 // addition
-Kata Salin(Kata K)
-/* Mengakuisisi kata, menyimpan dalam CKata
-   I.S. : CC adalah karakter pertama dari kata
-   F.S. : CKata berisi kata yang sudah diakuisisi; 
-          CC = BLANK atau CC = MARK; 
-          CC adalah karakter sesudah karakter terakhir yang diakuisisi.
-          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
-{
-    Kata kata;
-    kata.Length = K.Length;
-    printf("len: %d\n", kata.Length);
-    for (int i = 0; i < kata.Length; i++) {
-        kata.TabKata[i] = K.TabKata[i];
-        printf("huruf %c\n", kata.TabKata[i]);
+// Kata Salin(Kata K)
+// /* Mengakuisisi kata, menyimpan dalam CKata
+//    I.S. : CC adalah karakter pertama dari kata
+//    F.S. : CKata berisi kata yang sudah diakuisisi; 
+//           CC = BLANK atau CC = MARK; 
+//           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
+//           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+// {
+//     Kata kata;
+//     kata.Length = K.Length;
+//     printf("len: %d\n", kata.Length);
+//     for (int i = 0; i < kata.Length; i++) {
+//         kata.TabKata[i] = K.TabKata[i];
+//         printf("huruf %c\n", kata.TabKata[i]);
+//     }
+//     return kata;
+// }
+
+boolean IsKataSama(Kata InputCommand, Kata Command) {
+    boolean sama = true;
+    if (InputCommand.Length != Command.Length) {
+        return !sama;
+    } else {
+        int i = 0;
+        while (sama && (i < Command.Length)) {
+            if (InputCommand.TabKata[i] != Command.TabKata[i]) {
+                sama = false;
+            }
+            i++;
+        }
+        return sama;
     }
-    return kata;
+}
+
+void PrintKata(Kata K) {
+    for (int i = 0; i < K.Length; i ++) {
+        printf("%c", K.TabKata[i]);
+    }
 }

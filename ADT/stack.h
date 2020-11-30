@@ -14,12 +14,17 @@ TOP adalah alamat elemen puncak*/
 #define MaxEl 10
 
 typedef int bool;
-typedef char infotype;
 typedef int address;
+
+typedef struct {
+  int kode;
+  int jumlah;
+  char* nama;
+} Komponen;
 
 typedef struct
 {
-    infotype T[MaxEl];
+    Komponen T[MaxEl];
     address TOP;
 } Stack;
 
@@ -44,17 +49,17 @@ bool IsFull(Stack S);
 /* Ciri stack penuh : TOP bernilai MaxEl */
 
 /* ********** Operator Dasar Stack ********* */
-void Push(Stack *S, infotype X);
+void Push(Stack *S, Komponen X);
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, S tidak penuh */
 /* F.S. X menjadi element TOP yang baru, TOP bertambah 1 */
-void Pop(Stack *S, infotype *X);
+void Pop(Stack *S, Komponen *X);
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
 /* ********** Operator Tambahan ********* */
-void ForcePush(Stack *S, infotype X);
+void ForcePush(Stack *S, Komponen X);
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, S mungkin penuh */
 /* F.S. X menjadi element TOP yang baru, TOP bertambah 1

@@ -93,13 +93,13 @@ ElType toElType(int digit) {
 }
 
 ElType toBangunan(Kata CKata) {
-    if (CKata.TabKata[1] == 'B') {
+    if (CKata.TabKata[0] == 'B') {
         return 'B';
-    } else if (CKata.TabKata[1] == 'S') {
+    } else if (CKata.TabKata[0] == 'S') {
         return 'S';
-    } else if (CKata.TabKata[1] == 'C') {
+    } else if (CKata.TabKata[0] == 'C') {
         return 'C';
-    } else if (CKata.TabKata[1] == 'P') {
+    } else if (CKata.TabKata[0] == 'P') {
         return 'P';
     }
 }
@@ -143,14 +143,33 @@ boolean IsKataSama(Kata InputCommand, Kata Command) {
 
 int main() {
     // Menginisiasi permainan 
+    // List Komponen = MakeList();
+    // STARTGAME("komponen.txt");
+    // Kata komponen;
+    // while (CC != MARK) {
+    //     int kode = toInteger(CKata);
+    //     printf("kode %d ", kode);
+    //     ADVKATA();
+    //     // komponen = (CKata);
+    //     // for (int i = 0; i < CKata.Length; i++) {
+    //     //     komponen[i] = CKata.TabKata[i];
+    //     // }
+    //     printf("%d ", CKata.Length);
+    //     // komponen = Salin(CKata);
+    //     printf("komponen %s ", komponen.TabKata);
+    //     printf("\n");
+    //     InsertLast(&Komponen, CKata.TabKata, kode, 1);
+    //     ADVKATA();
+    // }
+    // PrintList(Komponen);
 
     /* *** Membaca Nama File Konfigurasi *** */
     printf("FILENAME: ");
-    char filename[100];
     STARTCOMMAND();
     char* namafile = CCommand.TabKata;
-    printf("%s\n", CCommand.TabKata);
+    // printf("%s\n", namafile);
     
+    // printf("Loading . . .\n");
     /* *** Membaca File Konfigurasi Permainan *** */
     STARTGAME(CCommand.TabKata);
 
@@ -165,24 +184,28 @@ int main() {
     ADVKATA();
 
     int jlhBangunan = toInteger(CKata);
-    ADVKATA();
-
+    printf("jlh bangunan %d\n", jlhBangunan);
     MATRIKS M;
     MakeMatriks(Brs, Kol, &M);
     int pelanggan = 0;
     for (int i = 0; i < jlhBangunan; i++) {
+        ADVKATA();
         ElType jenis = toBangunan(CKata);
         if (jenis == 'C') {
             pelanggan += 1 ;
             jenis = toElType(pelanggan);
+            // printf("jenis %c\n", jenis);
         }
         // printf("%c", jenis);
         ADVKATA();
+        // printf("%d %c\n", i, CKata.TabKata[0]);
         int Baris = toInteger(CKata);
+        // printf("%d %d\n", i, Baris);
         ADVKATA();
+        // printf("%d %c\n", i, CKata.TabKata[0]);
         int Kolom = toInteger(CKata);
+        // printf("%d %d\n", i, Kolom);
         SetElmt(&M, Baris, Kolom, jenis);
-        ADVKATA(); 
     }
     printf("Kata %s\n", CKata.TabKata);
     Graph G;
@@ -190,26 +213,32 @@ int main() {
     for (int i = 1; i < jlhBangunan; i++) {
         InsertNode(&G, i);
     }
+    // ADVKATA();
     for (int i = 0; i < jlhBangunan; i++) {
         for (int j = 0; j < jlhBangunan; j++) {
+            ADVKATA();
+            // printf("i: %d j: %d nilai: %c\n", i, j, CKata.TabKata[0]);
             if (CKata.TabKata[0] == '1') {
                 InsertSuccNode(&G, i, j);
             }
-            printf(" %c", CKata.TabKata[0]);
-            ADVKATA();
+            // printf(" %c", CKata.TabKata[0]);
         }
-        ADVKATA();
         printf("\n");
     }
     printf("\n");
-    printGraph(G);
-    printf("\n\n");
+    // printGraph(G);
+    // printf("\n\n");
 
+    printf("\n--------------------------------\n");
+    printf("SELAMAT BERMAIN\n");
+    printf("--------------------------------\n");
     printf("ENTER COMMAND: ");
     STARTCOMMAND();
     printf("\n");
     
     // Permainan dimulai
+    
+    // Setup awal tapi dummy
     int i = 0;
     int money = 0;
     int order = 1;
@@ -220,6 +249,8 @@ int main() {
     InsertLast(&L, "tes", 2, 1);
     InsertLast(&L, "tes", 3, 1);
     InsertLast(&L, "tes", 4, 1);
+
+
     while (!IsKataSama(CCommand, toKata("EXIT"))) {
     
         if (IsKataSama(CCommand, toKata("MOVE"))) {
@@ -274,9 +305,13 @@ int main() {
 
         } else if (IsKataSama(CCommand, toKata("SAVE"))) {
             printf("Lokasi save file: ");
-            STARTCOMMAND(); // boleh scanf aja ga?
+            STARTCOMMAND(); 
+            Kata fileoutput;
+            for (int i = 0; i < CCommand.Length; i++) {
+                fileoutput.TabKata[i] = CCommand.TabKata[i];
+            }
             FILE * output;
-            output = fopen(CCommand.TabKata, "w");
+            output = fopen(fileoutput.TabKata, "w");
 
             if (output == NULL) {
                 printf("Permainan tidak dapat disimpan.\n");
@@ -293,12 +328,13 @@ int main() {
             printf("Command tidak valid.\n");
         }
         printf("\n");
-        printf("Loop %d\n", i);
+        printf("--------------------------------\n");
         printf("ENTER COMMAND: ");
         STARTCOMMAND();
         printf("\n");
         i++;
     }
     printf("\nTerima kasih sudah bermain.\n");
+    printf("--------------------------------\n");
     return 0;
 }

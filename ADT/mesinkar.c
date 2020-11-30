@@ -8,6 +8,8 @@ static int retval;
 char CC;
 boolean EOP;
 
+/* *** ADT untuk baca file eksternal *** */
+
 void START(char* filename)
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
 Karakter pertama yang ada pada pita posisinya adalah pada jendela.
@@ -19,11 +21,6 @@ Jika CC = MARK maka EOP akan menyala (true) */
 {
     pita = fopen(filename,"r");
     ADV();
-}
-
-void COMMAND() {
-    pita = stdin;
-    ADVC();
 }
 
 void ADV()
@@ -39,6 +36,15 @@ Jika CC = MARK maka EOP akan menyala (true) */
     if (EOP) {
         fclose(pita);
     }
+}
+
+
+
+/* *** ADT untuk baca file eksternal *** */
+
+void COMMAND() {
+    pita = stdin;
+    ADVC();
 }
 
 void ADVC()

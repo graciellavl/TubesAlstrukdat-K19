@@ -56,7 +56,7 @@ int toInteger(Kata CKata) {
     return result;
 }
 
-ElType toElType(int digit) {
+char toChar (int digit) {
     switch (digit)
     {
     case 1:
@@ -122,7 +122,18 @@ Kata toKata(char* command) {
     return output;
 }
 
-
+Kata NamaBangunan(int loc) {
+    Kata cur;
+    if (loc == 0) {
+        cur = toKata("Base"); 
+    } else if (loc == 1) {
+        cur = toKata("Shop");
+    } else {
+        cur = toKata("Pelanggan ");
+        // cur[12] = toChar(loc-1); 
+    }
+    return cur;
+}
 /* *** ******** FUNGSI UTAMA ******** *** */
 
 int main() {
@@ -133,10 +144,13 @@ int main() {
     while (CC != MARK) {
         int kode = toInteger(CKata);
         ADVKATA();
-        InsertLast(&Komponen, CKata, kode, 1);
+        int harga = toInteger(CKata);
+        // printf("%d\n", harga);
+        ADVKATA();
+        InsertLast(&Komponen, CKata, kode, 1, harga);
         ADVKATA();
     }
-    PrintList(Komponen);
+    // PrintShop(Komponen);
 
     /* *** Membaca Nama File Konfigurasi *** */
     printf("FILENAME: ");
@@ -144,7 +158,7 @@ int main() {
     char* namafile = CCommand.TabKata;
     // printf("%s\n", namafile);
     
-    // printf("Loading . . .\n");
+    printf("Loading . . .\n");
     /* *** Membaca File Konfigurasi Permainan *** */
     STARTGAME(CCommand.TabKata);
 
@@ -168,7 +182,7 @@ int main() {
         ElType jenis = toBangunan(CKata);
         if (jenis == 'C') {
             pelanggan += 1 ;
-            jenis = toElType(pelanggan);
+            jenis = toChar(pelanggan);
             // printf("jenis %c\n", jenis);
         }
         // printf("%c", jenis);
@@ -200,10 +214,18 @@ int main() {
         }
         // printf("\n");
     }
-    printf("\n");
     // printGraph(G);
     // printf("\n\n");
-
+    printf("%c", GetElmt(M, 10,3));
+    TulisPOINT(GetPoint(M, 'B'));
+    TulisPOINT(GetPoint(M, 'S'));
+    TulisPOINT(GetPoint(M, '1'));
+    TulisPOINT(GetPoint(M, '2'));
+    TulisPOINT(GetPoint(M, '3'));
+    TulisPOINT(GetPoint(M, '4'));
+    TulisPOINT(GetPoint(M, '5'));
+    TulisPOINT(GetPoint(M, '6'));
+    TulisPOINT(GetPoint(M, '7'));
     printf("\n--------------------------------\n");
     printf("SELAMAT BERMAIN\n");
     printf("--------------------------------\n");
@@ -215,29 +237,97 @@ int main() {
     
     // Setup awal tapi dummy
     int i = 0;
-    int money = 0;
+    int money = 1000;
     int order = 1;
     int cust = 1;
-    char* loc = "Base";
+    int loc = 0;
+    ElType temp = '2';
+    POINT getTemp = GetPoint(M, temp);
+    ElType player = 'P';
+    SetElmt(&M, getTemp.X, getTemp.Y, player);
+    POINT getPlayer = GetPoint(M, player);
+    // printf("tes\n");
+    // TulisPOINT(getTemp);
     List Inventory = MakeList();
-    // InsertLast(&L, "tes", 1, 1);
-    // InsertLast(&L, "tes", 2, 1);
-    // InsertLast(&L, "tes", 3, 1);
-    // InsertLast(&L, "tes", 4, 1);
-
 
     while (!IsKataSama(CCommand, toKata("EXIT"))) {
     
         if (IsKataSama(CCommand, toKata("MOVE"))) {
-            printf("Kamu berada pada ???\n");
+            if (loc < 2) {
+                printf("Kamu berada pada ");
+                PrintKata(NamaBangunan(loc));
+                printf("\n");
+            } else {
+                printf("Kamu berada pada Pelanggan %c\n", toChar(loc-1));
+            }
             printf("Daftar lokasi yang dapat dicapai: \n");
-
+            adrNode P = First(G);
+            adrSuccNode curPos;
+            while (P != Nil && id(P) != loc) {
+                P = Next(P);
+            }
+            if (id(P) == loc) {
+                adrSuccNode X = Trail(P);
+                curPos = X;
+                int no = 1;
+                while (X != Nil) {
+                    if (id(X) > 1) {
+                        printf("%d. Pelanggan %c\n", no, toChar(id(X) - 1));
+                    } else {
+                        printf("%d. ", no);
+                        PrintKata(NamaBangunan(id(X)));
+                        printf("\n");
+                    }
+                    no++;
+                    X = Next(X);
+                }
+            }
+            printf("Nomor tujuan: ");
+            STARTCOMMAND();
+            int count = toInteger(CCommand);
+            int inc = 1;
+            boolean sama = false;
+            while ((curPos != Nil) && !sama) {
+                if (inc == count) {
+                    sama = true;
+                } else {
+                    curPos = Next(curPos);
+                    inc++;
+                }
+            }
+            if (sama) {
+                loc = id(curPos);
+                if (loc < 2) {
+                    getPlayer = GetPoint(M, player);
+                    SetElmt(&M, getPlayer.X, getPlayer.Y, temp);
+                    if (loc == 0) {
+                        temp = 'B';
+                        getTemp = GetPoint(M, temp);
+                    } else if (loc == 1) {
+                        temp = 'S';
+                        getTemp = GetPoint(M, temp);
+                    } 
+                    SetElmt(&M, getTemp.X, getTemp.Y, 'P');
+                    printf("Kamu telah mencapai lokasi ");
+                    PrintKata(NamaBangunan(loc));
+                    printf("\n");
+                } else {
+                    getPlayer = GetPoint(M, player);
+                    SetElmt(&M, getPlayer.X, getPlayer.Y, temp);
+                    temp = toChar(loc-1);
+                    getTemp = GetPoint(M, temp);
+                    SetElmt(&M, getTemp.X, getTemp.Y, 'P');
+                    printf("Kamu telah mencapai lokasi Pelanggan %c\n", toChar(loc-1));
+                }
+            } else {
+                printf("Tujuan tidak valid.\n");
+            }
         } else if (IsKataSama(CCommand, toKata("STATUS"))) {
             printf("Uang tersisa: $%d\n", money);
             printf("Build yang sedang dikerjakan: pesanan %d untuk pelanggan %d.\n", order, cust);
             printf("Lokasi: Pemain sedang berada pada %s\n", loc);
             printf("Inventory anda: \n");
-            PrintList(Inventory);
+            PrintInventory(Inventory);
 
         } else if (IsKataSama(CCommand, toKata("CHECKORDER"))) {
             printf("Nomor order: %d\n", order);
@@ -260,7 +350,7 @@ int main() {
             printf("Komponen yang telah terpasang: \n");
             //PrintStack(S);
             printf("Komponen yang tersedia:\n");
-            PrintList(Inventory);
+            PrintInventory(Inventory);
             printf("Komponen yang ingin dipasang: ");
             STARTCOMMAND();
             // Kondisi kalo bisa dipasang dan tidak
@@ -270,7 +360,31 @@ int main() {
             printf("Komponen %s berhasil dicopot!\n", "top"); 
 
         } else if (IsKataSama(CCommand, toKata("SHOP"))) {
-            printf("SHOP masuk\n");
+            if(loc != 1) {
+                printf("Kamu tidak berada di Shop.\n");
+                printf("Mohon pindah ke Shop terlebih dahulu.\n");
+            } else {
+                printf("Komponen yang tersedia: \n");
+                PrintShop(Komponen);
+                printf("Komponen yang ingin dibeli: ");
+                STARTCOMMAND();
+                int index = toInteger(CCommand); 
+                printf("Masukkan jumlah yang ingin dibeli: ");
+                STARTCOMMAND();
+                int kuantitas = toInteger(CCommand);
+                Item dibeli = Get(Komponen, index-1);
+                int total = (kuantitas)*(dibeli.harga);
+                if (kuantitas == 0) {
+                    printf("Kamu tidak membeli apa-apa.\n");
+                } else {
+                    if (total > money ) {
+                        printf("Uang tidak cukup!\n");
+                    } else {
+                        UpdateList(&Inventory, dibeli.nama, dibeli.kode, kuantitas, dibeli.harga);
+                        printf("Komponen berhasil dibeli!\n");
+                    }
+                }
+            }
 
         } else if (IsKataSama(CCommand, toKata("DELIVER"))) {
             printf("DELIVER masuk\n");
@@ -302,7 +416,7 @@ int main() {
         } else {
             printf("Command tidak valid.\n");
         }
-        printf("\n");
+        // printf("\n");
         printf("--------------------------------\n");
         printf("ENTER COMMAND: ");
         STARTCOMMAND();

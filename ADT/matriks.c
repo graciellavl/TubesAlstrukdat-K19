@@ -1,6 +1,7 @@
 /* File: matriks.c */
 
 #include "matriks.h"
+#include "point.h"
 #include "../boolean.h"
 #include <stdio.h>
 
@@ -43,4 +44,35 @@ void TulisMATRIKS (MATRIKS M) {
 
 boolean IdxValid (int Brs, int Kol) {
     return (Brs < BrsMax && Brs >= BrsMin && Kol < KolMax && Kol >= KolMin);
+}
+
+POINT GetPoint(MATRIKS M, ElType X) {
+    indeks i, j;
+    boolean found = false;
+    for (i = 1; i < NBrsEff(M)+2 && !found; i++) {
+        for (j = 1; j < NKolEff(M)+2 && !found; j++) {
+            if (Elmt(M,i,j) == X) {
+                found = true;
+            }
+        }
+    }
+    // while ((i < NBrsEff(M)) && !found) {
+    //     while ((j < NKolEff(M)) && !found){
+    //         if (Elmt(M, i, j) == X) {
+    //             found = true;
+    //             // printf("%c\n", GetElmt(M,i,j));
+    //             // printf("%c\n", X);
+    //         } else {
+    //             j++;
+    //             // printf("%d %d\n", i, j);
+    //         }
+    //     }
+    //     if (!found) {
+    //         i++;
+    //         j = 1;
+    //     }
+    //     // printf("%d %d\n", i, j);
+    // }
+    POINT posisi = MakePOINT(i-1,j-1);
+    return posisi;
 }

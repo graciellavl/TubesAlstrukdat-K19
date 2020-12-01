@@ -10,6 +10,7 @@ typedef int IdxType;
 typedef struct {
   int kode;
   int jumlah;
+  int harga;
   Kata nama;
 } Item;
 typedef struct {
@@ -60,13 +61,13 @@ int GetCapacity(List list);
  * Fungsi untuk menambahkan elemen baru di index ke-i
  * Prekondisi: list terdefinisi, i di antara 0..Length(list).
  */
-void InsertAt(List *list, Kata el, int qty, int kode, IdxType i);
+void InsertAt(List *list, Kata el, int qty, int kode, int harga, IdxType i);
 
 /**
  * Fungsi untuk menambahkan elemen baru di akhir list.
  * Prekondisi: list terdefinisi
  */
-void InsertLast(List *list, Kata el, int kode, int qty);
+void InsertLast(List *list, Kata el, int kode, int qty, int harga);
 
 /**
  * Fungsi untuk menambahkan elemen baru di awal list.
@@ -74,12 +75,14 @@ void InsertLast(List *list, Kata el, int kode, int qty);
  */
 // void InsertFirst(List *list, char* el, int kode, int qty);
 
-void UpdateList(List *L, Kata el, int kode, int qty);
+void UpdateList(List *L, Kata el, int kode, int qty, int harga);
 
 void DeleteAt(List *list, IdxType i);
 
 boolean SearchList(List *L, Kata el);
 
-void PrintList(List L);
+void PrintInventory(List L);
+
+void PrintShop(List L);
 
 #endif

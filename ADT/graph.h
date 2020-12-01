@@ -41,6 +41,6 @@ void InsertNode(Graph* G, int A);
 
 void InsertSuccNode(Graph* G, int A, int B);
 
-void printGraph(Graph G);
+void PrintGraph(Graph G);
 
 #endif

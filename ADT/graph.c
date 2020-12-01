@@ -68,7 +68,7 @@ void InsertSuccNode(Graph* G, int A, int B) {
     }
 }
 
-void printGraph(Graph G) {
+void PrintGraph(Graph G) {
     adrNode P = First(G);
     while (P != Nil) {
         printf("%d > ", id(P));

@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include "boolean.h"
-// #include "ADT/matriks.c"
-// #include "ADT/point.c"
-// #include "ADT/list.c"
+#include "ADT/matriks.c"
+#include "ADT/point.c"
+#include "ADT/list.c"
 #include "ADT/mesinkar.c"
 #include "ADT/mesinkata.c"
-// #include "ADT/graph.c"
+#include "ADT/graph.c"
 
 // Kata getKata(Kata K) {
 //     Kata kata;
@@ -19,20 +19,30 @@
 // }
 
 int main() {
-    STARTGAME("komponen.txt");
-    Kata kata;
-    while (CC != MARK) {
-        kata = Salin(CKata);
-        // printf("ini untuk kode CKata %s \n", CKata.TabKata);
-        printf("ini untuk kode %s\n", kata.TabKata);
-        ADVKATA();
-        kata = Salin(CKata);
-        printf("ini untuk nama CKata %s \n", kata.TabKata);
-        // printf("ini untuk nama %s\n", kata.TabKata);
-        printf("\n");
-        ADVKATA();
-    }
+    MATRIKS M;
+    MakeMatriks(2, 2, &M);
+    TulisMATRIKS(M);
+    SetElmt(&M, 1, 1, 'E');
+    TulisMATRIKS(M);
+    POINT P = GetPoint(M, 'E');
+    TulisPOINT(P);
 }
+
+// int main() {
+//     STARTGAME("komponen.txt");
+//     Kata kata;
+//     while (CC != MARK) {
+//         kata = Salin(CKata);
+//         // printf("ini untuk kode CKata %s \n", CKata.TabKata);
+//         printf("ini untuk kode %s\n", kata.TabKata);
+//         ADVKATA();
+//         kata = Salin(CKata);
+//         printf("ini untuk nama CKata %s \n", kata.TabKata);
+//         // printf("ini untuk nama %s\n", kata.TabKata);
+//         printf("\n");
+//         ADVKATA();
+//     }
+// }
 
 // int main() {
 //     printf("start: ");

@@ -6,7 +6,50 @@
 #include "ADT/mesinkar.c"
 #include "ADT/mesinkata.c"
 #include "ADT/graph.c"
+#include "ADT/stack.c"
 
+int main() {
+    Stack S;
+    CreateStack(&S);
+    if (StackEmpty(S)) {
+        printf("Kosong\n");
+    }
+    // PrintStack(S);
+    Komponen K, T;
+    K.harga = 10;
+    K.jumlah = 1;
+    K.kode = 2;
+    K.nama = "nama";
+    Push(&S, K);
+    PrintStack(S);
+    T.harga = 20;
+    T.jumlah = 2;
+    T.kode = 4;
+    T.nama = "nama1";
+    Push(&S, T);
+    PrintStack(S);
+    printf("ok\n");
+}
+//     printf("in\n");
+//     CreateStack(&S);
+//     printf("createstack\n");
+//     // PrintStack(S);
+//     Komponen K, T;
+//     K.nama = "tes";
+//     K.jumlah = 1;
+//     K.kode = 1;
+//     K.harga = 10;
+//     Push(&S, K);
+//     PrintStack(S);
+//     T.nama = "tes1";
+//     T.jumlah = 2;
+//     T.kode = 2;
+//     T.harga = 12;
+//     Push(&S, T);
+//     printf("push acc\n");
+//     // PrintStack(S);
+//     printf("Ok\n");
+// }
 // Kata getKata(Kata K) {
 //     Kata kata;
 //     kata.Length = K.Length;
@@ -18,15 +61,15 @@
 //     return kata;
 // }
 
-int main() {
-    MATRIKS M;
-    MakeMatriks(2, 2, &M);
-    TulisMATRIKS(M);
-    SetElmt(&M, 1, 1, 'E');
-    TulisMATRIKS(M);
-    POINT P = GetPoint(M, 'E');
-    TulisPOINT(P);
-}
+// int main() {
+//     MATRIKS M;
+//     MakeMatriks(2, 2, &M);
+//     TulisMATRIKS(M);
+//     SetElmt(&M, 1, 1, 'E');
+//     TulisMATRIKS(M);
+//     POINT P = GetPoint(M, 'E');
+//     TulisPOINT(P);
+// }
 
 // int main() {
 //     STARTGAME("komponen.txt");

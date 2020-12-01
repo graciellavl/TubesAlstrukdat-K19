@@ -11,4 +11,4 @@ List file from directory:
 - https://www.sanfoundry.com/c-program-list-files-directory/
 
 How to run?
-- gcc -o a ADT/mesinkar.c ADT/mesinkata.c ADT/matriks.c ADT/point.c ADT/graph.c ADT/list.c main.c
+- gcc -o a ADT/mesinkar.c ADT/mesinkata.c ADT/matriks.c ADT/point.c ADT/graph.c ADT/list.c ADT/stack.c main.c

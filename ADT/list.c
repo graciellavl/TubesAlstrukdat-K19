@@ -118,7 +118,7 @@ void UpdateList(List *L, Kata el, int kode, int qty, int harga) {
             }
         } else {
             if (qty < 0) {
-                printf("Komponen tidak cukup");
+                printf("Komponen tidak tersedia.\n");
             } else {
                 InsertLast(L, el, kode, qty, harga);
             }

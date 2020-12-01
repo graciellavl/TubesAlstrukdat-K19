@@ -7,6 +7,7 @@
 #include "ADT/point.h"
 #include "ADT/graph.h"
 #include "ADT/list.h"
+#include "ADT/stack.h"
 
 /* *** ******** FUNGSI PEMBANTU ******** *** */
 
@@ -138,8 +139,8 @@ Kata NamaBangunan(int loc) {
 
 int main() {
     // Menginisiasi permainan 
-    List Komponen = MakeList();
-    STARTGAME("komponen.txt");
+    List ListKomponen = MakeList();
+    STARTGAME("item.txt");
     Kata komponen;
     while (CC != MARK) {
         int kode = toInteger(CKata);
@@ -147,7 +148,7 @@ int main() {
         int harga = toInteger(CKata);
         // printf("%d\n", harga);
         ADVKATA();
-        InsertLast(&Komponen, CKata, kode, 1, harga);
+        InsertLast(&ListKomponen, CKata, kode, 1, harga);
         ADVKATA();
     }
     // PrintShop(Komponen);
@@ -216,16 +217,6 @@ int main() {
     }
     // printGraph(G);
     // printf("\n\n");
-    printf("%c", GetElmt(M, 10,3));
-    TulisPOINT(GetPoint(M, 'B'));
-    TulisPOINT(GetPoint(M, 'S'));
-    TulisPOINT(GetPoint(M, '1'));
-    TulisPOINT(GetPoint(M, '2'));
-    TulisPOINT(GetPoint(M, '3'));
-    TulisPOINT(GetPoint(M, '4'));
-    TulisPOINT(GetPoint(M, '5'));
-    TulisPOINT(GetPoint(M, '6'));
-    TulisPOINT(GetPoint(M, '7'));
     printf("\n--------------------------------\n");
     printf("SELAMAT BERMAIN\n");
     printf("--------------------------------\n");
@@ -236,19 +227,23 @@ int main() {
     // Permainan dimulai
     
     // Setup awal tapi dummy
-    int i = 0;
-    int money = 1000;
-    int order = 1;
-    int cust = 1;
-    int loc = 0;
-    ElType temp = '2';
+    // int i = 0;
+    int money = 1000;          // uang
+    int order = 0;             // pesanan ke -
+    int cust = 1;              // nomor pemesan
+    int loc = 0;               // lokasi saat ini
+    boolean IsBuild = false;   // status build
+    boolean IsDelivered = true;   // status deliver
+    ElType temp = 'B';
     POINT getTemp = GetPoint(M, temp);
     ElType player = 'P';
     SetElmt(&M, getTemp.X, getTemp.Y, player);
     POINT getPlayer = GetPoint(M, player);
-    // printf("tes\n");
-    // TulisPOINT(getTemp);
     List Inventory = MakeList();
+    Stack Build;
+    CreateStack(&Build);
+    Stack Order;
+    CreateStack(&Order);
 
     while (!IsKataSama(CCommand, toKata("EXIT"))) {
     
@@ -324,8 +319,18 @@ int main() {
             }
         } else if (IsKataSama(CCommand, toKata("STATUS"))) {
             printf("Uang tersisa: $%d\n", money);
-            printf("Build yang sedang dikerjakan: pesanan %d untuk pelanggan %d.\n", order, cust);
-            printf("Lokasi: Pemain sedang berada pada %s\n", loc);
+            if (IsBuild) {
+                printf("Build yang sedang dikerjakan: pesanan %d untuk pelanggan %d.\n", order, cust);
+            } else {
+                printf("Sedang tidak mengerjakan build.\n");
+            }
+            printf("Lokasi: Pemain sedang berada pada ");
+            if (loc < 2) {
+                PrintKata(NamaBangunan(loc));
+                printf("\n");
+            } else {
+                printf("Pelanggan %c\n", toChar(loc-1));
+            }
             printf("Inventory anda: \n");
             PrintInventory(Inventory);
 
@@ -334,45 +339,85 @@ int main() {
             printf("Pemesan: %d\n", cust);
             printf("Invoice: %d\n", 100); //ganti duit
             printf("Komponen: \n");
-            //PrintStack(S);
-
+            PrintStack(Order);
         } else if (IsKataSama(CCommand, toKata("STARTBUILD"))) {
-            printf("Kamu telah memulai pesanan %d untuk pelanggan %d.\n", order, cust);
-            // CreateStack
+            // pelanggan update dari queue
+            order++;
+            CreateStack(&Build);
+            if (IsDelivered) {
+                IsBuild = true;
+                IsDelivered = false;
+                printf("Kamu telah memulai pesanan %d untuk pelanggan %d.\n", order, cust);
+            } else {
+                printf("Kamu belum menyelesaikan pesananmu!\n");
+            }
 
         } else if (IsKataSama(CCommand, toKata("FINISHBUILD"))) {
-            if (true) { // CountStack = 8?
+            if (StackFull(Build)) { 
+                IsBuild = false;
                 printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, cust);
             } else {
                 printf("Komponen yang dipasangkan belum sesuai dengan pesanan, build belum dapat diselesaikan.\n");
             }
         } else if (IsKataSama(CCommand, toKata("ADDCOMPONENT"))) {
-            printf("Komponen yang telah terpasang: \n");
-            //PrintStack(S);
-            printf("Komponen yang tersedia:\n");
-            PrintInventory(Inventory);
-            printf("Komponen yang ingin dipasang: ");
-            STARTCOMMAND();
-            // Kondisi kalo bisa dipasang dan tidak
-
+            if (loc != 0) {
+                printf("Kamu harus di base untuk memasang komponen!\n");
+            } else {
+                if (IsBuild) {
+                    printf("Komponen yang telah terpasang: \n");
+                    PrintStack(Build);
+                    printf("\n");
+                    printf("Komponen yang tersedia:\n");
+                    PrintInventory(Inventory);
+                    printf("\n");
+                    printf("Komponen yang ingin dipasang: ");
+                    STARTCOMMAND();
+                    Item addItem = Get(Inventory, toInteger(CCommand)-1);
+                    // Kondisi sama dengan stack yg di order tp belum dibikin 
+                    if (!StackFull(Build)) {
+                        UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
+                        Komponen X;
+                        strcpy(X.nama, addItem.nama.TabKata);
+                        // X.nama = addItem.nama.TabKata;
+                        X.harga = addItem.harga;
+                        X.kode = addItem.kode;
+                        X.jumlah = addItem.jumlah;
+                        Push(&Build, X);
+                        if (Build.T[Build.TOP].kode != addItem.kode) {
+                            printf("Komponen berhasil dipasang!\n");
+                        } 
+                    }
+                } else {
+                    printf("Kamu belum memulai build apapun.\n");
+                }
+            }
         } else if (IsKataSama(CCommand, toKata("REMOVECOMPONENT"))) {
-            // cabut komponen top
-            printf("Komponen %s berhasil dicopot!\n", "top"); 
-
+            if (loc != 0) {
+                printf("Kamu harus di base untuk melepas komponen!\n");
+            } else {
+                if (!StackEmpty(Build)) {
+                    Komponen X;
+                    Pop(&Build, &X);
+                    UpdateList(&Inventory, toKata(X.nama), X.kode, 1, X.harga);
+                    printf("Komponen %s berhasil dicopot!\n", X.nama); 
+                } else {
+                    printf("Belum ada komponen terpasang!\n");
+                }
+            }
         } else if (IsKataSama(CCommand, toKata("SHOP"))) {
             if(loc != 1) {
                 printf("Kamu tidak berada di Shop.\n");
                 printf("Mohon pindah ke Shop terlebih dahulu.\n");
             } else {
                 printf("Komponen yang tersedia: \n");
-                PrintShop(Komponen);
+                PrintShop(ListKomponen);
                 printf("Komponen yang ingin dibeli: ");
                 STARTCOMMAND();
                 int index = toInteger(CCommand); 
                 printf("Masukkan jumlah yang ingin dibeli: ");
                 STARTCOMMAND();
                 int kuantitas = toInteger(CCommand);
-                Item dibeli = Get(Komponen, index-1);
+                Item dibeli = Get(ListKomponen, index-1);
                 int total = (kuantitas)*(dibeli.harga);
                 if (kuantitas == 0) {
                     printf("Kamu tidak membeli apa-apa.\n");
@@ -380,6 +425,7 @@ int main() {
                     if (total > money ) {
                         printf("Uang tidak cukup!\n");
                     } else {
+                        money = money - total;
                         UpdateList(&Inventory, dibeli.nama, dibeli.kode, kuantitas, dibeli.harga);
                         printf("Komponen berhasil dibeli!\n");
                     }
@@ -388,6 +434,8 @@ int main() {
 
         } else if (IsKataSama(CCommand, toKata("DELIVER"))) {
             printf("DELIVER masuk\n");
+            // IsBuild = false;
+            IsDelivered = true;
 
         } else if (IsKataSama(CCommand, toKata("END_DAY"))) {
             printf("END_DAY masuk\n");
@@ -406,7 +454,29 @@ int main() {
                 printf("Permainan tidak dapat disimpan.\n");
                 printf("Mohon coba kembali.\n");
             } else {
-                fprintf(output, "%s", namafile);
+                fprintf(output, "%s\n", namafile);
+                fprintf(output, "%d\n", money);
+                fprintf(output, "%d\n", order);
+                fprintf(output, "%d\n", cust);
+                fprintf(output, "%d\n", loc);
+                if (IsBuild) {
+                    fprintf(output, "%d\n", 1);
+                } else {
+                    fprintf(output, "%d\n", 0);
+                }
+        // yg ini skip aja anggap selalu mulai dari base
+                // ElType temp = 'B';
+                // POINT getTemp = GetPoint(M, temp);
+                // ElType player = 'P';
+                // SetElmt(&M, getTemp.X, getTemp.Y, player);
+                // POINT getPlayer = GetPoint(M, player);
+        
+        // yg ini nanti lg mager
+                // List Inventory = MakeList();
+                // Stack Build;
+                // CreateStack(&Build);
+                // Stack Order;
+                // CreateStack(&Order);
             }
             fclose(output);
 
@@ -421,7 +491,7 @@ int main() {
         printf("ENTER COMMAND: ");
         STARTCOMMAND();
         printf("\n");
-        i++;
+        // i++;
     }
     printf("\nTerima kasih sudah bermain.\n");
     printf("--------------------------------\n");

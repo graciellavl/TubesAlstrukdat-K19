@@ -1,6 +1,6 @@
 #include "stack.h"
 
-void CreateEmpty(Stack *S)
+void CreateStack(Stack *S)
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
 /* Ciri stack kosong : TOP bernilai Nil */
@@ -9,14 +9,14 @@ void CreateEmpty(Stack *S)
 }
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-bool IsEmpty(Stack S)
+bool StackEmpty(Stack S)
 /* Mengirim true jika Stack kosong*/
 /* Ciri stack kosong : TOP bernilai Nil */
 {
     return S.TOP == Nil;
 }
 
-bool IsFull(Stack S)
+bool StackFull(Stack S)
 /* Mengirim true jika stack S penuh */
 /* Ciri stack penuh : TOP bernilai MaxEl */
 {
@@ -40,25 +40,33 @@ void Pop(Stack *S, Komponen *X)
     (*X) = S->T[S->TOP];
 }
 
-void ForcePush(Stack *S, Komponen X)
-/* Menambahkan X sebagai elemen Stack S. */
-/* I.S. S mungkin kosong, S mungkin penuh */
-/* F.S. X menjadi element TOP yang baru, TOP bertambah 1
-        Apabila S penuh, buang element paling bawah dari S dan masukkan X sebagai TOP
-        Contoh: S berisi a b c d e f g h i j, setelah melakukan ForcePush(S, "k")
-        S berisi b c d e f g h i j k */
-{
-    int idx;
-    if (!IsFull(*S))
-    {
-        Push(S, X);
+Stack InverseStack(Stack S) {
+    Stack temp;
+    CreateStack(&temp);
+    Komponen K;
+    address P = S.TOP;
+    while (P != Nil) {
+        Pop(&S, &K);
+        Push(&temp, K);
+        P = S.TOP;
     }
-    else
-    {
-        for (idx = 0; idx < S->TOP - 1; idx++)
-        {
-            S->T[idx] = S->T[idx + 1];
+    return temp;
+}
+
+void PrintStack(Stack S) {
+    if (StackEmpty(S)){
+        printf("Belum ada komponen terpasang.\n");
+    } else {
+        Stack temp;
+        temp = InverseStack(S);
+        Komponen K;
+        address P = S.TOP;
+        int count = 1;
+        while(P != Nil) {
+            Pop(&temp, &K);
+            printf("%d. %s\n", count, K.nama);
+            P = temp.TOP;
+            count++;
         }
-        S->T[S->TOP - 1] = X;
     }
 }

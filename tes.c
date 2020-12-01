@@ -1,11 +1,73 @@
 #include <stdio.h>
 #include "boolean.h"
-// #include "ADT/matriks.c"
-// #include "ADT/point.c"
+#include "ADT/matriks.c"
+#include "ADT/point.c"
 #include "ADT/list.c"
-// #include "ADT/mesinkar.c"
-// #include "ADT/mesinkata.c"
+#include "ADT/mesinkar.c"
+#include "ADT/mesinkata.c"
 #include "ADT/graph.c"
+
+// Kata getKata(Kata K) {
+//     Kata kata;
+//     kata.Length = K.Length;
+//     for (int i = 0; i < kata.Length; i++) {
+//         kata.TabKata[i] = kata.TabKata[i];
+//     }
+//     printf("\noutput file %s\n", kata.TabKata);
+//     printf("len: %s\n", kata.Length);
+//     return kata;
+// }
+
+int main() {
+    MATRIKS M;
+    MakeMatriks(2, 2, &M);
+    TulisMATRIKS(M);
+    SetElmt(&M, 1, 1, 'E');
+    TulisMATRIKS(M);
+    POINT P = GetPoint(M, 'E');
+    TulisPOINT(P);
+}
+
+// int main() {
+//     STARTGAME("komponen.txt");
+//     Kata kata;
+//     while (CC != MARK) {
+//         kata = Salin(CKata);
+//         // printf("ini untuk kode CKata %s \n", CKata.TabKata);
+//         printf("ini untuk kode %s\n", kata.TabKata);
+//         ADVKATA();
+//         kata = Salin(CKata);
+//         printf("ini untuk nama CKata %s \n", kata.TabKata);
+//         // printf("ini untuk nama %s\n", kata.TabKata);
+//         printf("\n");
+//         ADVKATA();
+//     }
+// }
+
+// int main() {
+//     printf("start: ");
+//     STARTCOMMAND();
+//     printf("output 1: %s\n", CCommand.TabKata);
+//     STARTCOMMAND();
+//     printf("tes: ");
+//     printf("output 2: %s\n", CCommand.TabKata);
+    
+//     printf("output 3: ");
+//     for (int i = 0; i<CCommand.Length; i++) {
+//         printf("%c", CCommand.TabKata[i]);
+//     }
+//     // char *fileoutput;
+//     Kata fileoutput;
+//     for (int i = 0; i < CCommand.Length; i++) {
+//         fileoutput.TabKata[i] = CCommand.TabKata[i];
+//     }
+
+//     // for (int i = 0; i < CCommand.Length; i++) {
+//     //     fileoutput[i] = CCommand.TabKata[i];
+//     // }
+//     printf("\noutput file %s\n", fileoutput.TabKata);
+//     printf("ok");
+// }
 
 // int main() {
 //     char* a = "NVDIA GRAPH";
@@ -52,59 +114,59 @@ LIST
 
 */
 
-int main() {
-    List L = MakeList();
-    if (IsEmpty(L)) {
-        printf("IsEmpty kosong\n");
-    }
-    printf("Length array %d\n", Length(L));
+// int main() {
+//     List L = MakeList();
+//     if (IsEmpty(L)) {
+//         printf("IsEmpty kosong\n");
+//     }
+//     printf("Length array %d\n", Length(L));
     
-    char* tes = "tes";
-    InsertLast(&L, "tes", 1, 2);
-    printf("%s\n", L.A[0].nama);
-    printf("%d\n", L.A[0].jumlah);
-    printf("%d\n", L.A[0].kode);
+//     char* tes = "tes";
+//     InsertLast(&L, "tes", 1, 2);
+//     printf("%s\n", L.A[0].nama);
+//     printf("%d\n", L.A[0].jumlah);
+//     printf("%d\n", L.A[0].kode);
 
-    if (SearchList(&L, tes)) {
-        UpdateList(&L, tes, 1, -1);
-        printf("SearchList sukses\n");
-    } else {
-        InsertLast(&L, tes, 1, 1);
-    }
+//     if (SearchList(&L, tes)) {
+//         UpdateList(&L, tes, 1, -1);
+//         printf("SearchList sukses\n");
+//     } else {
+//         InsertLast(&L, tes, 1, 1);
+//     }
 
-    char* nope = "nope";
-    if (SearchList(&L, nope)) {
-        UpdateList(&L, nope, 1, -1);
-    } else {
-        InsertLast(&L, nope, 1, 1);
-        printf("SearchList sukses\n");
-    }
-    printf("\n");
+//     char* nope = "nope";
+//     if (SearchList(&L, nope)) {
+//         UpdateList(&L, nope, 1, -1);
+//     } else {
+//         InsertLast(&L, nope, 1, 1);
+//         printf("SearchList sukses\n");
+//     }
+//     printf("\n");
 
-    printf("Nama %s\n", L.A[0].nama);
-    printf("Jumlah %d\n", L.A[0].jumlah);
-    printf("Kode %d\n", L.A[0].kode);
-    printf("\n");
+//     printf("Nama %s\n", L.A[0].nama);
+//     printf("Jumlah %d\n", L.A[0].jumlah);
+//     printf("Kode %d\n", L.A[0].kode);
+//     printf("\n");
 
-    UpdateList(&L, tes, 1, 1);
-    printf("Nama %s\n", L.A[0].nama);
-    printf("Jumlah %d\n", L.A[0].jumlah);
-    printf("Kode %d\n", L.A[0].kode);
-    printf("\n");
-    PrintList(L);
+//     UpdateList(&L, tes, 1, 1);
+//     printf("Nama %s\n", L.A[0].nama);
+//     printf("Jumlah %d\n", L.A[0].jumlah);
+//     printf("Kode %d\n", L.A[0].kode);
+//     printf("\n");
+//     PrintList(L);
 
-    UpdateList(&L, tes, 1, -2);
-    printf("Nama %s\n", L.A[0].nama);
-    printf("Jumlah %d\n", L.A[0].jumlah);
-    printf("Kode %d\n", L.A[0].kode);
-    printf("\n");
-    PrintList(L);
+//     UpdateList(&L, tes, 1, -2);
+//     printf("Nama %s\n", L.A[0].nama);
+//     printf("Jumlah %d\n", L.A[0].jumlah);
+//     printf("Kode %d\n", L.A[0].kode);
+//     printf("\n");
+//     PrintList(L);
 
-    printf("Nama %s\n", L.A[1].nama);
-    printf("Jumlah %d\n", L.A[1].jumlah);
-    printf("Kode %d\n", L.A[1].kode);
-    printf("\n");
-}
+//     printf("Nama %s\n", L.A[1].nama);
+//     printf("Jumlah %d\n", L.A[1].jumlah);
+//     printf("Kode %d\n", L.A[1].kode);
+//     printf("\n");
+// }
 
 /*
 POINT

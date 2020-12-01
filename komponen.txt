@@ -1,0 +1,6 @@
+1 100 Motherboard1 
+1 125 Motherboard2 
+2 300 CPU1 
+3 200 Memory1 
+1 50 Motherboard3 
+.

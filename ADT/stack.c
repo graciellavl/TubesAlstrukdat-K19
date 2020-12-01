@@ -23,7 +23,7 @@ bool IsFull(Stack S)
     return S.TOP == MaxEl;
 }
 /* ********** Operator Dasar Stack ********* */
-void Push(Stack *S, infotype X)
+void Push(Stack *S, Komponen X)
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, S tidak penuh */
 /*F.S. X menjadi element TOP yang baru, TOP bertambah 1 */
@@ -31,7 +31,7 @@ void Push(Stack *S, infotype X)
     S->T[S->TOP] = X;
     S->TOP++;
 }
-void Pop(Stack *S, infotype *X)
+void Pop(Stack *S, Komponen *X)
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
@@ -40,7 +40,7 @@ void Pop(Stack *S, infotype *X)
     (*X) = S->T[S->TOP];
 }
 
-void ForcePush(Stack *S, infotype X)
+void ForcePush(Stack *S, Komponen X)
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, S mungkin penuh */
 /* F.S. X menjadi element TOP yang baru, TOP bertambah 1

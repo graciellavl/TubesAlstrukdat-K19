@@ -4,7 +4,7 @@
 #define MATRIKS_H
 
 #include "../boolean.h"
-// #include "point.h"
+#include "point.h"
 
 /* Ukuran minimum dan maksimum baris dan kolom */
 #define BrsMin 10
@@ -52,5 +52,7 @@ void SetElmt (MATRIKS *M, int NB, int NK, ElType X);
 
 ElType GetElmt (MATRIKS M, int NB, int NK);
 /* Mengirimkan nilai elemen pada posisi NB, NK */
+
+POINT GetPoint(MATRIKS M, ElType X);
 
 #endif

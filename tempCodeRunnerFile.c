@@ -1,8 +1,8 @@
-    // char* nope = "nope";
-    // if (SearchList(&L, nope)) {
-    //     UpdateList(&L, nope, 1, -1);
-    // } else {
-    //     InsertLast(&L, nope, 1, 1);
-    //     printf("SearchList sukses\n");
-    // }
-    // printf("\n");
+    Kata kata;
+    kata.Length = K.Length;
+    for (int i = 0; i < kata.Length; i++) {
+        kata.TabKata[i] = kata.TabKata[i];
+    }
+    printf("\noutput file %s\n", kata.TabKata);
+    printf("len: %s\n", kata.Length);
+    return kata;

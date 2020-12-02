@@ -113,6 +113,22 @@ int stringLength (char* string) {
     return len;
 }
 
+void stringCopy (char* dest, char* src){
+    int i;
+    for (i = 0; src[i] != '\0'; ++i) {
+        dest[i] = src[i];
+    }
+    dest[i] = '\0';
+}
+
+void kataStringCopy (char* dest, Kata src){
+    int i;
+    for (i = 0; i < src.Length && src.TabKata[i] != '\0'; ++i) {
+        dest[i] = src.TabKata[i];
+    }
+    dest[i] = '\0';
+}
+
 Kata toKata(char* command) {
     int i;
     Kata output;
@@ -146,18 +162,15 @@ int main() {
         int kode = toInteger(CKata);
         ADVKATA();
         int harga = toInteger(CKata);
-        // printf("%d\n", harga);
         ADVKATA();
         InsertLast(&ListKomponen, CKata, kode, 1, harga);
         ADVKATA();
     }
-    // PrintShop(Komponen);
 
     /* *** Membaca Nama File Konfigurasi *** */
     printf("FILENAME: ");
     STARTCOMMAND();
     char* namafile = CCommand.TabKata;
-    // printf("%s\n", namafile);
     
     printf("Loading . . .\n");
     /* *** Membaca File Konfigurasi Permainan *** */
@@ -165,16 +178,13 @@ int main() {
 
     // Membaca Baris
     int Brs = toInteger(CKata);
-    // printf("Brs %d\n", Brs);
     ADVKATA();
 
     // Membaca Kolom
     int Kol = toInteger(CKata);
-    // printf("Kol %d\n", Kol);
     ADVKATA();
 
     int jlhBangunan = toInteger(CKata);
-    // printf("jlh bangunan %d\n", jlhBangunan);
     MATRIKS M;
     MakeMatriks(Brs, Kol, &M);
     int pelanggan = 0;
@@ -184,20 +194,13 @@ int main() {
         if (jenis == 'C') {
             pelanggan += 1 ;
             jenis = toChar(pelanggan);
-            // printf("jenis %c\n", jenis);
         }
-        // printf("%c", jenis);
         ADVKATA();
-        // printf("%d %c\n", i, CKata.TabKata[0]);
         int Baris = toInteger(CKata);
-        // printf("%d %d\n", i, Baris);
         ADVKATA();
-        // printf("%d %c\n", i, CKata.TabKata[0]);
         int Kolom = toInteger(CKata);
-        // printf("%d %d\n", i, Kolom);
         SetElmt(&M, Baris, Kolom, jenis);
     }
-    // printf("Kata %s\n", CKata.TabKata);
     Graph G;
     CreateGraph(&G, 0);
     for (int i = 1; i < jlhBangunan; i++) {
@@ -207,16 +210,11 @@ int main() {
     for (int i = 0; i < jlhBangunan; i++) {
         for (int j = 0; j < jlhBangunan; j++) {
             ADVKATA();
-            // printf("i: %d j: %d nilai: %c\n", i, j, CKata.TabKata[0]);
             if (CKata.TabKata[0] == '1') {
                 InsertSuccNode(&G, i, j);
             }
-            // printf(" %c", CKata.TabKata[0]);
         }
-        // printf("\n");
     }
-    // printGraph(G);
-    // printf("\n\n");
     printf("\n--------------------------------\n");
     printf("SELAMAT BERMAIN\n");
     printf("--------------------------------\n");
@@ -227,7 +225,6 @@ int main() {
     // Permainan dimulai
     
     // Setup awal tapi dummy
-    // int i = 0;
     int money = 1000;          // uang
     int order = 0;             // pesanan ke -
     int cust = 1;              // nomor pemesan
@@ -341,15 +338,19 @@ int main() {
             printf("Komponen: \n");
             PrintStack(Order);
         } else if (IsKataSama(CCommand, toKata("STARTBUILD"))) {
-            // pelanggan update dari queue
-            order++;
-            CreateStack(&Build);
-            if (IsDelivered) {
-                IsBuild = true;
-                IsDelivered = false;
-                printf("Kamu telah memulai pesanan %d untuk pelanggan %d.\n", order, cust);
+            if (loc != 0) {
+                printf("Kamu harus berada di Base untuk memulai sebuah build.\n");
             } else {
-                printf("Kamu belum menyelesaikan pesananmu!\n");
+                // pelanggan update dari queue
+                order++;
+                CreateStack(&Build);
+                if (IsDelivered) {
+                    IsBuild = true;
+                    IsDelivered = false;
+                    printf("Kamu telah memulai pesanan %d untuk pelanggan %d.\n", order, cust);
+                } else {
+                    printf("Kamu belum menyelesaikan pesananmu!\n");
+                }
             }
 
         } else if (IsKataSama(CCommand, toKata("FINISHBUILD"))) {
@@ -364,28 +365,35 @@ int main() {
                 printf("Kamu harus di base untuk memasang komponen!\n");
             } else {
                 if (IsBuild) {
-                    printf("Komponen yang telah terpasang: \n");
-                    PrintStack(Build);
-                    printf("\n");
-                    printf("Komponen yang tersedia:\n");
-                    PrintInventory(Inventory);
-                    printf("\n");
-                    printf("Komponen yang ingin dipasang: ");
-                    STARTCOMMAND();
-                    Item addItem = Get(Inventory, toInteger(CCommand)-1);
-                    // Kondisi sama dengan stack yg di order tp belum dibikin 
                     if (!StackFull(Build)) {
-                        UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
-                        Komponen X;
-                        strcpy(X.nama, addItem.nama.TabKata);
-                        // X.nama = addItem.nama.TabKata;
-                        X.harga = addItem.harga;
-                        X.kode = addItem.kode;
-                        X.jumlah = addItem.jumlah;
-                        Push(&Build, X);
-                        if (Build.T[Build.TOP].kode != addItem.kode) {
-                            printf("Komponen berhasil dipasang!\n");
-                        } 
+                        printf("Komponen yang telah terpasang: \n");
+                        PrintStack(Build);
+                        printf("\n");
+                        printf("Komponen yang tersedia:\n");
+                        PrintInventory(Inventory);
+                        printf("\n");
+                        printf("Komponen yang ingin dipasang: ");
+                        STARTCOMMAND();
+                    // Kondisi sama dengan stack yg di order tp belum dibikin 
+                        if(toInteger(CCommand) <= Length(Inventory)) {
+                            Item addItem = Get(Inventory, toInteger(CCommand)-1);
+                            UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
+                            Komponen X;
+                            kataStringCopy(X.nama, addItem.nama);
+                            X.harga = addItem.harga;
+                            X.kode = addItem.kode;
+                            X.jumlah = addItem.jumlah;
+                            Push(&Build, X);
+                            if (Build.T[Build.TOP-1].kode == addItem.kode) {
+                                printf("Komponen berhasil dipasang!\n");
+                            } else {
+                                printf("Komponen tidak berhasil dipasang!\n");
+                            }
+                        } else {
+                            printf("Komponen tidak tersedia.\n");
+                        }
+                    } else {
+                        printf("Komputer sudah selesai. Silahkan FINISHBUILD.\n");
                     }
                 } else {
                     printf("Kamu belum memulai build apapun.\n");
@@ -486,12 +494,10 @@ int main() {
         } else {
             printf("Command tidak valid.\n");
         }
-        // printf("\n");
         printf("--------------------------------\n");
         printf("ENTER COMMAND: ");
         STARTCOMMAND();
         printf("\n");
-        // i++;
     }
     printf("\nTerima kasih sudah bermain.\n");
     printf("--------------------------------\n");

@@ -8,12 +8,48 @@
 #include "ADT/graph.c"
 #include "ADT/stack.c"
 
+void stringCopy (char* dest, char* src){
+    int i;
+    for (i = 0; src[i] != '\0'; ++i) {
+        dest[i] = src[i];
+    }
+    dest[i] = '\0';
+}
+
+void kataStringCopy (char* dest, Kata src){
+    int i;
+    for (i = 0; i < src.Length && src.TabKata[i] != '\0'; ++i) {
+        dest[i] = src.TabKata[i];
+    }
+    dest[i] = '\0';
+}
+
+// int main() {
+//     char* tes ="horeeeee";
+//     char* kopisini;
+//     stringCopy(kopisini, tes);
+//     printf("%s", kopisini);
+//     printf("\n");
+//     Kata MOVE;
+//     MOVE.TabKata[0] = 'M';
+//     MOVE.TabKata[1] = 'O';
+//     MOVE.TabKata[2] = 'V';
+//     MOVE.TabKata[3] = 'E';
+//     MOVE.Length = 4;
+//     kataStringCopy(kopisini, MOVE);
+//     printf("%s", kopisini);
+// }
+
 int main() {
     Stack S;
     CreateStack(&S);
     if (StackEmpty(S)) {
         printf("Kosong\n");
     }
+    char* tes;
+    char* tes1 = "Tes";
+    stringCopy(tes, tes1);
+    // printf("%s \n", tes);
     // PrintStack(S);
     Komponen K, T;
     K.harga = 10;
@@ -22,11 +58,12 @@ int main() {
     K.nama = "nama";
     Push(&S, K);
     PrintStack(S);
-    T.harga = 20;
-    T.jumlah = 2;
-    T.kode = 4;
-    T.nama = "nama1";
-    Push(&S, T);
+    K.harga = 20;
+    K.jumlah = 2;
+    K.kode = 4;
+    K.nama = tes;
+    printf("%s", K.nama);
+    Push(&S, K);
     PrintStack(S);
     printf("ok\n");
 }

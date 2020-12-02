@@ -377,7 +377,7 @@ int main() {
         } else if (IsKataSama(CCommand, toKata("CHECKORDER"))) {
             printf("Nomor order: %d\n", order);
             printf("Pemesan: Pelanggan %d\n", InfoHead(QOrder).noPelanggan);
-            printf("Invoice: $%d\n", InfoHead(QOrder).hargaPesanan); //ganti duit
+            printf("Invoice: $%d\n", InfoHead(QOrder).hargaPesanan); 
             printf("Komponen: \n");
             PrintStack(InfoHead(QOrder).daftarKomponen);
 
@@ -385,8 +385,7 @@ int main() {
             if (loc != 0) {
                 printf("Kamu harus berada di Base untuk memulai sebuah build.\n");
             } else {
-                // simpan data HeadQueue ke infoorder
-                // pelanggan update dari queue
+                Order = InverseStack(InfoHead(QOrder).daftarKomponen);
                 CreateStack(&Build);
                 if (IsDelivered) {
                     IsBuild = true;
@@ -404,6 +403,7 @@ int main() {
             } else {
                 printf("Komponen yang dipasangkan belum sesuai dengan pesanan, build belum dapat diselesaikan.\n");
             }
+
         } else if (IsKataSama(CCommand, toKata("ADDCOMPONENT"))) {
             if (loc != 0) {
                 printf("Kamu harus di base untuk memasang komponen!\n");
@@ -418,20 +418,16 @@ int main() {
                         printf("\n");
                         printf("Komponen yang ingin dipasang: ");
                         STARTCOMMAND();
-                    // Kondisi sama dengan stack yg di order tp belum dibikin 
                         if(toInteger(CCommand) <= Length(Inventory) && toInteger(CCommand) > 0) {
                             Item addItem = Get(Inventory, toInteger(CCommand)-1);
-                            UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
-                            Komponen X;
-                            kataStringCopy(X.nama, addItem.nama);
-                            X.harga = addItem.harga;
-                            X.kode = addItem.kode;
-                            X.jumlah = addItem.jumlah;
-                            Push(&Build, X);
-                            if (Build.T[Build.TOP-1].kode == addItem.kode) {
+                            if (IsKataSama(addItem.nama, toKata(Order.T[Order.TOP-1].nama))) {
+                                UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
+                                Komponen X;
+                                Pop(&Order, &X);
+                                Push(&Build, X);
                                 printf("Komponen berhasil dipasang!\n");
                             } else {
-                                printf("Komponen tidak berhasil dipasang!\n");
+                                printf("Komponen tidak sesuai.\n");
                             }
                         } else {
                             printf("Komponen tidak tersedia.\n");

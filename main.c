@@ -465,18 +465,22 @@ int main() {
                 printf("Masukkan jumlah yang ingin dibeli: ");
                 STARTCOMMAND();
                 int kuantitas = toInteger(CCommand);
-                Item dibeli = Get(ListKomponen, index-1);
-                int total = (kuantitas)*(dibeli.harga);
-                if (kuantitas == 0) {
-                    printf("Kamu tidak membeli apa-apa.\n");
-                } else {
-                    if (total > money ) {
-                        printf("Uang tidak cukup!\n");
+                if (index > 0 && index < Length(ListKomponen)) {
+                    Item dibeli = Get(ListKomponen, index-1);
+                    int total = (kuantitas)*(dibeli.harga);
+                    if (kuantitas == 0) {
+                        printf("Kamu tidak membeli apa-apa.\n");
                     } else {
-                        money = money - total;
-                        UpdateList(&Inventory, dibeli.nama, dibeli.kode, kuantitas, dibeli.harga);
-                        printf("Komponen berhasil dibeli!\n");
+                        if (total > money ) {
+                            printf("Uang tidak cukup!\n");
+                        } else {
+                            money = money - total;
+                            UpdateList(&Inventory, dibeli.nama, dibeli.kode, kuantitas, dibeli.harga);
+                            printf("Komponen berhasil dibeli!\n");
+                        }
                     }
+                } else {
+                    printf("Item tidak tersedia.\n");
                 }
             }
 

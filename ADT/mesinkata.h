@@ -53,10 +53,12 @@ void SalinKata();
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
 
-// Kata Salin(Kata K);
-
 boolean IsKataSama(Kata InputCommand, Kata Command);
 
 void PrintKata(Kata K);
+
+Kata toKata(char* command);
+
+int stringLength (char* string);
 
 #endif

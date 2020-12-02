@@ -18,40 +18,75 @@ void stringCopy (char* dest, char* src){
 }
 
 int main() {
-    Queue Q;
-    CreateQueue(&Q);
-    Stack S;
-    CreateStack(&S);
+    Stack S1;
+    Stack S2;
+    CreateStack(&S1);
+    CreateStack(&S2);
     Komponen K;
     K.harga = 10;
     K.jumlah = 1;
     K.kode = 2;
     char* tes = "tes" ;
     stringCopy(K.nama, tes);
-    Push(&S, K);
-    K.harga = 11;
-    K.jumlah = 2;
-    K.kode = 3;
-    tes = "teeeeeeeees" ;
-    stringCopy(K.nama, tes);
-    Push(&S, K);
-    PrintStack(S);
-
-    infoOrder info;
-    info.daftarKomponen = S;
-    info.hargaPesanan = 100;
-    info.noPelanggan = 1;
-
-    printf("queue\n");
-    Enqueue(&Q, info);
-    PrintStack(InfoHead(Q).daftarKomponen);
-    printf("harga %d\n", InfoHead(Q).hargaPesanan);
-    printf("harga %d\n", InfoHead(Q).noPelanggan);
-    printf("ok\n");
-    return 0;
+    Push(&S1, K);
+    Push(&S2, K);
+    PrintKata(toKata(K.nama));
+    PrintStack(S1);
+    PrintStack(S2);
+    Komponen K1;
+    Komponen K2;
+    Pop(&S1, &K1);
+    Pop(&S2, &K2);
+    printf("k1 %s\n", K1.nama);
+    printf("k2 %s\n", K2.nama);
+    Push(&S1, K1);
+    Push(&S2, K2);
+    if (IsKataSama(toKata(K1.nama), toKata(K1.nama))) {
+        printf("sama\n");
+    } else {
+        printf("beda\n");
+    }
+    if (IsStackSama(S1, S2)) {
+        printf("OK\n");
+    } else {
+        printf("tes\n");
+    }
 }
 
 
+// int main() {
+//     Queue Q;
+//     CreateQueue(&Q);
+//     Stack S;
+//     CreateStack(&S);
+//     Komponen K;
+//     K.harga = 10;
+//     K.jumlah = 1;
+//     K.kode = 2;
+//     char* tes = "tes" ;
+//     stringCopy(K.nama, tes);
+//     Push(&S, K);
+//     K.harga = 11;
+//     K.jumlah = 2;
+//     K.kode = 3;
+//     tes = "teeeeeeeees" ;
+//     stringCopy(K.nama, tes);
+//     Push(&S, K);
+//     PrintStack(S);
+
+//     infoOrder info;
+//     info.daftarKomponen = S;
+//     info.hargaPesanan = 100;
+//     info.noPelanggan = 1;
+
+//     printf("queue\n");
+//     Enqueue(&Q, info);
+//     PrintStack(InfoHead(Q).daftarKomponen);
+//     printf("harga %d\n", InfoHead(Q).hargaPesanan);
+//     printf("harga %d\n", InfoHead(Q).noPelanggan);
+//     printf("ok\n");
+//     return 0;
+// }
 
 // void kataStringCopy (char* dest, Kata src){
 //     int i;

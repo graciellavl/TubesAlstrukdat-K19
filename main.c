@@ -452,6 +452,7 @@ int main() {
                     printf("Belum ada komponen terpasang!\n");
                 }
             }
+            
         } else if (IsKataSama(CCommand, toKata("SHOP"))) {
             if(loc != 1) {
                 printf("Kamu tidak berada di Shop.\n");
@@ -465,7 +466,7 @@ int main() {
                 printf("Masukkan jumlah yang ingin dibeli: ");
                 STARTCOMMAND();
                 int kuantitas = toInteger(CCommand);
-                if (index > 0 && index < Length(ListKomponen)) {
+                if (index > 0 && index <= Length(ListKomponen)) {
                     Item dibeli = Get(ListKomponen, index-1);
                     int total = (kuantitas)*(dibeli.harga);
                     if (kuantitas == 0) {

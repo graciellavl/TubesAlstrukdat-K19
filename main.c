@@ -375,7 +375,7 @@ int main() {
                         printf("Komponen yang ingin dipasang: ");
                         STARTCOMMAND();
                     // Kondisi sama dengan stack yg di order tp belum dibikin 
-                        if(toInteger(CCommand) <= Length(Inventory)) {
+                        if(toInteger(CCommand) <= Length(Inventory) && toInteger(CCommand) > 0) {
                             Item addItem = Get(Inventory, toInteger(CCommand)-1);
                             UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
                             Komponen X;

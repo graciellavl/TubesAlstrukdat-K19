@@ -2,19 +2,26 @@
 /* Representasi queue dengan list berkait dengan first (HEAD) dan last (TAIL) */
 #ifndef _QUEUE_H
 #define _QUEUE_H
-#include "boolean.h"
+
+#include "../boolean.h"
+#include "stack.h"
 #include <stdlib.h>
 
 /* Konstanta */
-#define Nil NULL
+#define Nil 0
 
-/* Deklarasi infotype */
-typedef int infotype;
+/* Deklarasi infoOrder */
+typedef struct {
+	int noPelanggan;
+	int hargaPesanan;
+	Stack daftarKomponen;
+} infoOrder;
 
 /* Queue dengan representasi berkait dengan pointer */
 typedef struct tElmtQueue * address;
+
 typedef struct tElmtQueue {
-	infotype Info;
+	infoOrder Info;
 	address Next;
 } ElmtQueue;
 

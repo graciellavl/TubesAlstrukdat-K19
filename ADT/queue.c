@@ -1,7 +1,7 @@
 #include "queue.h"
 
 /* Prototype manajemen memori */
-void Alokasi (address *P, infotype X)
+void Alokasi (address *P, infoOrder X)
 /* I.S. Sembarang */
 /* F.S. Alamat P dialokasi, jika berhasil maka Info(P)=X,
         Next(P)=Nil
@@ -46,7 +46,7 @@ void CreateEmpty(Queue * Q)
     Tail(*Q)=Nil;
 }
 /*** Primitif Add/Delete ***/
-void Enqueue (Queue * Q, infotype X)
+void Enqueue (Queue * Q, infoOrder X)
 /* Proses: Mengalokasi X dan menambahkan X pada posisi setelah element terakhir
 /* jika alokasi berhasil; jika alokasi gagal Q tetap */
 /* I.S. Q mungkin kosong */
@@ -65,21 +65,21 @@ void Enqueue (Queue * Q, infotype X)
             Tail(*Q) = P;
         }
 }
-void Dequeue (Queue * Q, infotype * X)
-/* Proses: Menghapus X pada bagian HEAD dari Q dan mendealokasi
-   elemen HEAD */
-/* Pada dasarnya operasi delete first */
-/* I.S. Q tidak mungkin kosong */
-/* F.S. X = nilai elemen HEAD pd I.S., HEAD "mundur" */
-{
-    (*X) = InfoHead(*Q);
-    address temp;
-    temp = Head(*Q);
-    if (NbElmt(*Q) == 1) {
-        CreateEmpty(Q);
-    }
-    else {
-        Head(*Q) = Next(temp);
-    }
-    Dealokasi(temp);
-}
+// void Dequeue (Queue * Q, infoOrder * X)
+// /* Proses: Menghapus X pada bagian HEAD dari Q dan mendealokasi
+//    elemen HEAD */
+// /* Pada dasarnya operasi delete first */
+// /* I.S. Q tidak mungkin kosong */
+// /* F.S. X = nilai elemen HEAD pd I.S., HEAD "mundur" */
+// {
+//     (*X) = InfoHead(*Q);
+//     address temp;
+//     temp = Head(*Q);
+//     if (NbElmt(*Q) == 1) {
+//         CreateEmpty(Q);
+//     }
+//     else {
+//         Head(*Q) = Next(temp);
+//     }
+//     Dealokasi(temp);
+// }

@@ -20,7 +20,7 @@ typedef struct {
   int kode;
   int jumlah;
   int harga;
-  char* nama;
+  char nama[100];
 } Komponen;
 
 typedef struct

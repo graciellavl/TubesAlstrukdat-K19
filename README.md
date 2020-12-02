@@ -29,4 +29,5 @@ command yang akan dijelaskan lebih detail di bawah. Game ini dibuat dengan bahas
 
 ## Available File Configuration
 > pitakar.txt
+
 > save/config.txt

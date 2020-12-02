@@ -486,14 +486,16 @@ int main() {
 
         } else if (IsKataSama(CCommand, toKata("DELIVER"))) {
             if (loc-1 == InfoHead(QOrder).noPelanggan) {
-                if (!IsBuild && !StackFull(Order)) {
+                if (!IsBuild && StackFull(Order)) {
                     printf("Kamu belum menyelesaikan build pesanan!\n");    
                 } else {
                     IsDelivered = true;
                     infoOrder X;
                     Dequeue(&QOrder, &X);
-                    order++;
                     money = money + InfoHead(QOrder).hargaPesanan;
+                    CreateStack(&Order);
+                    printf("Pesanan #%d berhasil diantarkan kepada pelanggan %d!\n", order, InfoHead(QOrder).noPelanggan);
+                    order++;
                 }
             } else {
                 printf("Kamu sedang tidak berada di Pelanggan %d.\n", InfoHead(QOrder).noPelanggan);
@@ -501,7 +503,6 @@ int main() {
 
         } else if (IsKataSama(CCommand, toKata("END_DAY"))) {
             CreateOrder(ListKomponen, &QOrder);
-            PrintQueue(QOrder);
             printf("Hari sudah berganti. Kamu telah mendapat orderan baru.\n");
 
         } else if (IsKataSama(CCommand, toKata("SAVE"))) {

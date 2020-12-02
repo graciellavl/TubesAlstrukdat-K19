@@ -85,11 +85,11 @@ boolean IsStackSama(Stack S1, Stack S2) {
     Komponen K1;
     Komponen K2;
     boolean sama = true;
-    if (StackFull(S1) && StackFull(S2)) {
+    if (StackFull(S1) || StackFull(S2)) {
         while ( !StackEmpty(S1) && !StackEmpty(S2) && sama) {
             Pop(&S1, &K1);
             Pop(&S2, &K2);
-            if (!IsKataSama(toKata(K1.nama), toKata(K1.nama))) {
+            if (!IsKataSama(toKata(K1.nama), toKata(K2.nama))) {
                 sama = false;
             }
         }

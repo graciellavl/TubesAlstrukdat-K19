@@ -254,12 +254,9 @@ int main() {
         }
     }
     
-    // Permainan dimulai
-    
-    // Setup awal tapi dummy
-    int money = 1000;          // uang
-    int order = 0;             // pesanan ke -
-    int cust = 1;              // nomor pemesan
+// Inisialisasi state permainan
+    int money = 5000;          // uang
+    int order = 1;             // pesanan ke -
     int loc = 0;               // lokasi saat ini
     boolean IsBuild = false;   // status build
     boolean IsDelivered = true;   // status deliver
@@ -278,38 +275,7 @@ int main() {
     CreateQueue(&QOrder);
     
     CreateOrder(ListKomponen, &QOrder);
-    PrintQueue(QOrder);
-    // int randomNumber;
-    // time_t t;
-    // srand((unsigned) time(&t));
-    // for (randomNumber = 0; randomNumber < rand()%10; randomNumber++) {
-    //     infoOrder info;
-    //     info.hargaPesanan = (rand() % 1000) + 1500;
-    //     info.noPelanggan = (rand() % 7) +1;
-    //     Stack S;
-    //     CreateStack(&S);
-    //     int i = 1;
-    //     int increment = 1;
-    //     List temp = MakeList();
-    //     while (increment < 9) {
-    //         while (ListKomponen.A[i].kode == increment) {
-    //             InsertLast(&temp, ListKomponen.A[i].nama, ListKomponen.A[i].kode, 1, ListKomponen.A[i].harga);
-    //             i++;
-    //         }
-    //         int randomKomponen = rand() % Length(temp);
-    //         Komponen K;
-    //         K.kode = temp.A[randomKomponen].kode;
-    //         K.jumlah = temp.A[randomKomponen].jumlah;
-    //         K.harga = temp.A[randomKomponen].harga;
-    //         kataStringCopy(K.nama, temp.A[randomKomponen].nama);
-    //         Push(&S, K);
-    //         increment ++;
-    //         temp = MakeList();
-    //     }
-    //     info.daftarKomponen = S;
-    //     Enqueue(&QOrder, info);
-    // } 
-
+    
 // Memulai permainan
 
     printf("\n--------------------------------\n");
@@ -394,7 +360,7 @@ int main() {
         } else if (IsKataSama(CCommand, toKata("STATUS"))) {
             printf("Uang tersisa: $%d\n", money);
             if (IsBuild) {
-                printf("Build yang sedang dikerjakan: pesanan %d untuk pelanggan %d.\n", order, cust);
+                printf("Build yang sedang dikerjakan: pesanan %d untuk pelanggan %d.\n", order, InfoHead(QOrder).noPelanggan);
             } else {
                 printf("Sedang tidak mengerjakan build.\n");
             }
@@ -410,8 +376,8 @@ int main() {
 
         } else if (IsKataSama(CCommand, toKata("CHECKORDER"))) {
             printf("Nomor order: %d\n", order);
-            printf("Pemesan: %d\n", InfoHead(QOrder).noPelanggan);
-            printf("Invoice: %d\n", InfoHead(QOrder).hargaPesanan); //ganti duit
+            printf("Pemesan: Pelanggan %d\n", InfoHead(QOrder).noPelanggan);
+            printf("Invoice: $%d\n", InfoHead(QOrder).hargaPesanan); //ganti duit
             printf("Komponen: \n");
             PrintStack(InfoHead(QOrder).daftarKomponen);
 
@@ -421,12 +387,11 @@ int main() {
             } else {
                 // simpan data HeadQueue ke infoorder
                 // pelanggan update dari queue
-                order++;
                 CreateStack(&Build);
                 if (IsDelivered) {
                     IsBuild = true;
                     IsDelivered = false;
-                    printf("Kamu telah memulai pesanan %d untuk pelanggan %d.\n", order, cust);
+                    printf("Kamu telah memulai pesanan %d untuk pelanggan %d.\n", order, InfoHead(QOrder).noPelanggan);
                 } else {
                     printf("Kamu belum menyelesaikan pesananmu!\n");
                 }
@@ -435,7 +400,7 @@ int main() {
         } else if (IsKataSama(CCommand, toKata("FINISHBUILD"))) {
             if (StackFull(Build)) { 
                 IsBuild = false;
-                printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, cust);
+                printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, InfoHead(QOrder).noPelanggan);
             } else {
                 printf("Komponen yang dipasangkan belum sesuai dengan pesanan, build belum dapat diselesaikan.\n");
             }
@@ -520,14 +485,14 @@ int main() {
             }
 
         } else if (IsKataSama(CCommand, toKata("DELIVER"))) {
-            printf("DELIVER masuk\n");
             if (loc-1 == InfoHead(QOrder).noPelanggan) {
-                if (IsBuild && !StackFull(Order)) {
+                if (!IsBuild && !StackFull(Order)) {
                     printf("Kamu belum menyelesaikan build pesanan!\n");    
                 } else {
                     IsDelivered = true;
                     infoOrder X;
                     Dequeue(&QOrder, &X);
+                    order++;
                     money = money + InfoHead(QOrder).hargaPesanan;
                 }
             } else {
@@ -556,7 +521,7 @@ int main() {
                 fprintf(output, "%s\n", namafile);
                 fprintf(output, "%d\n", money);
                 fprintf(output, "%d\n", order);
-                fprintf(output, "%d\n", cust);
+                fprintf(output, "%d\n", InfoHead(QOrder).noPelanggan);
                 fprintf(output, "%d\n", loc);
                 if (IsBuild) {
                     fprintf(output, "%d\n", 1);

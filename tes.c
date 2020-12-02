@@ -7,6 +7,7 @@
 #include "ADT/mesinkata.c"
 #include "ADT/graph.c"
 #include "ADT/stack.c"
+#include "ADT/queue.c"
 
 void stringCopy (char* dest, char* src){
     int i;
@@ -16,13 +17,49 @@ void stringCopy (char* dest, char* src){
     dest[i] = '\0';
 }
 
-void kataStringCopy (char* dest, Kata src){
-    int i;
-    for (i = 0; i < src.Length && src.TabKata[i] != '\0'; ++i) {
-        dest[i] = src.TabKata[i];
-    }
-    dest[i] = '\0';
+int main() {
+    Queue Q;
+    CreateQueue(&Q);
+    Stack S;
+    CreateStack(&S);
+    Komponen K;
+    K.harga = 10;
+    K.jumlah = 1;
+    K.kode = 2;
+    char* tes = "tes" ;
+    stringCopy(K.nama, tes);
+    Push(&S, K);
+    K.harga = 11;
+    K.jumlah = 2;
+    K.kode = 3;
+    tes = "teeeeeeeees" ;
+    stringCopy(K.nama, tes);
+    Push(&S, K);
+    PrintStack(S);
+
+    infoOrder info;
+    info.daftarKomponen = S;
+    info.hargaPesanan = 100;
+    info.noPelanggan = 1;
+
+    printf("queue\n");
+    Enqueue(&Q, info);
+    PrintStack(InfoHead(Q).daftarKomponen);
+    printf("harga %d\n", InfoHead(Q).hargaPesanan);
+    printf("harga %d\n", InfoHead(Q).noPelanggan);
+    printf("ok\n");
+    return 0;
 }
+
+
+
+// void kataStringCopy (char* dest, Kata src){
+//     int i;
+//     for (i = 0; i < src.Length && src.TabKata[i] != '\0'; ++i) {
+//         dest[i] = src.TabKata[i];
+//     }
+//     dest[i] = '\0';
+// }
 
 // int main() {
 //     char* tes ="horeeeee";
@@ -40,33 +77,33 @@ void kataStringCopy (char* dest, Kata src){
 //     printf("%s", kopisini);
 // }
 
-int main() {
-    Stack S;
-    CreateStack(&S);
-    if (StackEmpty(S)) {
-        printf("Kosong\n");
-    }
-    char* tes;
-    char* tes1 = "Tes";
-    stringCopy(tes, tes1);
-    // printf("%s \n", tes);
-    // PrintStack(S);
-    Komponen K, T;
-    K.harga = 10;
-    K.jumlah = 1;
-    K.kode = 2;
-    K.nama = "nama";
-    Push(&S, K);
-    PrintStack(S);
-    K.harga = 20;
-    K.jumlah = 2;
-    K.kode = 4;
-    K.nama = tes;
-    printf("%s", K.nama);
-    Push(&S, K);
-    PrintStack(S);
-    printf("ok\n");
-}
+// int main() {
+//     Stack S;
+//     CreateStack(&S);
+//     if (StackEmpty(S)) {
+//         printf("Kosong\n");
+//     }
+//     char* tes;
+//     char* tes1 = "Tes";
+//     stringCopy(tes, tes1);
+//     // printf("%s \n", tes);
+//     // PrintStack(S);
+//     Komponen K, T;
+//     K.harga = 10;
+//     K.jumlah = 1;
+//     K.kode = 2;
+//     K.nama = "nama";
+//     Push(&S, K);
+//     PrintStack(S);
+//     K.harga = 20;
+//     K.jumlah = 2;
+//     K.kode = 4;
+//     K.nama = tes;
+//     printf("%s", K.nama);
+//     Push(&S, K);
+//     PrintStack(S);
+//     printf("ok\n");
+// }
 //     printf("in\n");
 //     CreateStack(&S);
 //     printf("createstack\n");

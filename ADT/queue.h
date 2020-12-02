@@ -18,17 +18,17 @@ typedef struct {
 } infoOrder;
 
 /* Queue dengan representasi berkait dengan pointer */
-typedef struct tElmtQueue * address;
+typedef struct tElmtQueue * addressQ;
 
 typedef struct tElmtQueue {
 	infoOrder Info;
-	address Next;
+	addressQ NextQ;
 } ElmtQueue;
 
 /* Type queue dengan ciri HEAD dan TAIL : */
 typedef struct {
-	address HEAD;  /* alamat penghapusan */
-	address TAIL;  /* alamat penambahan */
+	addressQ HEAD;  /* alamat penghapusan */
+	addressQ TAIL;  /* alamat penambahan */
 } Queue;
 
 /* Selektor */
@@ -36,38 +36,39 @@ typedef struct {
 #define Tail(Q) (Q).TAIL
 #define InfoHead(Q) (Q).HEAD->Info
 #define InfoTail(Q) (Q).TAIL->Info
-#define Next(P) (P)->Next
+#define NextQ(P) (P)->NextQ
 #define Info(P) (P)->Info
 
 /* Prototype manajemen memori */
-void Alokasi (address *P, infotype X);
+void AlokasiQ (addressQ *P, infoOrder X);
 /* I.S. Sembarang */
 /* F.S. Alamat P dialokasi, jika berhasil maka Info(P)=X dan
-        Next(P)=Nil*/
+        NextQ(P)=Nil*/
 /*      P=Nil jika alokasi gagal */
-void Dealokasi (address  P);
+void DealokasiQ (addressQ  P);
 /* I.S. P adalah hasil alokasi, P != Nil */
 /* F.S. Alamat P didealokasi, dikembalikan ke sistem */
-boolean IsEmpty (Queue Q);
+boolean QueueEmpty (Queue Q);
 /* Mengirim true jika Q kosong: HEAD(Q)=Nil and TAIL(Q)=Nil */
-int NbElmt(Queue Q);
+int QElmt(Queue Q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong */
 /*** Kreator ***/
-void CreateEmpty(Queue * Q);
+void CreateQueue(Queue * Q);
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk (i.e. Head(Q) = Nil dan Tail(Q) = Nil) */
 /*** Primitif Add/Delete ***/
-void Enqueue (Queue * Q, infotype X );
+void Enqueue (Queue * Q, infoOrder X );
 /* Proses: Mengalokasi X dan menambahkan X pada posisi setelah element terakhir
 /* jika alokasi berhasil; jika alokasi gagal Q tetap */
 /* I.S. Q mungkin kosong */
 /* F.S. X diletakkan setelah setelah element terakhir,
 /* maka TAIL = element X. */
-void Dequeue (Queue * Q, infotype * X);
+void Dequeue (Queue * Q, infoOrder * X);
 /* Proses: Menghapus X pada bagian HEAD dari Q dan mendealokasi
    elemen HEAD */
 /* Pada dasarnya operasi delete first */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "mundur" */
 
+void PrintQueue (Queue Q);
 #endif

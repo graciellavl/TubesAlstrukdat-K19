@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "ADT/mesinkar.h"
 #include "ADT/mesinkata.h"
@@ -8,6 +9,7 @@
 #include "ADT/graph.h"
 #include "ADT/list.h"
 #include "ADT/stack.h"
+#include "ADT/queue.h"
 
 /* *** ******** FUNGSI PEMBANTU ******** *** */
 
@@ -151,6 +153,42 @@ Kata NamaBangunan(int loc) {
     }
     return cur;
 }
+
+void CreateOrder (List ListKomponen, Queue * QOrder) {
+    int randomNumber;
+    int count = rand() %10 +1;
+    time_t t;
+    srand((unsigned) time(&t));
+    for (randomNumber = 0; randomNumber < count; randomNumber++) {
+        infoOrder info;
+        info.hargaPesanan = (rand() % 1000) + 1500;
+        info.noPelanggan = (rand() % 7) +1;
+        Stack S;
+        CreateStack(&S);
+        int i = 1;
+        int increment = 1;
+        List temp = MakeList();
+        while (increment < 9) {
+            while (ListKomponen.A[i].kode == increment) {
+                InsertLast(&temp, ListKomponen.A[i].nama, ListKomponen.A[i].kode, 1, ListKomponen.A[i].harga);
+                i++;
+            }
+            int randomKomponen = rand() % Length(temp);
+            Komponen K;
+            K.kode = temp.A[randomKomponen].kode;
+            K.jumlah = temp.A[randomKomponen].jumlah;
+            K.harga = temp.A[randomKomponen].harga;
+            kataStringCopy(K.nama, temp.A[randomKomponen].nama);
+            Push(&S, K);
+            increment ++;
+            temp = MakeList();
+        }
+        info.daftarKomponen = S;
+        Enqueue(QOrder, info);
+    } 
+}
+
+
 /* *** ******** FUNGSI UTAMA ******** *** */
 
 int main() {
@@ -215,12 +253,6 @@ int main() {
             }
         }
     }
-    printf("\n--------------------------------\n");
-    printf("SELAMAT BERMAIN\n");
-    printf("--------------------------------\n");
-    printf("ENTER COMMAND: ");
-    STARTCOMMAND();
-    printf("\n");
     
     // Permainan dimulai
     
@@ -241,6 +273,51 @@ int main() {
     CreateStack(&Build);
     Stack Order;
     CreateStack(&Order);
+
+    Queue QOrder;
+    CreateQueue(&QOrder);
+    
+    CreateOrder(ListKomponen, &QOrder);
+    PrintQueue(QOrder);
+    // int randomNumber;
+    // time_t t;
+    // srand((unsigned) time(&t));
+    // for (randomNumber = 0; randomNumber < rand()%10; randomNumber++) {
+    //     infoOrder info;
+    //     info.hargaPesanan = (rand() % 1000) + 1500;
+    //     info.noPelanggan = (rand() % 7) +1;
+    //     Stack S;
+    //     CreateStack(&S);
+    //     int i = 1;
+    //     int increment = 1;
+    //     List temp = MakeList();
+    //     while (increment < 9) {
+    //         while (ListKomponen.A[i].kode == increment) {
+    //             InsertLast(&temp, ListKomponen.A[i].nama, ListKomponen.A[i].kode, 1, ListKomponen.A[i].harga);
+    //             i++;
+    //         }
+    //         int randomKomponen = rand() % Length(temp);
+    //         Komponen K;
+    //         K.kode = temp.A[randomKomponen].kode;
+    //         K.jumlah = temp.A[randomKomponen].jumlah;
+    //         K.harga = temp.A[randomKomponen].harga;
+    //         kataStringCopy(K.nama, temp.A[randomKomponen].nama);
+    //         Push(&S, K);
+    //         increment ++;
+    //         temp = MakeList();
+    //     }
+    //     info.daftarKomponen = S;
+    //     Enqueue(&QOrder, info);
+    // } 
+
+// Memulai permainan
+
+    printf("\n--------------------------------\n");
+    printf("SELAMAT BERMAIN\n");
+    printf("--------------------------------\n");
+    printf("ENTER COMMAND: ");
+    STARTCOMMAND();
+    printf("\n");
 
     while (!IsKataSama(CCommand, toKata("EXIT"))) {
     
@@ -333,14 +410,16 @@ int main() {
 
         } else if (IsKataSama(CCommand, toKata("CHECKORDER"))) {
             printf("Nomor order: %d\n", order);
-            printf("Pemesan: %d\n", cust);
-            printf("Invoice: %d\n", 100); //ganti duit
+            printf("Pemesan: %d\n", InfoHead(QOrder).noPelanggan);
+            printf("Invoice: %d\n", InfoHead(QOrder).hargaPesanan); //ganti duit
             printf("Komponen: \n");
-            PrintStack(Order);
+            PrintStack(InfoHead(QOrder).daftarKomponen);
+
         } else if (IsKataSama(CCommand, toKata("STARTBUILD"))) {
             if (loc != 0) {
                 printf("Kamu harus berada di Base untuk memulai sebuah build.\n");
             } else {
+                // simpan data HeadQueue ke infoorder
                 // pelanggan update dari queue
                 order++;
                 CreateStack(&Build);
@@ -442,11 +521,23 @@ int main() {
 
         } else if (IsKataSama(CCommand, toKata("DELIVER"))) {
             printf("DELIVER masuk\n");
-            // IsBuild = false;
-            IsDelivered = true;
+            if (loc-1 == InfoHead(QOrder).noPelanggan) {
+                if (IsBuild && !StackFull(Order)) {
+                    printf("Kamu belum menyelesaikan build pesanan!\n");    
+                } else {
+                    IsDelivered = true;
+                    infoOrder X;
+                    Dequeue(&QOrder, &X);
+                    money = money + InfoHead(QOrder).hargaPesanan;
+                }
+            } else {
+                printf("Kamu sedang tidak berada di Pelanggan %d.\n", InfoHead(QOrder).noPelanggan);
+            }
 
         } else if (IsKataSama(CCommand, toKata("END_DAY"))) {
-            printf("END_DAY masuk\n");
+            CreateOrder(ListKomponen, &QOrder);
+            PrintQueue(QOrder);
+            printf("Hari sudah berganti. Kamu telah mendapat orderan baru.\n");
 
         } else if (IsKataSama(CCommand, toKata("SAVE"))) {
             printf("Lokasi save file: ");

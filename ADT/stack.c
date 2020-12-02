@@ -34,7 +34,7 @@ void Push(Stack *S, Komponen X)
 		(*S).TOP += 1;
 	}
 	(*S).T[(*S).TOP-1] = X;
-    printf("dalam push %s\n", (*S).T[(*S).TOP-1].nama);
+    // printf("dalam push %s\n", (*S).T[(*S).TOP-1].nama);
 }
 void Pop(Stack *S, Komponen *X)
 /* Menghapus X dari Stack S. */

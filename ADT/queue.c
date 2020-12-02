@@ -1,44 +1,44 @@
 #include "queue.h"
 
 /* Prototype manajemen memori */
-void Alokasi (address *P, infoOrder X)
+void AlokasiQ (addressQ *P, infoOrder X)
 /* I.S. Sembarang */
 /* F.S. Alamat P dialokasi, jika berhasil maka Info(P)=X,
-        Next(P)=Nil
-/*      P=Nil jika alokasi gagal */
+        NextQ(P)=Nil
+/*      P=Nil jika AlokasiQ gagal */
 {
-    *P = (address)malloc(sizeof(ElmtQueue));
+    *P = (addressQ)malloc(sizeof(ElmtQueue));
     if(*P!=Nil){
         Info(*P)=X;
-        Next(*P)=Nil;
+        NextQ(*P)=Nil;
     }
 }
-void Dealokasi (address  P)
-/* I.S. P adalah hasil alokasi, P != Nil */
+void DealokasiQ (addressQ  P)
+/* I.S. P adalah hasil AlokasiQ, P != Nil */
 /* F.S. Alamat P didealokasi, dikembalikan ke sistem */
 {
     free(P);
 }
-boolean IsEmpty (Queue Q)
+boolean QueueEmpty (Queue Q)
 /* Mengirim true jika Q kosong: HEAD(Q)=Nil and TAIL(Q)=Nil */
 {
     return (Head(Q)==Nil && Tail(Q)==Nil);
 }
-int NbElmt(Queue Q)
+int QElmt(Queue Q)
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong */
 /*** Kreator ***/
 {
     int C=0;
-    if(!IsEmpty(Q)){
-        address P=Head(Q);
+    if(!QueueEmpty(Q)){
+        addressQ P=Head(Q);
         while(P!=Nil){
             C++;
-            P=Next(P);
+            P=NextQ(P);
         }
     }
     return C;
 }
-void CreateEmpty(Queue * Q)
+void CreateQueue(Queue * Q)
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk (i.e. Head(Q) = Nil dan Tail(Q) = Nil) */
 {
@@ -48,38 +48,49 @@ void CreateEmpty(Queue * Q)
 /*** Primitif Add/Delete ***/
 void Enqueue (Queue * Q, infoOrder X)
 /* Proses: Mengalokasi X dan menambahkan X pada posisi setelah element terakhir
-/* jika alokasi berhasil; jika alokasi gagal Q tetap */
+/* jika AlokasiQ berhasil; jika AlokasiQ gagal Q tetap */
 /* I.S. Q mungkin kosong */
 /* F.S. X diletakkan setelah setelah element terakhir,
 /* maka TAIL = element X. */
 {
-    address P;
-    Alokasi(&P,X);
+    addressQ P;
+    AlokasiQ(&P,X);
     if (P!=Nil) {
-        if (IsEmpty(*Q)) {
+        if (QueueEmpty(*Q)) {
             Head(*Q)=P;
             Tail(*Q)=P;
         }
         else {
-            Next(Tail(*Q)) = P;
+            NextQ(Tail(*Q)) = P;
             Tail(*Q) = P;
         }
+    }
 }
-// void Dequeue (Queue * Q, infoOrder * X)
-// /* Proses: Menghapus X pada bagian HEAD dari Q dan mendealokasi
-//    elemen HEAD */
-// /* Pada dasarnya operasi delete first */
-// /* I.S. Q tidak mungkin kosong */
-// /* F.S. X = nilai elemen HEAD pd I.S., HEAD "mundur" */
-// {
-//     (*X) = InfoHead(*Q);
-//     address temp;
-//     temp = Head(*Q);
-//     if (NbElmt(*Q) == 1) {
-//         CreateEmpty(Q);
-//     }
-//     else {
-//         Head(*Q) = Next(temp);
-//     }
-//     Dealokasi(temp);
-// }
+void Dequeue (Queue * Q, infoOrder * X)
+/* Proses: Menghapus X pada bagian HEAD dari Q dan mendealokasi
+   elemen HEAD */
+/* Pada dasarnya operasi delete first */
+/* I.S. Q tidak mungkin kosong */
+/* F.S. X = nilai elemen HEAD pd I.S., HEAD "mundur" */
+{
+    (*X) = InfoHead(*Q);
+    addressQ temp;
+    temp = Head(*Q);
+    if (QElmt(*Q) == 1) {
+        CreateQueue(Q);
+    }
+    else {
+        Head(*Q) = NextQ(temp);
+    }
+    DealokasiQ(temp);
+}
+
+void PrintQueue (Queue Q) {
+    addressQ temp = Head(Q);
+    while (temp != Nil) {
+        printf("no pelanggan %d\n", Info(temp).noPelanggan);
+        printf("no pelanggan %d\n", Info(temp).hargaPesanan);
+        PrintStack(Info(temp).daftarKomponen);
+        temp = NextQ(temp);
+    }
+}

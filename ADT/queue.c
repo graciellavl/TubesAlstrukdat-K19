@@ -88,8 +88,8 @@ void Dequeue (Queue * Q, infoOrder * X)
 void PrintQueue (Queue Q) {
     addressQ temp = Head(Q);
     while (temp != Nil) {
-        printf("no pelanggan %d\n", Info(temp).noPelanggan);
-        printf("no pelanggan %d\n", Info(temp).hargaPesanan);
+        printf("No pelanggan:  %d\n", Info(temp).noPelanggan);
+        printf("Harga pesanan: %d\n", Info(temp).hargaPesanan);
         PrintStack(Info(temp).daftarKomponen);
         temp = NextQ(temp);
     }

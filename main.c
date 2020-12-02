@@ -107,14 +107,6 @@ ElType toBangunan(Kata CKata) {
     }
 }
 
-int stringLength (char* string) {
-    int len = 0;
-    while (string[len] != '\0') {
-        len++;
-    }
-    return len;
-}
-
 void stringCopy (char* dest, char* src){
     int i;
     for (i = 0; src[i] != '\0'; ++i) {
@@ -129,16 +121,6 @@ void kataStringCopy (char* dest, Kata src){
         dest[i] = src.TabKata[i];
     }
     dest[i] = '\0';
-}
-
-Kata toKata(char* command) {
-    int i;
-    Kata output;
-    for (i = 0; i < stringLength(command); i++) {
-        output.TabKata[i] = command[i];
-    }
-    output.Length = stringLength(command);
-    return output;
 }
 
 Kata NamaBangunan(int loc) {
@@ -161,7 +143,7 @@ void CreateOrder (List ListKomponen, Queue * QOrder) {
     srand((unsigned) time(&t));
     for (randomNumber = 0; randomNumber < count; randomNumber++) {
         infoOrder info;
-        info.hargaPesanan = (rand() % 1000) + 1500;
+        info.hargaPesanan = (rand() % 1000) + 2000;
         info.noPelanggan = (rand() % 7) +1;
         Stack S;
         CreateStack(&S);
@@ -205,15 +187,156 @@ int main() {
         ADVKATA();
     }
 
-    /* *** Membaca Nama File Konfigurasi *** */
-    printf("FILENAME: ");
-    STARTCOMMAND();
-    char* namafile = CCommand.TabKata;
-    
-    printf("Loading . . .\n");
-    /* *** Membaca File Konfigurasi Permainan *** */
-    STARTGAME(CCommand.TabKata);
+    int money = 5000;          // uang
+    int order = 1;             // pesanan ke -
+    int loc = 0;               // lokasi saat ini
+    boolean IsBuild = false;   // status build
+    boolean IsDelivered = true;   // status deliver
 
+    List Inventory = MakeList();
+    Stack Build;
+    CreateStack(&Build);
+    Stack Order;
+    CreateStack(&Order);
+    Queue QOrder;
+    CreateQueue(&QOrder);
+    CreateOrder(ListKomponen, &QOrder);
+    
+    int noPelanggan = InfoHead(QOrder).noPelanggan;
+
+    printf("___       ________________ _____________________  ____________\n");
+    printf("__ |     / /__  ____/__  / __  ____/_  __ \\__   |/  /__  ____/\n");
+    printf("__ | /| / /__  __/  __  /  _  /    _  / / /_  /|_/ /__  __/   \n");
+    printf("__ |/ |/ / _  /___  _  /___/ /___  / /_/ /_  /  / / _  /___   \n");
+    printf("____/|__/  /_____/  /_____/\\____/  \\____/ /_/  /_/  /_____/  \n");
+    printf("Santo Tycoon | Kelompok 19 | IF2111 Algoritma dan Struktur Data \n\n");
+    printf("Play or Load?\n(P/L): ");
+    STARTCOMMAND();
+    printf("\n");
+
+    char* state = CCommand.TabKata;
+    char namafile[100];
+    while (!IsKataSama(CCommand, toKata("L")) && !IsKataSama(CCommand, toKata("P"))) {
+        printf("Inputan tidak valid!\n");
+        printf("(P/L): ");
+        STARTCOMMAND();
+    }
+    if (IsKataSama(CCommand, toKata("L"))) {
+        char file[100];
+        printf("Nama file permainan yang disimpan: ");
+        STARTCOMMAND();
+        kataStringCopy(file, CCommand);
+
+        printf("Nama file konfigurasi yang digunakan: ");
+        STARTCOMMAND();
+        kataStringCopy(namafile, CCommand);
+        
+        STARTGAME(file);
+
+        money = toInteger(CKata);
+        ADVKATA();
+
+        noPelanggan = toInteger(CKata);
+        ADVKATA();
+
+        order = toInteger(CKata);
+        ADVKATA();
+        
+        loc = toInteger(CKata);
+        ADVKATA();
+        
+        if (toInteger(CKata) == 1) {
+            IsBuild = true;
+        } else {
+            IsBuild = false;
+        }
+        ADVKATA();
+        
+        if (toInteger(CKata) == 1) {
+            IsDelivered = true;
+        } else {
+            IsDelivered = false;
+        }
+        ADVKATA();
+        
+        int inv = toInteger(CKata);
+        for (int i = 0; i < inv; i++) {
+            ADVKATA();
+            int hargainv = toInteger(CKata);
+            ADVKATA();
+            int jlhinv = toInteger(CKata);
+            ADVKATA();
+            int kodeinv = toInteger(CKata);
+            ADVKATA();
+            InsertLast(&Inventory, CKata, kodeinv, jlhinv, hargainv);
+        }
+        
+        ADVKATA();
+        int qorder = toInteger(CKata);
+        
+        Stack tempLoad;
+        CreateStack(&tempLoad);
+        Komponen KLoad;
+        infoOrder orderLoad;
+        int noCust;
+        int harga;
+
+        for (int i = 0; i < qorder; i++) {
+            ADVKATA();
+            noCust = toInteger(CKata);
+            ADVKATA();
+            harga = toInteger(CKata);
+            for (int j = 0; j < 8; j++) {
+                ADVKATA();
+                kataStringCopy(KLoad.nama, CKata);
+                ADVKATA();
+                KLoad.harga = toInteger(CKata);
+                ADVKATA();
+                KLoad.jumlah = toInteger(CKata);
+                ADVKATA();
+                KLoad.kode = toInteger(CKata);
+                Push(&tempLoad, KLoad);
+            }
+            orderLoad.noPelanggan = noCust;
+            orderLoad.hargaPesanan = harga;
+            orderLoad.daftarKomponen = tempLoad;
+            Enqueue(&QOrder, orderLoad);
+        }
+        ADVKATA();
+        for (int j = 0; j < 8; j++) {
+            kataStringCopy(KLoad.nama, CKata);
+            ADVKATA();
+            KLoad.harga = toInteger(CKata);
+            ADVKATA();
+            KLoad.jumlah = toInteger(CKata);
+            ADVKATA();
+            KLoad.kode = toInteger(CKata);
+            Push(&Order, KLoad);
+            ADVKATA();
+        }
+        while (CC != '.') {
+            kataStringCopy(KLoad.nama, CKata);
+            ADVKATA();
+            KLoad.harga = toInteger(CKata);
+            ADVKATA();
+            KLoad.jumlah = toInteger(CKata);
+            ADVKATA();
+            KLoad.kode = toInteger(CKata);
+            Push(&Build, KLoad);
+            ADVKATA();
+        }
+    } else {
+        /* *** Membaca Nama File Konfigurasi *** */
+        printf("\nSelamat memulai permainan baru!\n");
+        printf("FILENAME: ");
+        STARTCOMMAND();
+        kataStringCopy(namafile, CCommand);
+        
+        /* *** Membaca File Konfigurasi Permainan *** */
+        // STARTGAME(namafile);
+    }
+
+    STARTGAME(namafile);
     // Membaca Baris
     int Brs = toInteger(CKata);
     ADVKATA();
@@ -255,32 +378,17 @@ int main() {
     }
     
 // Inisialisasi state permainan
-    int money = 5000;          // uang
-    int order = 1;             // pesanan ke -
-    int loc = 0;               // lokasi saat ini
-    boolean IsBuild = false;   // status build
-    boolean IsDelivered = true;   // status deliver
     ElType temp = 'B';
     POINT getTemp = GetPoint(M, temp);
     ElType player = 'P';
     SetElmt(&M, getTemp.X, getTemp.Y, player);
     POINT getPlayer = GetPoint(M, player);
-    List Inventory = MakeList();
-    Stack Build;
-    CreateStack(&Build);
-    Stack Order;
-    CreateStack(&Order);
-
-    Queue QOrder;
-    CreateQueue(&QOrder);
-    
-    CreateOrder(ListKomponen, &QOrder);
     
 // Memulai permainan
 
-    printf("\n--------------------------------\n");
+    printf("\n---------------------------------------------------------\n");
     printf("SELAMAT BERMAIN\n");
-    printf("--------------------------------\n");
+    printf("---------------------------------------------------------\n");
     printf("ENTER COMMAND: ");
     STARTCOMMAND();
     printf("\n");
@@ -385,7 +493,7 @@ int main() {
             if (loc != 0) {
                 printf("Kamu harus berada di Base untuk memulai sebuah build.\n");
             } else {
-                Order = InverseStack(InfoHead(QOrder).daftarKomponen);
+                Order = InfoHead(QOrder).daftarKomponen;
                 CreateStack(&Build);
                 if (IsDelivered) {
                     IsBuild = true;
@@ -397,11 +505,20 @@ int main() {
             }
 
         } else if (IsKataSama(CCommand, toKata("FINISHBUILD"))) {
-            if (StackFull(Build)) { 
-                IsBuild = false;
-                printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, InfoHead(QOrder).noPelanggan);
+            if (!IsBuild) {
+                printf("Belum ada pesanan yang dimulai.\n");
             } else {
-                printf("Komponen yang dipasangkan belum sesuai dengan pesanan, build belum dapat diselesaikan.\n");
+                if (IsStackSama(Build, Order)) { 
+                    PrintStack(Build);
+                    PrintStack(Order);
+                    IsBuild = false;
+                    printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, InfoHead(QOrder).noPelanggan);
+                    order++;
+                    infoOrder X;
+                    Dequeue(&QOrder, &X);
+                } else {
+                    printf("Komponen yang dipasangkan belum sesuai dengan pesanan, build belum dapat diselesaikan.\n");
+                }
             }
 
         } else if (IsKataSama(CCommand, toKata("ADDCOMPONENT"))) {
@@ -420,15 +537,14 @@ int main() {
                         STARTCOMMAND();
                         if(toInteger(CCommand) <= Length(Inventory) && toInteger(CCommand) > 0) {
                             Item addItem = Get(Inventory, toInteger(CCommand)-1);
-                            if (IsKataSama(addItem.nama, toKata(Order.T[Order.TOP-1].nama))) {
-                                UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
-                                Komponen X;
-                                Pop(&Order, &X);
-                                Push(&Build, X);
-                                printf("Komponen berhasil dipasang!\n");
-                            } else {
-                                printf("Komponen tidak sesuai.\n");
-                            }
+                            UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
+                            Komponen X;
+                            kataStringCopy(X.nama, addItem.nama);
+                            X.harga = addItem.harga;
+                            X.kode = addItem.kode;
+                            X.jumlah = addItem.jumlah;
+                            Push(&Build, X);
+                            printf("Komponen berhasil dipasang!\n");
                         } else {
                             printf("Komponen tidak tersedia.\n");
                         }
@@ -452,6 +568,7 @@ int main() {
                     printf("Belum ada komponen terpasang!\n");
                 }
             }
+
         } else if (IsKataSama(CCommand, toKata("SHOP"))) {
             if(loc != 1) {
                 printf("Kamu tidak berada di Shop.\n");
@@ -465,7 +582,7 @@ int main() {
                 printf("Masukkan jumlah yang ingin dibeli: ");
                 STARTCOMMAND();
                 int kuantitas = toInteger(CCommand);
-                if (index > 0 && index < Length(ListKomponen)) {
+                if (index > 0 && index <= Length(ListKomponen)) {
                     Item dibeli = Get(ListKomponen, index-1);
                     int total = (kuantitas)*(dibeli.harga);
                     if (kuantitas == 0) {
@@ -485,62 +602,108 @@ int main() {
             }
 
         } else if (IsKataSama(CCommand, toKata("DELIVER"))) {
-            if (loc-1 == InfoHead(QOrder).noPelanggan) {
-                if (!IsBuild && !StackFull(Order)) {
+            if (loc-1 == noPelanggan) {
+                if (IsBuild) {
                     printf("Kamu belum menyelesaikan build pesanan!\n");    
                 } else {
-                    IsDelivered = true;
-                    infoOrder X;
-                    Dequeue(&QOrder, &X);
-                    order++;
-                    money = money + InfoHead(QOrder).hargaPesanan;
+                    if (!StackFull(Order)) {
+                        printf("Kamu belum menyelesaikan build pesanan!\n");
+                    } else {
+                        IsDelivered = true;
+                        money = money + InfoHead(QOrder).hargaPesanan;
+                        CreateStack(&Order);
+                        printf("Pesanan #%d berhasil diantarkan kepada pelanggan %d!\n", order-1, noPelanggan);
+                        noPelanggan = InfoHead(QOrder).noPelanggan;
+                    }
                 }
             } else {
-                printf("Kamu sedang tidak berada di Pelanggan %d.\n", InfoHead(QOrder).noPelanggan);
+                printf("Kamu sedang tidak berada di Pelanggan %d.\n", noPelanggan);
             }
 
         } else if (IsKataSama(CCommand, toKata("END_DAY"))) {
             CreateOrder(ListKomponen, &QOrder);
-            PrintQueue(QOrder);
             printf("Hari sudah berganti. Kamu telah mendapat orderan baru.\n");
 
         } else if (IsKataSama(CCommand, toKata("SAVE"))) {
             printf("Lokasi save file: ");
             STARTCOMMAND(); 
-            Kata fileoutput;
-            for (int i = 0; i < CCommand.Length; i++) {
-                fileoutput.TabKata[i] = CCommand.TabKata[i];
-            }
+            char fileoutput[100];
+            kataStringCopy(fileoutput, CCommand);
+            // for (int i = 0; i < CCommand.Length; i++) {
+            //     fileoutput.TabKata[i] = CCommand.TabKata[i];
+            // }
             FILE * output;
-            output = fopen(fileoutput.TabKata, "w");
+            output = fopen(fileoutput, "w");
 
             if (output == NULL) {
                 printf("Permainan tidak dapat disimpan.\n");
                 printf("Mohon coba kembali.\n");
             } else {
-                fprintf(output, "%s\n", namafile);
-                fprintf(output, "%d\n", money);
-                fprintf(output, "%d\n", order);
-                fprintf(output, "%d\n", InfoHead(QOrder).noPelanggan);
-                fprintf(output, "%d\n", loc);
+                fprintf(output, "%d ", money);
+                fprintf(output, "%d ", noPelanggan);
+                fprintf(output, "%d ", order);
+                fprintf(output, "%d ", loc);
                 if (IsBuild) {
+                    fprintf(output, "%d ", 1);
+                } else {
+                    fprintf(output, "%d ", 0);
+                }
+                if (IsDelivered) {
                     fprintf(output, "%d\n", 1);
                 } else {
                     fprintf(output, "%d\n", 0);
                 }
-        // yg ini skip aja anggap selalu mulai dari base
-                // ElType temp = 'B';
-                // POINT getTemp = GetPoint(M, temp);
-                // ElType player = 'P';
-                // SetElmt(&M, getTemp.X, getTemp.Y, player);
-                // POINT getPlayer = GetPoint(M, player);
-        
-        // yg ini nanti lg mager
-                // List Inventory = MakeList();
-                // Stack Build;
-                // CreateStack(&Build);
-                // Stack Order;
-                // CreateStack(&Order);
+                fprintf(output, "%d\n", Length(Inventory));
+                char* listinv;
+                for (int i = 0; i < Length(Inventory); i++) {
+                    fprintf(output, "%d ", Inventory.A[i].harga);
+                    fprintf(output, "%d ", Inventory.A[i].jumlah);
+                    fprintf(output, "%d ", Inventory.A[i].kode);
+                    kataStringCopy(listinv, Inventory.A[i].nama);
+                    fprintf(output, "%s\n", listinv);
+                }
+                Stack tempS;
+                CreateStack(&tempS);
+                Komponen K;
+                fprintf(output, "%d\n", QElmt(QOrder));
+                addressQ temp = Head(QOrder);
+                while (temp != Nil) {
+                    fprintf(output, "%d ", Info(temp).noPelanggan);
+                    fprintf(output, "%d\n", Info(temp).hargaPesanan);
+                    tempS = InverseStack(Info(temp).daftarKomponen);
+                    while(!StackEmpty(tempS)) {
+                        Pop(&tempS, &K);
+                        fprintf(output, "%s ", K.nama);
+                        fprintf(output, "%d ", K.harga);
+                        fprintf(output, "%d ", K.jumlah);
+                        fprintf(output, "%d ", K.kode);
+                    }
+                    fprintf(output, "\n");
+                    temp = NextQ(temp);
+                }
+                Stack tempS1;
+                CreateStack(&tempS1);
+                tempS1 = InverseStack(Order);
+                while(!StackEmpty(tempS1)) {
+                    Pop(&tempS1, &K);
+                    fprintf(output, "%s ", K.nama);
+                    fprintf(output, "%d ", K.harga);
+                    fprintf(output, "%d ", K.jumlah);
+                    fprintf(output, "%d ", K.kode);
+                }
+                fprintf(output, "\n");
+
+                Stack tempS2;
+                CreateStack(&tempS2);
+                tempS2 = InverseStack(Build);
+                while(!StackEmpty(tempS2)) {
+                    Pop(&tempS2, &K);
+                    fprintf(output, "%s ", K.nama);
+                    fprintf(output, "%d ", K.harga);
+                    fprintf(output, "%d ", K.jumlah);
+                    fprintf(output, "%d ", K.kode);
+                }
+                fprintf(output, "\n.");
             }
             fclose(output);
 
@@ -550,12 +713,12 @@ int main() {
         } else {
             printf("Command tidak valid.\n");
         }
-        printf("--------------------------------\n");
+        printf("---------------------------------------------------------\n");
         printf("ENTER COMMAND: ");
         STARTCOMMAND();
         printf("\n");
     }
     printf("\nTerima kasih sudah bermain.\n");
-    printf("--------------------------------\n");
+    printf("---------------------------------------------------------\n");
     return 0;
 }

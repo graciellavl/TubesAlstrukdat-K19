@@ -2,7 +2,7 @@
 #ifndef stack_H
 #define stack_H
 #include <stdio.h>
-
+#include "../boolean.h"
 /* MODUL STACK
 Deklarasi stack yang diimplementasi dengan tabel kontigu alokasi statik
 dan ukuran sama
@@ -42,10 +42,10 @@ void CreateStack(Stack *S);
 /* Ciri stack kosong : TOP bernilai Nil */
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-bool StackEmpty(Stack S);
+boolean StackEmpty(Stack S);
 /* Mengirim true jika Stack kosong*/
 /* Ciri stack kosong : TOP bernilai Nil */
-bool StackFull(Stack S);
+boolean StackFull(Stack S);
 /* Mengirim true jika stack S penuh */
 /* Ciri stack penuh : TOP bernilai MaxEl */
 
@@ -62,5 +62,7 @@ void Pop(Stack *S, Komponen *X);
 Stack InverseStack(Stack S);
 
 void PrintStack(Stack S);
+
+boolean IsStackSama(Stack S1, Stack S2);
 
 #endif

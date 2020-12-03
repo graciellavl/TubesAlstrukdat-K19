@@ -535,14 +535,18 @@ int main() {
             if (loc != 0) {
                 printf("Kamu harus berada di Base untuk memulai sebuah build.\n");
             } else {
-                Order = InfoHead(QOrder).daftarKomponen;
-                CreateStack(&Build);
-                if (IsDelivered) {
-                    IsBuild = true;
-                    IsDelivered = false;
-                    printf("Kamu telah memulai pesanan %d untuk pelanggan %d.\n", order, InfoHead(QOrder).noPelanggan);
+                if (!QueueEmpty(QOrder)) {
+                    Order = InfoHead(QOrder).daftarKomponen;
+                    CreateStack(&Build);
+                    if (IsDelivered) {
+                        IsBuild = true;
+                        IsDelivered = false;
+                        printf("Kamu telah memulai pesanan %d untuk pelanggan %d.\n", order, InfoHead(QOrder).noPelanggan);
+                    } else {
+                        printf("Kamu belum menyelesaikan pesananmu!\n");
+                    }
                 } else {
-                    printf("Kamu belum menyelesaikan pesananmu!\n");
+                    printf("Kamu telah menyelesaikan semua pesanan hari ini!\n");
                 }
             }
 
@@ -553,8 +557,6 @@ int main() {
                 printf("Belum ada pesanan yang dimulai.\n");
             } else {
                 if (IsStackSama(Build, Order)) { 
-                    // PrintStack(Build);
-                    // PrintStack(Order);
                     IsBuild = false;
                     printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, InfoHead(QOrder).noPelanggan);
                     order++;
@@ -683,6 +685,8 @@ int main() {
 
         } else if (IsKataSama(CCommand, toKata("END_DAY"))) {
             CreateOrder(ListKomponen, &QOrder);
+            noPelanggan = InfoHead(QOrder).noPelanggan;
+            hargaPesanan = InfoHead(QOrder).hargaPesanan;
             printf("Hari sudah berganti. Kamu telah mendapat orderan baru.\n");
             PrintQueue(QOrder, order);
 
@@ -768,6 +772,7 @@ int main() {
                 fprintf(output, "\n.");
             }
             fclose(output);
+            printf("File berhasil disimpan ke %s!\n", fileoutput);
 
         } else if (IsKataSama(CCommand, toKata("MAP"))) {
             TulisMATRIKS(M);

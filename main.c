@@ -685,8 +685,10 @@ int main() {
 
         } else if (IsKataSama(CCommand, toKata("END_DAY"))) {
             CreateOrder(ListKomponen, &QOrder);
-            noPelanggan = InfoHead(QOrder).noPelanggan;
-            hargaPesanan = InfoHead(QOrder).hargaPesanan;
+            if (IsDelivered) {
+                noPelanggan = InfoHead(QOrder).noPelanggan;
+                hargaPesanan = InfoHead(QOrder).hargaPesanan;
+            } 
             printf("Hari sudah berganti. Kamu telah mendapat orderan baru.\n");
             PrintQueue(QOrder, order);
 

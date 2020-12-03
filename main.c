@@ -131,7 +131,6 @@ Kata NamaBangunan(int loc) {
         cur = toKata("Shop");
     } else {
         cur = toKata("Pelanggan ");
-        // cur[12] = toChar(loc-1); 
     }
     return cur;
 }
@@ -188,6 +187,7 @@ int main() {
     }
 
     int money = 5000;          // uang
+    int noPelanggan;
     int order = 1;             // pesanan ke -
     int loc = 0;               // lokasi saat ini
     boolean IsBuild = false;   // status build
@@ -200,10 +200,7 @@ int main() {
     CreateStack(&Order);
     Queue QOrder;
     CreateQueue(&QOrder);
-    CreateOrder(ListKomponen, &QOrder);
     
-    int noPelanggan = InfoHead(QOrder).noPelanggan;
-
     printf("___       ________________ _____________________  ____________\n");
     printf("__ |     / /__  ____/__  / __  ____/_  __ \\__   |/  /__  ____/\n");
     printf("__ | /| / /__  __/  __  /  _  /    _  / / /_  /|_/ /__  __/   \n");
@@ -326,6 +323,9 @@ int main() {
             ADVKATA();
         }
     } else {
+        CreateOrder(ListKomponen, &QOrder);
+        noPelanggan = InfoHead(QOrder).noPelanggan;
+
         /* *** Membaca Nama File Konfigurasi *** */
         printf("\nSelamat memulai permainan baru!\n");
         printf("FILENAME: ");
@@ -367,7 +367,6 @@ int main() {
     for (int i = 1; i < jlhBangunan; i++) {
         InsertNode(&G, i);
     }
-    // ADVKATA();
     for (int i = 0; i < jlhBangunan; i++) {
         for (int j = 0; j < jlhBangunan; j++) {
             ADVKATA();
@@ -378,6 +377,7 @@ int main() {
     }
     
 // Inisialisasi state permainan
+    loc = 0; 
     ElType temp = 'B';
     POINT getTemp = GetPoint(M, temp);
     ElType player = 'P';
@@ -460,11 +460,12 @@ int main() {
                     temp = toChar(loc-1);
                     getTemp = GetPoint(M, temp);
                     SetElmt(&M, getTemp.X, getTemp.Y, 'P');
-                    printf("Kamu telah mencapai lokasi Pelanggan %c\n", toChar(loc-1));
+                    printf("Kamu telah mencapai lokasi Pelanggan %c!\n", toChar(loc-1));
                 }
             } else {
                 printf("Tujuan tidak valid.\n");
             }
+
         } else if (IsKataSama(CCommand, toKata("STATUS"))) {
             printf("Uang tersisa: $%d\n", money);
             if (IsBuild) {
@@ -509,8 +510,8 @@ int main() {
                 printf("Belum ada pesanan yang dimulai.\n");
             } else {
                 if (IsStackSama(Build, Order)) { 
-                    PrintStack(Build);
-                    PrintStack(Order);
+                    // PrintStack(Build);
+                    // PrintStack(Order);
                     IsBuild = false;
                     printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, InfoHead(QOrder).noPelanggan);
                     order++;
@@ -555,6 +556,7 @@ int main() {
                     printf("Kamu belum memulai build apapun.\n");
                 }
             }
+
         } else if (IsKataSama(CCommand, toKata("REMOVECOMPONENT"))) {
             if (loc != 0) {
                 printf("Kamu harus di base untuk melepas komponen!\n");
@@ -629,9 +631,6 @@ int main() {
             STARTCOMMAND(); 
             char fileoutput[100];
             kataStringCopy(fileoutput, CCommand);
-            // for (int i = 0; i < CCommand.Length; i++) {
-            //     fileoutput.TabKata[i] = CCommand.TabKata[i];
-            // }
             FILE * output;
             output = fopen(fileoutput, "w");
 
@@ -654,7 +653,7 @@ int main() {
                     fprintf(output, "%d\n", 0);
                 }
                 fprintf(output, "%d\n", Length(Inventory));
-                char* listinv;
+                char listinv[100];
                 for (int i = 0; i < Length(Inventory); i++) {
                     fprintf(output, "%d ", Inventory.A[i].harga);
                     fprintf(output, "%d ", Inventory.A[i].jumlah);
@@ -713,11 +712,21 @@ int main() {
         } else {
             printf("Command tidak valid.\n");
         }
+
         printf("---------------------------------------------------------\n");
         printf("ENTER COMMAND: ");
         STARTCOMMAND();
         printf("\n");
     }
+
+    // Dealokasi memori
+
+    Inventory = MakeList();
+    DeallocateList(&Inventory);
+
+    CreateQueue(&QOrder);
+    DealokasiQ(QOrder.HEAD);
+
     printf("\nTerima kasih sudah bermain.\n");
     printf("---------------------------------------------------------\n");
     return 0;

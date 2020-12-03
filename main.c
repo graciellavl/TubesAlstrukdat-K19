@@ -654,7 +654,7 @@ int main() {
                     fprintf(output, "%d\n", 0);
                 }
                 fprintf(output, "%d\n", Length(Inventory));
-                char* listinv;
+                char listinv[100];
                 for (int i = 0; i < Length(Inventory); i++) {
                     fprintf(output, "%d ", Inventory.A[i].harga);
                     fprintf(output, "%d ", Inventory.A[i].jumlah);
@@ -692,7 +692,6 @@ int main() {
                     fprintf(output, "%d ", K.kode);
                 }
                 fprintf(output, "\n");
-
                 Stack tempS2;
                 CreateStack(&tempS2);
                 tempS2 = InverseStack(Build);

@@ -200,12 +200,13 @@ int main() {
 
 /* *** ******** ******** ******** ******** ******** ****** *** VARIABEL GLOBAL *** ****** ******** ******** ******** ******** ******** *** */
 
-    int money = 5000;          // uang
-    // int noPelanggan;
-    int order = 1;             // pesanan ke -
-    int loc = 0;               // lokasi saat ini
-    boolean IsBuild = false;   // status build
-    boolean IsDelivered = true;   // status deliver
+    int money = 5000;           // uang
+    int noPelanggan;            // pelanggan terakhir
+    int hargaPesanan;           // harga pesanan terakhir
+    int order = 1;              // pesanan ke -
+    int loc = 0;                // lokasi saat ini
+    boolean IsBuild = false;    // status build
+    boolean IsDelivered = true; // status deliver
 
 /* *** ******** ******** ******** ******** ******** ****** *** SETTING BUILD *** ****** ******** ******** ******** ******** ******** *** */
 
@@ -254,8 +255,11 @@ int main() {
         money = toInteger(CKata);
         ADVKATA();
 
-        // noPelanggan = toInteger(CKata);
-        // ADVKATA();
+        noPelanggan = toInteger(CKata);
+        ADVKATA();
+
+        hargaPesanan = toInteger(CKata);
+        ADVKATA();
 
         order = toInteger(CKata);
         ADVKATA();
@@ -345,7 +349,8 @@ int main() {
         }
     } else {
         CreateOrder(ListKomponen, &QOrder);
-
+        noPelanggan = InfoHead(QOrder).noPelanggan;
+        hargaPesanan = InfoHead(QOrder).hargaPesanan;
         /* *** Membaca Nama File Konfigurasi *** */
         printf("\nSelamat memulai permainan baru!\n");
         printf("FILENAME: ");
@@ -354,9 +359,6 @@ int main() {
         
         /* *** Membaca File Konfigurasi Permainan *** */
     }
-
-    int noPelanggan = InfoHead(QOrder).noPelanggan;
-    int hargaPesanan = InfoHead(QOrder).hargaPesanan;
 
 /* *** ******** ******** ******** ******** ******** ****** *** BACA FILE KONFIGURASI *** ****** ******** ******** ******** ******** ******** *** */
 
@@ -699,7 +701,8 @@ int main() {
                 printf("Mohon coba kembali.\n");
             } else {
                 fprintf(output, "%d ", money);
-                // fprintf(output, "%d ", noPelanggan);
+                fprintf(output, "%d ", noPelanggan);
+                fprintf(output, "%d ", hargaPesanan);
                 fprintf(output, "%d ", order);
                 fprintf(output, "%d ", loc);
                 if (IsBuild) {

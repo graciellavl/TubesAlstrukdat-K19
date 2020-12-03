@@ -70,5 +70,6 @@ void Dequeue (Queue * Q, infoOrder * X);
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "mundur" */
 
-void PrintQueue (Queue Q);
+void PrintQueue (Queue Q, int count);
+
 #endif

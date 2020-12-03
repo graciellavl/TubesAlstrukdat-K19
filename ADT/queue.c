@@ -85,12 +85,14 @@ void Dequeue (Queue * Q, infoOrder * X)
     DealokasiQ(temp);
 }
 
-void PrintQueue (Queue Q) {
+void PrintQueue (Queue Q, int count) {
     addressQ temp = Head(Q);
+    printf("Daftar pesanan: \n");
+    int i = 1;
     while (temp != Nil) {
-        printf("No pelanggan:  %d\n", Info(temp).noPelanggan);
-        printf("Harga pesanan: %d\n", Info(temp).hargaPesanan);
-        PrintStack(Info(temp).daftarKomponen);
+        printf("%d. Pesanan %d: Pesanan Pelanggan %d - $%d\n", i, count, Info(temp).noPelanggan, Info(temp).hargaPesanan);
         temp = NextQ(temp);
+        count++;
+        i++;
     }
 }

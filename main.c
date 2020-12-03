@@ -718,9 +718,14 @@ int main() {
         STARTCOMMAND();
         printf("\n");
     }
-    // CreateStack(&Order);
-    
-    // CreateStack(&Build);
+
+    // Dealokasi memori
+
+    Inventory = MakeList();
+    DeallocateList(&Inventory);
+
+    CreateQueue(&QOrder);
+    DealokasiQ(QOrder.HEAD);
 
     printf("\nTerima kasih sudah bermain.\n");
     printf("---------------------------------------------------------\n");

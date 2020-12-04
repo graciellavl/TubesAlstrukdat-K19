@@ -1,5 +1,5 @@
 #include "stack.h"
-#include "mesinkata.h"
+#include "../mesinkata/mesinkata.h"
 
 void CreateStack(Stack *S)
 /* I.S. Sembarang */

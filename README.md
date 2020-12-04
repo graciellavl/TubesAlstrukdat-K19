@@ -25,7 +25,7 @@ command yang akan dijelaskan lebih detail di bawah. Game ini dibuat dengan bahas
 > 18219098	Muhamad Agung Ahsary
 
 ## How to Play ?
-> gcc -o a ADT/mesinkar.c ADT/mesinkata.c ADT/matriks.c ADT/point.c ADT/graph.c ADT/list.c ADT/stack.c ADT/queue.c main.c
+> gcc -o a ADT/mesinkar/mesinkar.c ADT/mesinkata/mesinkata.c ADT/matriks/matriks.c ADT/point/point.c ADT/graph/graph.c ADT/list/list.c ADT/stack/stack.c ADT/queue/queue.c main.c
 
 ## Available File Configuration
 > pitakar.txt

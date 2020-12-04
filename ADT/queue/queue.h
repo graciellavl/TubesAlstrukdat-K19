@@ -4,7 +4,7 @@
 #define _QUEUE_H
 
 #include "../boolean.h"
-#include "stack.h"
+#include "../stack/stack.h"
 #include <stdlib.h>
 
 /* Konstanta */

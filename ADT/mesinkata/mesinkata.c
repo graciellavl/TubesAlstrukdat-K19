@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "mesinkata.h"
-#include "mesinkar.h"
+#include "../mesinkar/mesinkar.h"
 
 boolean EndKata;
 Kata CKata;

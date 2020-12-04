@@ -14,14 +14,14 @@
 
 /* *** ******** ******** ******** ******** ******** ****** *** FILE HEADER *** ****** ******** ******** ******** ******** ******** *** */
 
-#include "ADT/mesinkar.h"
-#include "ADT/mesinkata.h"
-#include "ADT/matriks.h"
-#include "ADT/point.h"
-#include "ADT/graph.h"
-#include "ADT/list.h"
-#include "ADT/stack.h"
-#include "ADT/queue.h"
+#include "ADT/mesinkar/mesinkar.h"
+#include "ADT/mesinkata/mesinkata.h"
+#include "ADT/matriks/matriks.h"
+#include "ADT/point/point.h"
+#include "ADT/graph/graph.h"
+#include "ADT/list/list.h"
+#include "ADT/stack/stack.h"
+#include "ADT/queue/queue.h"
 
 /* *** ******** ******** ******** ******** ******** ****** *** FUNGSI PEMBANTU *** ****** ******** ******** ******** ******** ******** *** */
 

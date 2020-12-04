@@ -1,7 +1,6 @@
 /* File: matriks.c */
 
 #include "matriks.h"
-#include "point.h"
 #include "../boolean.h"
 #include <stdio.h>
 

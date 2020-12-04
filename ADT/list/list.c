@@ -1,8 +1,8 @@
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "mesinkar.h"
-#include "mesinkata.h"
+#include "../mesinkar/mesinkar.h"
+#include "../mesinkata/mesinkata.h"
 
 /**
  * Konstruktor

@@ -31,3 +31,6 @@ command yang akan dijelaskan lebih detail di bawah. Game ini dibuat dengan bahas
 > pitakar.txt
 
 > save/config.txt
+
+## Available Saved Games
+> save/save.txt

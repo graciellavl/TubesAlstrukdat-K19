@@ -5,7 +5,7 @@ void AlokasiQ (addressQ *P, infoOrder X)
 /* I.S. Sembarang */
 /* F.S. Alamat P dialokasi, jika berhasil maka Info(P)=X,
         NextQ(P)=Nil
-/*      P=Nil jika AlokasiQ gagal */
+        P=Nil jika AlokasiQ gagal */
 {
     *P = (addressQ)malloc(sizeof(ElmtQueue));
     if(*P!=Nil){
@@ -48,10 +48,10 @@ void CreateQueue(Queue * Q)
 /*** Primitif Add/Delete ***/
 void Enqueue (Queue * Q, infoOrder X)
 /* Proses: Mengalokasi X dan menambahkan X pada posisi setelah element terakhir
-/* jika AlokasiQ berhasil; jika AlokasiQ gagal Q tetap */
+        jika AlokasiQ berhasil; jika AlokasiQ gagal Q tetap */
 /* I.S. Q mungkin kosong */
 /* F.S. X diletakkan setelah setelah element terakhir,
-/* maka TAIL = element X. */
+        maka TAIL = element X. */
 {
     addressQ P;
     AlokasiQ(&P,X);

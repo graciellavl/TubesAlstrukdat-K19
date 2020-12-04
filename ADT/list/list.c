@@ -1,8 +1,8 @@
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "mesinkar.h"
-#include "mesinkata.h"
+#include "../mesinkar/mesinkar.h"
+#include "../mesinkata/mesinkata.h"
 
 /**
  * Konstruktor
@@ -108,7 +108,8 @@ void InsertLast(List *list, Kata el, int kode, int qty, int harga) {
 void UpdateList(List *L, Kata el, int kode, int qty, int harga) {
     if (qty != 0) {
         if (SearchList(L, el)) {
-            for (int i=0; i < GetCapacity(*L); i++) {
+            int capacity = GetCapacity(*L);
+            for (int i=0; i < capacity; i++) {
                 if (IsKataSama(el, L->A[i].nama)) {
                     L->A[i].jumlah += qty;
                     if (L->A[i].jumlah == 0) {

@@ -1,7 +1,6 @@
 /* File: matriks.c */
 
 #include "matriks.h"
-#include "point.h"
 #include "../boolean.h"
 #include <stdio.h>
 
@@ -56,23 +55,6 @@ POINT GetPoint(MATRIKS M, ElType X) {
             }
         }
     }
-    // while ((i < NBrsEff(M)) && !found) {
-    //     while ((j < NKolEff(M)) && !found){
-    //         if (Elmt(M, i, j) == X) {
-    //             found = true;
-    //             // printf("%c\n", GetElmt(M,i,j));
-    //             // printf("%c\n", X);
-    //         } else {
-    //             j++;
-    //             // printf("%d %d\n", i, j);
-    //         }
-    //     }
-    //     if (!found) {
-    //         i++;
-    //         j = 1;
-    //     }
-    //     // printf("%d %d\n", i, j);
-    // }
     POINT posisi = MakePOINT(i-1,j-1);
     return posisi;
 }

@@ -1,8 +1,8 @@
 #ifndef __DYNAMIC_LIST__
 #define __DYNAMIC_LIST__
 #include "../boolean.h"
-#include "mesinkar.h"
-#include "mesinkata.h"
+#include "../mesinkar/mesinkar.h"
+#include "../mesinkata/mesinkata.h"
 
 #define InitialSize 1
 

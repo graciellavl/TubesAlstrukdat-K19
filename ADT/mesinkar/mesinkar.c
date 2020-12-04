@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "mesinkar.h"
+#include "../mesinkar/mesinkar.h"
 
 static FILE * pita;
 static FILE * command;

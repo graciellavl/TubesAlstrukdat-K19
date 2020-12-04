@@ -1,4 +1,5 @@
 #include "stack.h"
+#include "../mesinkata/mesinkata.h"
 
 void CreateStack(Stack *S)
 /* I.S. Sembarang */
@@ -9,14 +10,14 @@ void CreateStack(Stack *S)
 }
 
 /* ********* Predikat Untuk test keadaan KOLEKSI ********* */
-bool StackEmpty(Stack S)
+boolean StackEmpty(Stack S)
 /* Mengirim true jika Stack kosong*/
 /* Ciri stack kosong : TOP bernilai Nil */
 {
     return S.TOP == Nil;
 }
 
-bool StackFull(Stack S)
+boolean StackFull(Stack S)
 /* Mengirim true jika stack S penuh */
 /* Ciri stack penuh : TOP bernilai MaxEl */
 {
@@ -78,4 +79,22 @@ void PrintStack(Stack S) {
             count++;
         }
     }
+}
+
+boolean IsStackSama(Stack S1, Stack S2) {
+    Komponen K1;
+    Komponen K2;
+    boolean sama = true;
+    if (StackFull(S1) || StackFull(S2)) {
+        while ( !StackEmpty(S1) && !StackEmpty(S2) && sama) {
+            Pop(&S1, &K1);
+            Pop(&S2, &K2);
+            if (!IsKataSama(toKata(K1.nama), toKata(K2.nama))) {
+                sama = false;
+            }
+        }
+    } else {
+        sama = false;
+    }
+    return sama;
 }

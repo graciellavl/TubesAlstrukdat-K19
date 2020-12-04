@@ -4,7 +4,7 @@
 #include "../mesinkar/mesinkar.h"
 #include "../mesinkata/mesinkata.h"
 
-#define InitialSize 1
+#define InitialSize 10
 
 typedef int IdxType;
 typedef struct {

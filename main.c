@@ -657,28 +657,32 @@ int main() {
 /* *** ******** ******** ******** ******** ******** ****** *** DELIVER *** ****** ******** ******** ******** ******** ******** *** */
 
         } else if (IsKataSama(CCommand, toKata("DELIVER"))) {
-            if (loc-1 == noPelanggan) {
-                if (IsBuild) {
-                    printf("Kamu belum menyelesaikan build pesanan!\n");    
-                } else {
-                    if (!StackFull(Order)) {
-                        printf("Kamu belum menyelesaikan build pesanan!\n");
+            if (IsDelivered) {
+                printf("Semua pesanan telah diantar.\n");
+            } else {
+                if (loc-1 == noPelanggan) {
+                    if (IsBuild) {
+                        printf("Kamu belum menyelesaikan build pesanan!\n");    
                     } else {
-                        IsDelivered = true;
-                        money = money + hargaPesanan;
-                        CreateStack(&Order);
-                        printf("Pesanan #%d berhasil diantarkan kepada pelanggan %d!\n", order-1, noPelanggan);
-                        if (!QueueEmpty(QOrder)) {
-                            noPelanggan = InfoHead(QOrder).noPelanggan;
-                            hargaPesanan = InfoHead(QOrder).hargaPesanan;
+                        if (!StackFull(Order)) {
+                            printf("Kamu belum menyelesaikan build pesanan!\n");
                         } else {
-                            printf("Kamu sudah menyelesaikan semua pesanan hari ini!\n");
-                            printf("Silahkan END_DAY untuk menambah pesanan baru!\n");
+                            IsDelivered = true;
+                            money = money + hargaPesanan;
+                            CreateStack(&Order);
+                            printf("Pesanan #%d berhasil diantarkan kepada pelanggan %d!\n", order-1, noPelanggan);
+                            if (!QueueEmpty(QOrder)) {
+                                noPelanggan = InfoHead(QOrder).noPelanggan;
+                                hargaPesanan = InfoHead(QOrder).hargaPesanan;
+                            } else {
+                                printf("Kamu sudah menyelesaikan semua pesanan hari ini!\n");
+                                printf("Silahkan END_DAY untuk menambah pesanan baru!\n");
+                            }
                         }
                     }
+                } else {
+                    printf("Kamu sedang tidak berada di Pelanggan %d.\n", noPelanggan);
                 }
-            } else {
-                printf("Kamu sedang tidak berada di Pelanggan %d.\n", noPelanggan);
             }
 
 /* *** ******** ******** ******** ******** ******** ****** *** END_DAY *** ****** ******** ******** ******** ******** ******** *** */

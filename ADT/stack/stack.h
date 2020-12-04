@@ -45,6 +45,7 @@ void CreateStack(Stack *S);
 boolean StackEmpty(Stack S);
 /* Mengirim true jika Stack kosong*/
 /* Ciri stack kosong : TOP bernilai Nil */
+
 boolean StackFull(Stack S);
 /* Mengirim true jika stack S penuh */
 /* Ciri stack penuh : TOP bernilai MaxEl */
@@ -54,15 +55,22 @@ void Push(Stack *S, Komponen X);
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, S tidak penuh */
 /* F.S. X menjadi element TOP yang baru, TOP bertambah 1 */
+
 void Pop(Stack *S, Komponen *X);
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
 Stack InverseStack(Stack S);
+/* Mengirim Stack yang merupakan kebalikan dari Stack yang diinput */
 
 void PrintStack(Stack S);
+/* Mencetak Stack ke layar sesuai format yang diinginkan */
+/* I.S. S terdefinisi */
+/* F.S. Stack tercetak pada layar */
 
 boolean IsStackSama(Stack S1, Stack S2);
+/* Mengirim true jika stack S1 dan stack S2 sama */
+/* Ciri stack sama : Semua elemennya bernilai sama */
 
 #endif

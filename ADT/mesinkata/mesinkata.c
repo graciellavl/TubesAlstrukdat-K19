@@ -72,9 +72,9 @@ void SalinKata()
 /* *** ADT untuk baca commands *** */
 
 void IgnoreDot()
-/* Mengabaikan satu atau beberapa BLANK
+/* Mengabaikan satu atau beberapa BLANK dan MARK
    I.S. : CC sembarang 
-   F.S. : CC ≠ BLANK atau CC = MARK */
+   F.S. : CC ≠ BLANK atau CC = ENTER */
 {
     while ((CC == BLANK) && (CC == '.')) {
         ADVC();
@@ -83,8 +83,8 @@ void IgnoreDot()
 
 void STARTCOMMAND()
 /* I.S. : CC sembarang 
-   F.S. : EndKata = true, dan CC = MARK; 
-          atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
+   F.S. : EndKata = true, dan CC = ENTER; 
+          atau EndKata = false, CCommand adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata */
 {
     COMMAND();
@@ -97,13 +97,12 @@ void STARTCOMMAND()
     }
 }
 
-
 void ADVCOMMAND()
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi 
-   F.S. : CKata adalah kata terakhir yang sudah diakuisisi, 
-          CC adalah karakter pertama dari kata berikutnya, mungkin MARK
-          Jika CC = MARK, EndKata = true.		  
-   Proses : Akuisisi kata menggunakan procedure SalinKata */
+   F.S. : CCommand adalah kata terakhir yang sudah diakuisisi, 
+          CC adalah karakter pertama dari kata berikutnya, mungkin ENTER
+          Jika CC = ENTER, EndKata = true.		  
+   Proses : Akuisisi kata menggunakan procedure SalinCommand */
 {
     IgnoreDot();
     if (CC == ENTER && !EndKata){
@@ -115,10 +114,10 @@ void ADVCOMMAND()
 }
 
 void SalinCommand()
-/* Mengakuisisi kata, menyimpan dalam CKata
+/* Mengakuisisi kata, menyimpan dalam CCommand
    I.S. : CC adalah karakter pertama dari kata
-   F.S. : CKata berisi kata yang sudah diakuisisi; 
-          CC = BLANK atau CC = MARK; 
+   F.S. : CCommand berisi kata yang sudah diakuisisi; 
+          CC = BLANK atau CC = ENTER; 
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 {
@@ -131,9 +130,11 @@ void SalinCommand()
     CCommand.Length = (i < NMax) ? i : NMax;
 }
 
-// addition
+/* *** FUNGSI TAMBAHAN *** */
 
-boolean IsKataSama(Kata InputCommand, Kata Command) {
+boolean IsKataSama(Kata InputCommand, Kata Command) 
+/* Mengirimkan true jika K1 = K2 : Length dan elemen tiap arraynya sama */
+{
     boolean sama = true;
     if (InputCommand.Length != Command.Length) {
         return !sama;
@@ -149,13 +150,19 @@ boolean IsKataSama(Kata InputCommand, Kata Command) {
     }
 }
 
-void PrintKata(Kata K) {
+void PrintKata(Kata K) 
+/* Mencetak kata ke layar
+   I.S. : Kata K terdefinisi
+   F.S. : Kata K tercetak pada layar */
+{
     for (int i = 0; i < K.Length; i ++) {
         printf("%c", K.TabKata[i]);
     }
 }
 
-int stringLength (char* string) {
+int stringLength (char* string) 
+/* Mengirimkan panjang sebuah string */
+{
     int len = 0;
     while (string[len] != '\0') {
         len++;
@@ -163,7 +170,9 @@ int stringLength (char* string) {
     return len;
 }
 
-Kata toKata(char* command) {
+Kata toKata(char* command) 
+/* Mengirimkan kata yang elemen of arraynya berasal dari command */
+{
     int i;
     Kata output;
     for (i = 0; i < stringLength(command); i++) {

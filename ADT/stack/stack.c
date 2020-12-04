@@ -23,6 +23,7 @@ boolean StackFull(Stack S)
 {
     return S.TOP == MaxEl;
 }
+
 /* ********** Operator Dasar Stack ********* */
 void Push(Stack *S, Komponen X)
 /* Menambahkan X sebagai elemen Stack S. */
@@ -35,8 +36,8 @@ void Push(Stack *S, Komponen X)
 		(*S).TOP += 1;
 	}
 	(*S).T[(*S).TOP-1] = X;
-    // printf("dalam push %s\n", (*S).T[(*S).TOP-1].nama);
 }
+
 void Pop(Stack *S, Komponen *X)
 /* Menghapus X dari Stack S. */
 /* I.S. S tidak kosong */
@@ -50,7 +51,9 @@ void Pop(Stack *S, Komponen *X)
 	}
 }
 
-Stack InverseStack(Stack S) {
+Stack InverseStack(Stack S) 
+/* Mengirim Stack yang merupakan kebalikan dari Stack yang diinput */
+{
     Stack temp;
     CreateStack(&temp);
     Komponen K;
@@ -63,7 +66,11 @@ Stack InverseStack(Stack S) {
     return temp;
 }
 
-void PrintStack(Stack S) {
+void PrintStack(Stack S) 
+/* Mencetak Stack ke layar sesuai format yang diinginkan */
+/* I.S. S terdefinisi */
+/* F.S. Stack tercetak pada layar */
+{
     if (StackEmpty(S)){
         printf("Belum ada komponen terpasang.\n");
     } else {
@@ -81,7 +88,10 @@ void PrintStack(Stack S) {
     }
 }
 
-boolean IsStackSama(Stack S1, Stack S2) {
+boolean IsStackSama(Stack S1, Stack S2) 
+/* Mengirim true jika stack S1 dan stack S2 sama */
+/* Ciri stack sama : Semua elemennya bernilai sama */
+{
     Komponen K1;
     Komponen K2;
     boolean sama = true;

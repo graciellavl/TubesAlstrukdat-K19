@@ -13,17 +13,20 @@ void AlokasiQ (addressQ *P, infoOrder X)
         NextQ(*P)=Nil;
     }
 }
+
 void DealokasiQ (addressQ  P)
 /* I.S. P adalah hasil AlokasiQ, P != Nil */
 /* F.S. Alamat P didealokasi, dikembalikan ke sistem */
 {
     free(P);
 }
+
 boolean QueueEmpty (Queue Q)
 /* Mengirim true jika Q kosong: HEAD(Q)=Nil and TAIL(Q)=Nil */
 {
     return (Head(Q)==Nil && Tail(Q)==Nil);
 }
+
 int QElmt(Queue Q)
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong */
 /*** Kreator ***/
@@ -38,6 +41,7 @@ int QElmt(Queue Q)
     }
     return C;
 }
+
 void CreateQueue(Queue * Q)
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk (i.e. Head(Q) = Nil dan Tail(Q) = Nil) */
@@ -45,6 +49,7 @@ void CreateQueue(Queue * Q)
     Head(*Q)=Nil;
     Tail(*Q)=Nil;
 }
+
 /*** Primitif Add/Delete ***/
 void Enqueue (Queue * Q, infoOrder X)
 /* Proses: Mengalokasi X dan menambahkan X pada posisi setelah element terakhir
@@ -66,6 +71,7 @@ void Enqueue (Queue * Q, infoOrder X)
         }
     }
 }
+
 void Dequeue (Queue * Q, infoOrder * X)
 /* Proses: Menghapus X pada bagian HEAD dari Q dan mendealokasi
    elemen HEAD */
@@ -85,7 +91,11 @@ void Dequeue (Queue * Q, infoOrder * X)
     DealokasiQ(temp);
 }
 
-void PrintQueue (Queue Q, int count) {
+void PrintQueue (Queue Q, int count) 
+/* Proses: Mencetak seluruh elemen Queue sesuai dengan forma */
+/* I.S. Q terdefinisi */
+/* F.S. Tercetak queue pada layar */
+{
     addressQ temp = Head(Q);
     printf("Daftar pesanan: \n");
     int i = 1;

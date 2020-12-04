@@ -32,7 +32,8 @@ typedef struct {
 
 /* *** Konstruktor membentuk MATRIKS *** */
 void MakeMatriks (int NBrs, int NKlm, MATRIKS * M);
-/* Membuat Map sesuai dengan ukuran NBrs x NKlm */
+/* I.S. Sembarang */
+/* F.S. Membuat sebuah Matriks dengan border */
 
 void TulisMATRIKS (MATRIKS M);
 /* I.S. M terdefinisi */
@@ -40,9 +41,11 @@ void TulisMATRIKS (MATRIKS M);
    dipisahkan sebuah spasi */
 /* Proses: Menulis nilai setiap elemen M ke layar dengan traversal per baris dan per kolom */
 /* Contoh: menulis matriks 3x3 (ingat di akhir tiap baris, tidak ada spasi)
-1 2 3
-4 5 6
-8 9 10
+*****
+*123*
+*456*
+*890*
+*****
 */
 
 void SetElmt (MATRIKS *M, int NB, int NK, ElType X);
@@ -50,9 +53,13 @@ void SetElmt (MATRIKS *M, int NB, int NK, ElType X);
 /* F.S. Nilai M(i,j) diisi sesuai dengan inputan */
 /* Proses: mengubah elemen pada posisi NB, NK menjadi X */
 
+boolean IdxValid (int Brs, int Kol);
+/* Mengirimkan true apabila index berada dalam range baris dan kolom*/
+
 ElType GetElmt (MATRIKS M, int NB, int NK);
 /* Mengirimkan nilai elemen pada posisi NB, NK */
 
 POINT GetPoint(MATRIKS M, ElType X);
+/* Mengirimkan Point dimana elemen X berada */
 
 #endif

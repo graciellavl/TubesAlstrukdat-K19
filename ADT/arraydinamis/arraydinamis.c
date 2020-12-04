@@ -1,4 +1,4 @@
-#include "list.h"
+#include "arraydinamis.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include "../mesinkar/mesinkar.h"
@@ -17,6 +17,11 @@ List MakeList() {
     return list;
 }
 
+/**
+ * Destruktor
+ * I.S. List terdefinisi
+ * F.S. list->A terdealokasi
+ */
 void DeallocateList(List *list) {
     free(list->A);
 }
@@ -94,17 +99,9 @@ void InsertLast(List *list, Kata el, int kode, int qty, int harga) {
 }
 
 /**
- * Fungsi untuk menambahkan elemen baru di awal list.
+ * Fungsi untuk mengubah komponen pada list.
  * Prekondisi: list terdefinisi
  */
-// void InsertFirst(List *list, char* el, int kode, int qty) {
-//     InsertAt(list, el, qty, kode, 0);
-// }
-
-// IdxType GetIndex(L, char* el) {
-    
-// }
-
 void UpdateList(List *L, Kata el, int kode, int qty, int harga) {
     if (qty != 0) {
         if (SearchList(L, el)) {
@@ -127,6 +124,10 @@ void UpdateList(List *L, Kata el, int kode, int qty, int harga) {
     }
 }
 
+/**
+ * Fungsi untuk menghapus elemen pada list.
+ * Prekondisi: list terdefinisi
+ */
 void DeleteAt(List *list, IdxType i){
     int length = Length(*list);
     if (length != 0){
@@ -137,6 +138,10 @@ void DeleteAt(List *list, IdxType i){
     }
 }
 
+/**
+ * Fungsi untuk mencari elemen pada list.
+ * Prekondisi: list terdefinisi
+ */
 boolean SearchList(List *L, Kata el) {
     for (int i = 0; i < Length(*L); i++) {
         if ( IsKataSama(el, L->A[i].nama) ) {
@@ -146,6 +151,10 @@ boolean SearchList(List *L, Kata el) {
     return false;
 }
 
+/**
+ * Fungsi untuk menampilkan isi list sesuai format inventory.
+ * Prekondisi: list terdefinisi
+ */
 void PrintInventory(List L) {
     for (int i = 0; i < Length(L); i++) {
         Item item = Get(L, i);
@@ -155,6 +164,10 @@ void PrintInventory(List L) {
     }
 }
 
+/**
+ * Fungsi untuk menampilkan isi list sesuai format shop.
+ * Prekondisi: list terdefinisi
+ */
 void PrintShop(List L) {
     for (int i = 0; i < Length(L); i++) {
         Item item = Get(L, i);

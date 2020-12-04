@@ -19,7 +19,7 @@
 #include "ADT/matriks/matriks.h"
 #include "ADT/point/point.h"
 #include "ADT/graph/graph.h"
-#include "ADT/list/list.h"
+#include "ADT/arraydinamis/arraydinamis.h"
 #include "ADT/stack/stack.h"
 #include "ADT/queue/queue.h"
 

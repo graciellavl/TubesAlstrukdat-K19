@@ -70,19 +70,33 @@ void InsertAt(List *list, Kata el, int qty, int kode, int harga, IdxType i);
 void InsertLast(List *list, Kata el, int kode, int qty, int harga);
 
 /**
- * Fungsi untuk menambahkan elemen baru di awal list.
+ * Fungsi untuk mengubah komponen pada list.
  * Prekondisi: list terdefinisi
  */
-// void InsertFirst(List *list, char* el, int kode, int qty);
-
 void UpdateList(List *L, Kata el, int kode, int qty, int harga);
 
+/**
+ * Fungsi untuk menghapus elemen pada list.
+ * Prekondisi: list terdefinisi
+ */
 void DeleteAt(List *list, IdxType i);
 
+/**
+ * Fungsi untuk mencari elemen pada list.
+ * Prekondisi: list terdefinisi
+ */
 boolean SearchList(List *L, Kata el);
 
+/**
+ * Fungsi untuk menampilkan isi list sesuai format inventory.
+ * Prekondisi: list terdefinisi
+ */
 void PrintInventory(List L);
 
+/**
+ * Fungsi untuk menampilkan isi list sesuai format shop.
+ * Prekondisi: list terdefinisi
+ */
 void PrintShop(List L);
 
 #endif

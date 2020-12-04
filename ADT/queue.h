@@ -59,10 +59,10 @@ void CreateQueue(Queue * Q);
 /*** Primitif Add/Delete ***/
 void Enqueue (Queue * Q, infoOrder X );
 /* Proses: Mengalokasi X dan menambahkan X pada posisi setelah element terakhir
-/* jika alokasi berhasil; jika alokasi gagal Q tetap */
+		jika alokasi berhasil; jika alokasi gagal Q tetap */
 /* I.S. Q mungkin kosong */
 /* F.S. X diletakkan setelah setelah element terakhir,
-/* maka TAIL = element X. */
+	maka TAIL = element X. */
 void Dequeue (Queue * Q, infoOrder * X);
 /* Proses: Menghapus X pada bagian HEAD dari Q dan mendealokasi
    elemen HEAD */

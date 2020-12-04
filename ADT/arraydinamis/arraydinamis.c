@@ -105,7 +105,7 @@ void InsertLast(List *list, Kata el, int kode, int qty, int harga) {
 void UpdateList(List *L, Kata el, int kode, int qty, int harga) {
     if (qty != 0) {
         if (SearchList(L, el)) {
-            int capacity = GetCapacity(*L);
+            int capacity = Length(*L);
             for (int i=0; i < capacity; i++) {
                 if (IsKataSama(el, L->A[i].nama)) {
                     L->A[i].jumlah += qty;
@@ -134,6 +134,7 @@ void DeleteAt(List *list, IdxType i){
         for (int a = i; a < length-1; a++) {
             list->A[a] = list->A[a + 1];
         }
+        list->A[length-1].nama.Length = 0;
         list->Neff--;
     }
 }

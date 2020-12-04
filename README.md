@@ -28,15 +28,13 @@ command yang akan dijelaskan lebih detail di bawah. Game ini dibuat dengan bahas
 > gcc -o a ADT/mesinkar/mesinkar.c ADT/mesinkata/mesinkata.c ADT/matriks/matriks.c ADT/point/point.c ADT/graph/graph.c ADT/arraydinamis/arraydinamis.c ADT/stack/stack.c ADT/queue/queue.c main.c
 
 ## Available File Configuration
-> pitakar.txt
+> config.txt
 
-> save/config.txt
+> config1.txt
 
 ## Available Saved Games
 > save/save.txt
 
 > save/vm.txt
-
-> save/laporan.txt
 
 > save/tes.txt

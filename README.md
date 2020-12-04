@@ -34,3 +34,9 @@ command yang akan dijelaskan lebih detail di bawah. Game ini dibuat dengan bahas
 
 ## Available Saved Games
 > save/save.txt
+
+> save/vm.txt
+
+> save/laporan.txt
+
+> save/tes.txt

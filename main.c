@@ -553,18 +553,22 @@ int main() {
 /* *** ******** ******** ******** ******** ******** ****** *** FINISHBUILD *** ****** ******** ******** ******** ******** ******** *** */
 
         } else if (IsKataSama(CCommand, toKata("FINISHBUILD"))) {
-            if (!IsBuild) {
-                printf("Belum ada pesanan yang dimulai.\n");
-            } else {
-                if (IsStackSama(Build, Order)) { 
-                    IsBuild = false;
-                    printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, InfoHead(QOrder).noPelanggan);
-                    order++;
-                    infoOrder X;
-                    Dequeue(&QOrder, &X);
+            if (loc == 0) {
+                if (!IsBuild) {
+                    printf("Belum ada pesanan yang dimulai.\n");
                 } else {
-                    printf("Komponen yang dipasangkan belum sesuai dengan pesanan, build belum dapat diselesaikan.\n");
+                    if (IsStackSama(Build, Order)) { 
+                        IsBuild = false;
+                        printf("Pesanan %d telah selesai. Silahkan antar ke pelanggan %d!\n", order, InfoHead(QOrder).noPelanggan);
+                        order++;
+                        infoOrder X;
+                        Dequeue(&QOrder, &X);
+                    } else {
+                        printf("Komponen yang dipasangkan belum sesuai dengan pesanan, build belum dapat diselesaikan.\n");
+                    }
                 }
+            } else {
+                printf("Kamu harus berada di Base untuk menyelesaikan sebuah build.\n");
             }
 
 /* *** ******** ******** ******** ******** ******** ****** *** ADDCOMPONENT *** ****** ******** ******** ******** ******** ******** *** */
@@ -610,13 +614,17 @@ int main() {
             if (loc != 0) {
                 printf("Kamu harus di base untuk melepas komponen!\n");
             } else {
-                if (!StackEmpty(Build)) {
-                    Komponen X;
-                    Pop(&Build, &X);
-                    UpdateList(&Inventory, toKata(X.nama), X.kode, 1, X.harga);
-                    printf("Komponen %s berhasil dicopot!\n", X.nama); 
+                if (IsBuild){
+                    if (!StackEmpty(Build)) {
+                        Komponen X;
+                        Pop(&Build, &X);
+                        UpdateList(&Inventory, toKata(X.nama), X.kode, 1, X.harga);
+                        printf("Komponen %s berhasil dicopot!\n", X.nama); 
+                    } else {
+                        printf("Belum ada komponen terpasang!\n");
+                    }
                 } else {
-                    printf("Belum ada komponen terpasang!\n");
+                    printf("Kamu belum memulai build apapun.\n");
                 }
             }
 

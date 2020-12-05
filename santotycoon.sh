@@ -1,0 +1,1 @@
+gcc ADT/mesinkar/mesinkar.c ADT/mesinkata/mesinkata.c ADT/matriks/matriks.c ADT/point/point.c ADT/graph/graph.c ADT/arraydinamis/arraydinamis.c ADT/stack/stack.c ADT/queue/queue.c main.c -lm -o santotycoon && ./santotycoon

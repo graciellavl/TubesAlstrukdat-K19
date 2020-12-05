@@ -147,6 +147,38 @@ Kata NamaBangunan(int loc) {
     return cur;
 }
 
+char* PrintError(int i){
+    switch (i)
+    {
+    case 1:
+        return "Motherboard";
+        break;
+    case 2:
+        return "CPU";
+        break;
+    case 3:
+        return "Memory";
+        break;
+    case 4:
+        return "CPU Cooler";
+        break;
+    case 5:
+        return "Case";
+        break;
+    case 6:
+        return "GPU";
+        break;
+    case 7:
+        return "Storage";
+        break;
+    case 8:
+        return "PSU";
+        break;
+    default:
+        break;
+    }
+}
+
 void CreateOrder (List ListKomponen, Queue * QOrder) {
     int randomNumber;
     int count = rand() %10 +1;
@@ -589,14 +621,26 @@ int main() {
                         STARTCOMMAND();
                         if(toInteger(CCommand) <= Length(Inventory) && toInteger(CCommand) > 0) {
                             Item addItem = Get(Inventory, toInteger(CCommand)-1);
-                            UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
-                            Komponen X;
-                            kataStringCopy(X.nama, addItem.nama);
-                            X.harga = addItem.harga;
-                            X.kode = addItem.kode;
-                            X.jumlah = addItem.jumlah;
-                            Push(&Build, X);
-                            printf("Komponen berhasil dipasang!\n");
+                            boolean add = true;
+                            if (StackEmpty(Build)) {
+                                if (addItem.kode != 1) {
+                                    add = false;
+                                    printf("Kamu harus memasang %s terlebih dahulu!\n", PrintError(1));
+                                } 
+                            } else if ((addItem.kode - Build.T[Build.TOP-1].kode) != 1){ 
+                                add = false;
+                                printf("Kamu harus memasang %s terlebih dahulu!\n", PrintError(Build.T[Build.TOP-1].kode + 1));
+                            }
+                            if (add) {
+                                UpdateList(&Inventory, addItem.nama, addItem.kode, -1, addItem.harga);
+                                Komponen X;
+                                kataStringCopy(X.nama, addItem.nama);
+                                X.harga = addItem.harga;
+                                X.kode = addItem.kode;
+                                X.jumlah = addItem.jumlah;
+                                Push(&Build, X);
+                                printf("Komponen berhasil dipasang!\n");
+                            }
                         } else {
                             printf("Komponen tidak tersedia.\n");
                         }

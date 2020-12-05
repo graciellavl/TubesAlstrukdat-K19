@@ -186,7 +186,7 @@ void CreateOrder (List ListKomponen, Queue * QOrder) {
     srand((unsigned) time(&t));
     for (randomNumber = 0; randomNumber < count; randomNumber++) {
         infoOrder info;
-        info.hargaPesanan = (rand() % 1000) + 2000;
+        info.hargaPesanan = (rand() % 1000) + 3000;
         info.noPelanggan = (rand() % 7) +1;
         Stack S;
         CreateStack(&S);
